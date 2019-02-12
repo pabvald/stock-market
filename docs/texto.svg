@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="384"
+   height="128"
+   viewBox="0 0 101.6 33.866666"
+   version="1.1"
+   id="svg4663"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="texto.svg"
+   inkscape:export-filename="/home/aarroyoc/dev/StockExchangeBattleRoyale/docs/texto.png"
+   inkscape:export-xdpi="128"
+   inkscape:export-ydpi="128">
+  <defs
+     id="defs4657" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="180.13635"
+     inkscape:cy="96.145241"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4660">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-263.13334)">
+    <g
+       id="g4655"
+       transform="translate(0.24554834,0.09855358)">
+      <rect
+         y="267.80136"
+         x="4.8191948"
+         height="23.151041"
+         width="5.0081844"
+         id="rect74"
+         style="fill:#9ebf95;fill-opacity:1;stroke:#102601;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="271.71933"
+         x="11.638515"
+         height="23.151041"
+         width="5.0081844"
+         id="rect74-3"
+         style="fill:#688c5e;fill-opacity:1;stroke:#102601;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="274.26715"
+         x="18.359818"
+         height="16.165525"
+         width="5.204216"
+         id="rect74-3-6"
+         style="fill:#ffffff;fill-opacity:1;stroke:#102601;stroke-width:1.12688506;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="265.20279"
+         x="25.277155"
+         height="23.151041"
+         width="5.0081844"
+         id="rect74-3-6-7"
+         style="fill:#1b4001;fill-opacity:1;stroke:#102601;stroke-width:1.32291663;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3824"
+         d="m 1.889881,285.94421 12.37872,-11.24479 7.087054,10.29985 8.929684,-19.79649"
+         style="fill:none;fill-opacity:1;stroke:#8c4830;stroke-width:1.32291663;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.84452152px;line-height:1.25;font-family:'ZCOOL QingKe HuangYou';-inkscape-font-specification:'ZCOOL QingKe HuangYou';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#102601;fill-opacity:1;stroke:none;stroke-width:1.47667813"
+       x="66.834335"
+       y="276.70517"
+       id="text23"><tspan
+         sodipodi:role="line"
+         x="66.834335"
+         y="276.70517"
+         style="font-size:9.84452152px;text-align:center;text-anchor:middle;fill:#102601;fill-opacity:1;stroke-width:1.47667813"
+         id="tspan25">STOCK EXCHANGE</tspan><tspan
+         sodipodi:role="line"
+         x="66.834335"
+         y="290.4624"
+         style="font-size:11.28888893px;text-align:center;text-anchor:middle;fill:#102601;fill-opacity:1;stroke-width:1.47667813"
+         id="tspan834">BATTLE ROYALE</tspan></text>
+  </g>
+</svg>
