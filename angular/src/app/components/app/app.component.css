@@ -1,0 +1,27 @@
+nav{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    background-color: #9EBF95;
+}
+nav > div {
+    height: 1.3em;
+    padding: 25px;
+    cursor: pointer;
+}
+nav > div:focus{
+    outline: 0;
+}
+router-outlet{
+
+}
+
+footer{
+    font-size: 0.6em;
+    text-align: center;
+}
+
+.tabSelected{
+    font-weight: bold;
+    background-color: white;
+}
