@@ -1,12 +1,16 @@
-<!-- Pestañas -->
-<nav>
-    <div [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
-    <div [ngClass]="{'tabSelected': page === '/' || page === '/mercado'}" routerLink="/mercado">Mercados</div>
-</nav>
-<!-- Contenido principal -->
-<router-outlet></router-outlet>
-
-<!-- Footer -->
-<footer>
-    &copy; Arroyo, Bazaco, González y Valdunciel S.A. 2019
-</footer>
+<div id="superflex">
+    <!-- Pestañas -->
+    <nav>
+        <div [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
+        <div [ngClass]="{'tabSelected': page === '/cartera'}" routerLink="/cartera">Mi Cartera</div>
+        <div [ngClass]="{'tabSelected': page === '/' || page === '/mercado'}" routerLink="/mercado">Mercados</div>
+    </nav>
+    <!-- Contenido principal -->
+    <div id="main">
+        <router-outlet></router-outlet>
+    </div>
+    <!-- Footer -->
+    <footer>
+        &copy; Arroyo, Bazaco, González y Valdunciel S.A. 2019
+    </footer>
+</div>

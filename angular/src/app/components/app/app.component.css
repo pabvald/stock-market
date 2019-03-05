@@ -1,3 +1,8 @@
+#superflex{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
 nav{
     display: flex;
     flex-direction: row-reverse;
@@ -12,8 +17,8 @@ nav > div {
 nav > div:focus{
     outline: 0;
 }
-router-outlet{
-
+#main{
+    flex: 1;
 }
 
 footer{
