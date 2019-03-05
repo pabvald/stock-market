@@ -1,0 +1,33 @@
+<main>
+    <section id="graphics">
+        <figure *ngIf="company">
+            <img src="/assets/Avion.jpeg" width="500" alt="Avión">
+            <figcaption>Evolución del precio de {{ company.name }}</figcaption>
+        </figure>
+        <p *ngIf="!company">Selecciona una empresa para ver su evolución</p>
+    </section>
+    <section id="companies">
+        <table>
+            <thead>
+                <tr>
+                    <th>Empresa</th>
+                    <th>Código</th>
+                    <th>Precio</th>
+                    <th>¿Vender?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="show(c)" [ngClass]="{'selected': company===c}" *ngFor="let c of companies">
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.code }}</td>
+                    <td>{{ c.price }}</td>
+                    <td *ngIf="company===c">
+                        <button>Vender</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section id="history"></section>
+    <section id="resumen"></section>
+</main>

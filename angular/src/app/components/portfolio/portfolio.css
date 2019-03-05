@@ -1,0 +1,44 @@
+main{
+    display: grid;
+    grid-template-areas: 
+        "graphic graphic companies companies"
+        "history history history resume";
+    grid-auto-rows: 3fr 1fr;
+    grid-auto-columns: 25%;
+    height: 100%;
+}
+#graphics{
+    grid-area: graphic;
+    background-color: orange;
+}
+#companies{
+    grid-area: companies;
+    min-height: 100px;
+    max-height: 100%;
+    overflow-y: auto;
+    position:relative;
+}
+#companies > table{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    max-height:100%;
+    overflow:auto;
+}
+#history{
+    grid-area: history;
+    background-color: green;
+}
+#resumen{
+    grid-area: resume;
+    background-color: red;
+}
+
+.selected{
+    font-weight: bold;
+}
+table{
+    width: 100%;
+    text-align: left;
+}
