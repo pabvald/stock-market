@@ -1,0 +1,103 @@
+main{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    height: 100%;
+   
+}
+#grafico{
+  width:85%;
+  height:80%;
+}
+#container-grafico{
+  
+  height: 100%;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+#participantes{
+    min-height: 100px;
+    max-height: 100%;
+    position:relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+table{
+    width: 100%;
+    text-align: left;
+}
+
+
+#tr-buscador-usuario{
+  padding:0px;
+  margin:0px;
+  background-color:#9EBF95;
+    height:100%;
+}
+
+#buscador-usuario{
+  border:0px;
+   width:100%;
+   margin:0px;
+   padding:0px;
+   background: rgba(0, 0, 0, 0);
+   
+  } 
+
+  
+#container-btn-reto{
+  width:100%;
+ 
+  overflow: hidden;
+}
+#btn-crear-reto{
+  margin-top: 4px;
+  background-color:#8C4830;
+  color:white;
+  border: none;
+  font-size:18px;
+  margin-bottom:4px;
+  border-radius:4px;
+  margin-right:20px;
+  max-width: 20%;
+  float:right;
+}
+
+
+#tabla-ranking{
+  border-spacing: 0; /* Estos dos sirven para que no haya un hueco entre la tabla y el thead */
+  border-collapse: collapse;
+  overflow-y: hidden
+ 
+  
+}
+
+th{
+  text-align: center;
+}
+td{
+  text-align:center;
+}
+
+#container-tabla{
+  height:100%;
+  border:3px;
+  border-color:darkgreen;
+  border-style: solid;
+  border-radius:5px;
+  overflow-y: auto;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color:white; /** Evita el overlapping con tbody, ya que position:sticky lo deja en una posición fija */
+  z-index: 2;
+}
+
+
