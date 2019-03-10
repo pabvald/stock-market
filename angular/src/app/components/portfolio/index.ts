@@ -8,6 +8,14 @@ interface Company{
     price: number,
 }
 
+interface Action{
+    action: string;
+    company: string;
+    date: Date;
+    quantity: number;
+    price: number;
+}
+
 @Component({
     selector: "portfolio-user",
     templateUrl: "portfolio.html",
@@ -17,6 +25,8 @@ export class PortfolioComponent {
     company: Company;
 
     companies: Company[];
+
+    history: Action[];
 
     randomData: Price[] = null;
 
@@ -213,6 +223,20 @@ export class PortfolioComponent {
             if(a.name > b.name) return 1;
             return 0;
         });
+
+        this.history = [{
+            action: "Comprar",
+            company: "Google",
+            date: new Date(),
+            quantity: 5,
+            price: 42
+        },{
+            action: "Vender",
+            company: "Microsoft",
+            date: new Date(),
+            quantity: 7,
+            price: 6
+        }];
     }
 
     show(c: Company){
