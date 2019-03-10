@@ -236,6 +236,42 @@ export class PortfolioComponent {
             date: new Date(),
             quantity: 7,
             price: 6
+        },{
+            action: "Comprar",
+            company: "Google",
+            date: new Date(),
+            quantity: 5,
+            price: 42
+        },{
+            action: "Vender",
+            company: "Microsoft",
+            date: new Date(),
+            quantity: 7,
+            price: 6
+        },{
+            action: "Comprar",
+            company: "Google",
+            date: new Date(),
+            quantity: 5,
+            price: 42
+        },{
+            action: "Vender",
+            company: "Microsoft",
+            date: new Date(),
+            quantity: 7,
+            price: 6
+        },{
+            action: "Comprar",
+            company: "Google",
+            date: new Date(),
+            quantity: 5,
+            price: 42
+        },{
+            action: "Vender",
+            company: "Microsoft",
+            date: new Date(),
+            quantity: 7,
+            price: 6
         }];
     }
 
