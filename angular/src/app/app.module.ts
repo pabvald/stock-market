@@ -7,6 +7,7 @@ import { LoginComponent } from "./components/login";
 import { MarketComponent } from "./components/markets";
 import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppRoot]

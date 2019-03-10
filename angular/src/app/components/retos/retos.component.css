@@ -20,6 +20,8 @@ main{
 #participantes{
     min-height: 100px;
     max-height: 100%;
+    margin-right:10px;
+    margin-bottom: 11px;
     position:relative;
     overflow: hidden;
     display: flex;
@@ -84,13 +86,18 @@ td{
   text-align:center;
 }
 
+.tabla-col-username{
+  text-align: left;
+}
+
 #container-tabla{
   height:100%;
   border:3px;
-  border-color:darkgreen;
+  border-color:#688C5E;
   border-style: solid;
   border-radius:5px;
   overflow-y: auto;
+  margin-top: 1px;
 }
 
 thead {
@@ -100,4 +107,12 @@ thead {
   z-index: 2;
 }
 
+
+.variacionNegativa{
+  color:red;
+}
+
+.variacionPositiva{
+  color:green;
+}
 

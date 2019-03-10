@@ -12,21 +12,21 @@
       <table id="tabla-ranking">
         <thead>
           <tr id="tr-buscador-usuario">
-          <td colspan="5"> <input id="buscador-usuario"  type="text" placeholder="Buscar usuario"></td>
+          <td colspan="5"> <input id="buscador-usuario"  type="text" placeholder="Buscar usuario" [(ngModel)]="searched_username"></td>
           </tr>
             <tr>
               <th>Ranking</th>
-              <th>Usuario</th>
+              <th class="tabla-col-username">Usuario</th>
               <th>Variación</th>
               <th>Beneficio</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of participantes; index as i">
-              <td>{{i+1}}</td>
-              <td>{{user.nombre}}</td>
-              <td>{{user.variacion}}%</td>
-              <td>{{user.beneficio}}€</td>
+            <tr *ngFor="let user of getSelectedUsers()">
+              <td>{{getUserPosition(user)}}</td>
+              <td class="tabla-col-username">{{user.nombre}}</td>
+              <td [ngClass]="{'variacionPositiva': user.variacion>0, 'variacionNegativa': user.variacion<0}">{{user.variacion}}%</td>
+              <td [ngClass]="{'variacionPositiva': user.beneficio>0, 'variacionNegativa': user.beneficio<0}">{{user.beneficio}}€</td>
             </tr>
           </tbody>
       </table>
