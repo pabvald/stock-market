@@ -2,7 +2,7 @@
 
 /** ----------------------------------- LAYOUT ------------------------------------------------------*/
 
-.grid {
+#main {
    display:grid;
    grid-template-columns: 1fr 1fr;
    grid-template-rows: 2fr 1fr;
@@ -17,26 +17,35 @@
    padding:20px;
 }
 
-.graphic-container {
+#graphic-container {
     background-color:gray;
     grid-area: graphic; 
-    border: 5px solid #9EBF95;     
+    border: 5px solid #9EBF95;  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 7fr;
+    grid-template-areas: "time indicator gap gap title"
+                         "graphic graphic graphic graphic graphic";
 }
 
-.companies-container {
+#companies-container {
     background-color: white;
     grid-area: companies;
     border: 5px solid #9EBF95; 
     width: 100%;  
     height: 100%;
+    
+    position:relative;
 }
 
-.operations-container {
+#operations-container {
     background-color: white;
     grid-area: operations;
     border: 5px solid #9EBF95;   
     align-content: center;
 }
+
+
 
 /** --------------------------------------------------  Graphic ----------------------------------------------------- **/
 
@@ -45,48 +54,124 @@
     background-color: #8C4830;
     color:white;
     font-size: 12pt;
-    padding: 8px;
-    float: right;
-    margin-top:8px;
-    margin-right: 8px;
+    padding: 5px;
+    
+    grid-area: title;
+}
+
+#graphic-indicator {
+    grid-area: indicator;
+}
+
+#graphic-time {
+    grid-area: time;
+}
+
+#graphic {
+    grid-area: graphic;
+    background: white;
+    margin:0px;
+    align-content: center;
+}
+
+.graphic-select {
+    
 }
 
 
-#comp-table-container {
-    height:100%;
+/* -------------------------------------------------- Companies ----------------------------------------------------**/
+
+#companies-table-container {
     overflow-y: auto;
+    position:relative;
+    width: 100%;
+    height: 90%;   
 }
 
-#companies-table {
-    border-spacing: 0; /* Estos dos sirven para que no haya un hueco entre la tabla y el thead */
-    border-collapse: collapse;
-    overflow-y: hidden
+#companies-table-container > table {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    max-height:90%;
+    overflow:auto;
+    width:100%;
 }
 
-
-#companies-table th,td {
+#companies-table-container > table > th,td {
     text-align: center;
 }
 
-
-#companies-table thead {
+#companies-table-container > table > thead {
     position: sticky;
     top: 0;
-    background-color:white; /*  Evita el overlapping con tbody, ya que position:sticky lo deja en una posición fija */
+    background-color:white; 
     z-index: 2;
 }
 
+
 #search-bar {
+    height: 10%;
     background-color:#9EBF95;
 }
 
-.company-name, .company-code, .company-price {
-    vertical-align: center;
-    text-align: center;
+.selected {
+    font-weight: bold;
 }
 
-.company-name {
-    text-align: left;
+#grid-search {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+    grid-template-areas: "search-title name-title code-title minPrice-title maxPrice-title"
+                         "search-title name       code       minPrice       maxPrice";
+    grid-column-gap: 3px;
+}
+
+#search-title {
+    grid-area: search-title;
+    padding-top:5px;
+    text-align: center;
+    margin-right: 5px;
+    border: 2px solid white;
+    font-weight: bold;
+}
+
+#search-name-title {
+    grid-area: name-title;
+}
+
+#search-code-title {
+    grid-area: code-title;
+}
+
+#search-minPrice-title {
+    grid-area: minPrice-title;
+}
+
+#search-maxPrice-title {
+    grid-area: maxPrice-title;
+}
+
+
+#search-name {
+    grid-area: name;
+}
+
+#search-code {
+    grid-area: code;
+}
+
+#search-minPrice {
+    grid-area: minPrice;
+}
+
+#search-maxPrice {
+    grid-area: maxPrice;
+}
+
+#grid-search > label {
+    font: bold 12px arial !important;
 }
 
 /** --------------------------------------------------  Operations --------------------------------------------------------- **/
@@ -99,35 +184,38 @@
 }
 
 
-#operations-form label {   
-    display:block;
-    margin: 5px 0px;
-    padding-right: 40%;
+#flex-operations > li {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+   
 }
 
-#operations-form label > span {
-    float: left;
-    font-weight: 400;
-    font-size: 11pt;
+#flex-operations > li > input {
+    flex-basis: 50px;
+    flex-shrink: 1;
+    border: 1px solid grey;   
+    
 }
 
-#operations-form input[type="submit"] {
+#flex-operations > li > label {
+    flex-basis: 130px;
+    flex-shrink: 2;
+}
+
+#flex-operations > li > input[type="submit"] {
     padding:3px 5px;
     color: white;
     background-color: #8C4830;
     font-weight: 500;
     border: none;
-    float:right;
-} 
-
-#operations-form input[type="text"] {
-    padding-left: 4px;
-    border: 1px solid #9EBF95;
-    border-radius: 3px; 
-    float: right; 
+    border-radius: 3px;
+    margin-top: 3px;
+    margin-left: 65px;
 }
 
-#operations-form-container{
-    padding-left: 10%;
-    padding-right: 10%;
+#flex-operations > li > input[type="text"] {
+    padding-left: 5px;
+    border: 1px solid #9EBF95;
+    border-radius: 3px; 
 }

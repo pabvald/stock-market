@@ -1,58 +1,98 @@
-<div class="grid">
-
-    <div class="graphic-container"> 
-        <span id="graphic-title">{{selectedCompany.name }}</span>
+<div id="main">
+    <div id="graphic-container"> 
+        <span  id="graphic-title">{{selectedCompany.name}}</span>
+        <select class="graphic-select" id="graphic-time">
+        </select>
+        <select class="graphic-select" id="graphic-indicator">
+            <option value="MMS">Media móvil simple </option>
+            <option value="MME">Media móvil exponencial </option>            
+        </select>
+        <figure id="graphic">
+            <img src="/assets/markets-graphic.jpg" width="500px" alt="Gráfico">
+            <figcaption>Evolución del precio de {{ selectedCompany.name }}</figcaption>
+        </figure>
     </div>
-    <div class="companies-container"> 
+    <div id="companies-container">  
         <div id="search-bar">
-            Buscar empresas...
-        </div>        
-        <div id="comp-table-container">
-            <table id="companies-table">     
-                <thead class="company-container">
-                    <th class="company-name">Nombre </th>
-                    <th cass="company-code"> Código </th>
-                    <th class="company-price">Precio acción </th>
-                </thead>   
-                <tbody> 
-                    <tr class="company-container"  *ngFor="let company of companies"
-                        (click)="onSelect(company)">
-                        <td class="company-name">{{company.name}}</td> 
-                        <td cass="company-code"> {{company.code}}</td>
-                        <td class="company-price">{{company.price}} €</td>
-                    </tr>
-                <tbody>
-            </table>
-        </div>
+            <form>
+                <div id="grid-search">
+                    <span id="search-title">  Buscar</span>
+                    <label id="search-name-title">Nombre</label>
+                    <label id="search-code-tile">Código</label>
+                    <label id="search-minPrice-title">Precio mínimo</label>
+                    <label id="search-maxPrice-title">Precio máximo</label>
+            
+                    <input id="search-name" type="text" name="searchName"  size=18 placeholder="Ej: Intel" /> 
+                    <input id="search-code" type="text" name="searchCode" size=5 placeholder="Ej: INTC"/> 
+                    <select id="search-minPrice" name="minPrice">
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70 o más</option>
+                    </select>
+                    <select id="search-maxPrice" name="maxPrice">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70 o más</option>
+                    </select>
+                </div>
+            </form>
+        </div>           
+        <div id="companies-table-container">     
+        <table>
+            <thead>
+                <tr>
+                    <th>Empresa</th>
+                    <th>Código</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="onSelect(c)" [class.selected]="selectedCompany === c" *ngFor="let c of companies">
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.code }}</td>
+                    <td>{{ c.price }}</td>
+                </tr> 
+            </tbody>
+        </table>   
+        </div>     
     </div>
-    <div class="operations-container"> 
-        <div id="operations-title">Operar</div>
+    <div id="operations-container"> 
+        <div id="operations-title"> >>> Operar <<<</div>
         <div id="operations-form-container">
-            <form id="operations-form">  
-                
-                <label for="companyName">
-                    <span>Empresa: </span>
-                    <input type="text" class="input-field" name="companyName" value="{{selectedCompany.name}}" readonly/>
-                </label>  
-                <br> 
-                <label><span>Compra</span></label>
-                <br>
-                <label for="companyPrice">
-                    <span>Precio(€):</span>
-                    <input type="text" class="input-field" name="companyPrice" value="{{selectedCompany.price}}" readonly/>
-                </label>     
-                <br>
-                <label for="numberOfStocks">
-                    <span>Nº acciones:</span>
-                    <input type="text" class="input-field" name="numberOfStocks"/>
-                </label>  
-                <br>
-                <label for="totalPrice">
-                    <span>Total(€):</span>
-                    <input type="text" class="input-field" name="totalPrice" value="{{selectedCompany.price * 3}}" readonly/>
-                </label>  
-                <br>    
-                <label><input type="submit" value="Operar ahora"></label>
+            <form id="operations-form">       
+                <ul id="flex-operations" type="none">        
+                    <li>   
+                        <label for="companyName" action="none">Empresa:</label>
+                        <input type="text" class="input-field" name="companyName" value="{{selectedCompany.name}}" readonly/>  
+                    </li>
+                    <li> 
+                        <label><b>Compra</b></label>
+                    </li>
+                    <li>
+                        <label for="companyPrice">Precio (€):</label>
+                        <input type="text" class="input-field" name="companyPrice" value="{{selectedCompany.price}}" readonly/>  
+                    </li>   
+                    <li> 
+                        <label for="numberOfStocks">Nº acciones: </label>                    
+                        <input type="text" class="input-field" name="numberOfStocks" />      
+                    </li>
+                    <li> 
+                        <label for="totalPrice">Total (€):</label>
+                        <input type="text" class="input-field" name="totalPrice" value="{{selectedCompany.price }}" readonly/>
+                    </li>
+                    <li>     
+                       <label></label> <input type="submit" value="Operar ahora">
+                    </li>
+                </ul>
             </form>
         </div>
     </div> 

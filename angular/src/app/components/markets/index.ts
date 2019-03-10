@@ -7,13 +7,18 @@ interface Company{
     price: number,
 }
 
+interface Indicator {
+    name: string,
+    displayName : string
+}
+
 @Component({
     selector: "market-page",
     templateUrl: "market.html",
     styleUrls:["market.css"]
 })
 export class MarketComponent{
-
+    
     companies : Company[];
     selectedCompany : Company;
    
@@ -102,8 +107,33 @@ export class MarketComponent{
           name : "Ebay Inc.",
           code : "EBAY",
           price : 14
-      }
-          ];
+      },{
+        name : "Apple",
+        code : "AAPL",
+        price : 34
+    },{
+        name : "Marvell",
+        code : "MRVL",
+        price : 13
+    },{
+        name : "Cisco Systems",
+        code : "CSCO",
+        price : 65
+    }, {
+        name : "Intel",
+        code : "INTC",
+        price : 32
+    }, {
+        name : "Ebay Inc.",
+        code : "EBAY",
+        price : 14
+    } ];
+
+    this.companies.sort((a,b) =>{
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+        return 0;
+    });
     }
 
     /**
