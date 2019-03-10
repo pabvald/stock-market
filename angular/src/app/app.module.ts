@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoot } from './components/app';
 import { LoginComponent } from "./components/login";
+import { RegisterComponent } from "./components/register";
 import { MarketComponent } from "./components/markets";
 import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
@@ -12,6 +13,7 @@ import { CandlestickComponent } from "./components/candlestick";
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
+  {path: "register", component: RegisterComponent},
   {path: "mercado", component: MarketComponent},
   {path: "cartera", component: PortfolioComponent},
   {path: "retos", component: RetosComponent},
@@ -22,6 +24,7 @@ const appRoutes: Routes = [
   declarations: [
     AppRoot,
     LoginComponent,
+    RegisterComponent,
     MarketComponent,
     PortfolioComponent,
     RetosComponent,
