@@ -1,10 +1,12 @@
 <main>
     <section id="graphics">
+        <!--
         <figure *ngIf="company">
             <img src="/assets/Avion.jpeg" width="500" alt="Avión">
             <figcaption>Evolución del precio de {{ company.name }}</figcaption>
         </figure>
-        <p *ngIf="!company">Selecciona una empresa para ver su evolución</p>
+        <p *ngIf="!company">Selecciona una empresa para ver su evolución</p> -->
+        <candlestick [data]="randomData"></candlestick>
     </section>
     <section id="companies">
         <table>

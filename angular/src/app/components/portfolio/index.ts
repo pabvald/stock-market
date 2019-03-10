@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, ViewChildren } from "@angular/core";
+import { Price } from 'src/app/models/price';
+declare let fc: any;
 
 interface Company{
     name: string,
@@ -15,6 +17,8 @@ export class PortfolioComponent {
     company: Company;
 
     companies: Company[];
+
+    randomData: Price[] = null;
 
     constructor(){
         this.companies =[
@@ -213,6 +217,6 @@ export class PortfolioComponent {
 
     show(c: Company){
         this.company=c;
-
+        this.randomData = fc.randomFinancial()(50);
     }
 }

@@ -6,6 +6,7 @@ import { AppRoot } from './components/app';
 import { LoginComponent } from "./components/login";
 import { MarketComponent } from "./components/markets";
 import { PortfolioComponent } from "./components/portfolio";
+import { CandlestickComponent } from "./components/candlestick";
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     LoginComponent,
     MarketComponent,
     PortfolioComponent,
+    CandlestickComponent,
   ],
   imports: [
     BrowserModule,
