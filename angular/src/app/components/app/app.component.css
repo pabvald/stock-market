@@ -10,6 +10,7 @@ nav{
     background-color: #9EBF95;
     color: black;
     height: 10vh;
+    font-family: "Unica One";
 }
 nav > .spacer{
     flex: 1;
