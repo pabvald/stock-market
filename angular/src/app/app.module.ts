@@ -8,6 +8,7 @@ import { MarketComponent } from "./components/markets";
 import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
 import { FormsModule } from '@angular/forms';
+import { CandlestickComponent } from "./components/candlestick";
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     MarketComponent,
     PortfolioComponent,
     RetosComponent,
+    CandlestickComponent,
   ],
   imports: [
     BrowserModule,
