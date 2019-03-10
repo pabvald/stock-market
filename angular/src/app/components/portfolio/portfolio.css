@@ -5,7 +5,10 @@ main{
         "history history history resume";
     grid-auto-rows: 3fr 1fr;
     grid-auto-columns: 25%;
-    height: 100%;
+    grid-gap: 25px;
+    height: calc(100% - 75px);
+    width: calc(100% - 100px);
+    margin: 25px;
 }
 #graphics{
     grid-area: graphic;
@@ -53,7 +56,6 @@ main{
 }
 #resumen{
     grid-area: resume;
-    background-color: red;
 }
 
 .selected{
@@ -62,4 +64,8 @@ main{
 table{
     width: 100%;
     text-align: left;
+}
+
+section{
+    background-color: white;
 }

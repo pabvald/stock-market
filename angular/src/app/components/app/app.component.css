@@ -8,6 +8,15 @@ nav{
     flex-direction: row-reverse;
     flex-wrap: wrap;
     background-color: #9EBF95;
+    color: black;
+    height: 10vh;
+}
+nav > .spacer{
+    flex: 1;
+}
+nav > img{
+    max-height: 100%;
+    margin-left: 25px;
 }
 nav > div {
     height: 1.3em;
@@ -19,6 +28,7 @@ nav > div:focus{
 }
 #main{
     flex: 1;
+    background-color: white;
 }
 
 footer{
@@ -29,4 +39,5 @@ footer{
 .tabSelected{
     font-weight: bold;
     background-color: white;
+    color: black;
 }
