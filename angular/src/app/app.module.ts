@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CandlestickComponent } from "./components/candlestick";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ChartComponent } from "./components/chart/chart.component";
+import { TrainingComponent } from './components/training/training.component';
 //import { ProfileComponent } from './profile/profile.component';
 //import { ChartComponent } from './chart/chart.component';
 
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   {path: "cartera", component: PortfolioComponent},
   {path: "retos", component: RetosComponent},
   {path: "perfil", component: ProfileComponent},
+  {path: "training", component: TrainingComponent},
   {path: "", redirectTo: "/mercado", pathMatch: "full"}
 ];
 
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
     RetosComponent,
     CandlestickComponent,
     ProfileComponent,
-    ChartComponent
+    ChartComponent,
+    TrainingComponent
   ],
   imports: [
     BrowserModule,
