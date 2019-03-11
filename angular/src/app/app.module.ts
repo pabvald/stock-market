@@ -10,8 +10,10 @@ import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
 import { FormsModule } from '@angular/forms';
 import { CandlestickComponent } from "./components/candlestick";
-import { ProfileComponent } from './profile/profile.component';
-import { ChartComponent } from './chart/chart.component';
+import { ProfileComponent } from "./components/profile/profile.component";
+import { ChartComponent } from "./components/chart/chart.component";
+//import { ProfileComponent } from './profile/profile.component';
+//import { ChartComponent } from './chart/chart';
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
