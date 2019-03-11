@@ -13,7 +13,7 @@ import { CandlestickComponent } from "./components/candlestick";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ChartComponent } from "./components/chart/chart.component";
 //import { ProfileComponent } from './profile/profile.component';
-//import { ChartComponent } from './chart/chart';
+//import { ChartComponent } from './chart/chart.component';
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
