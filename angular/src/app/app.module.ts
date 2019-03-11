@@ -10,7 +10,7 @@ import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
 import { FormsModule } from '@angular/forms';
 import { CandlestickComponent } from "./components/candlestick";
-import { ContactComponent } from './contact/contact.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
