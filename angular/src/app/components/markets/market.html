@@ -1,12 +1,13 @@
 <div id="main">
     <div id="graphic-container"> 
-        <span  id="graphic-title">{{selectedCompany.name}}</span>
-        <select class="graphic-select" id="graphic-time">
-        </select>
-        <select class="graphic-select" id="graphic-indicator">
-            <option value="MMS">Media móvil simple </option>
-            <option value="MME">Media móvil exponencial </option>            
-        </select>
+        <div id="flex-head-graphic">           
+            <span  id="graphic-indicator-title">Indicador: </span>
+            <select  id="graphic-indicator">
+                <option value="MMS">Media móvil simple </option>
+                <option value="MME">Media móvil exponencial </option>            
+            </select>
+             <span  id="graphic-title">{{selectedCompany.name}}</span>
+        </div>
         <figure id="graphic">
             <img src="/assets/markets-graphic.jpg" width="500px" alt="Gráfico">
             <figcaption>Evolución del precio de {{ selectedCompany.name }}</figcaption>
