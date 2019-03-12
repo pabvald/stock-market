@@ -7,10 +7,10 @@ main{
 		"subject3 subject4";
 	grid-template-columns: 50% 50%;
 	grid-template-rows: 50% 50%;
+	margin-top: 20px;
 }
 
 .subject_div{
-	height: 95%;
 	width: 95%;
 	margin: auto;
 	border: 3px;
@@ -31,23 +31,21 @@ main{
 
 .subject_content{
 	box-sizing: border-box;
-	overflow-x: scroll;
-	display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
+	overflow-x: auto;
+	display: flex;
+	flex-wrap: nowrap;
+	max-width: 100%;
 }
 
 .training_element{
-	position: relative;
-	height: 95%;
-	margin:auto;
-	display: table-cell;
+	height: 250px;
 	width: 400px;
+	margin:auto;
 	border-left: 1.5px solid #688C5E;
 	border-right: 1.5px solid #688C5E;
 	border-top: 3px solid #688C5E;
 	font-size: 16pt;
+	flex: 1;
 }
 
 .element_title{
