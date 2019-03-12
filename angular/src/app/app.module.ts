@@ -22,14 +22,14 @@ const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "recover", component: RecoverComponent},
-  {path: "mercado", component: MarketComponent},
-  {path: "cartera", component: PortfolioComponent},
+  {path: "market", component: MarketComponent},
+  {path: "portfolio", component: PortfolioComponent},
   {path: "challenge/:id", component: RetosComponent},
   {path: "challenge", component:ListaRetosComponent},
-  {path: "contacto", component: ContactComponent},
-  {path: "perfil", component: ProfileComponent},
+  {path: "contact", component: ContactComponent},
+  {path: "user", component: ProfileComponent},
   {path: "training", component: TrainingComponent},
-  {path: "", redirectTo: "/mercado", pathMatch: "full"}
+  {path: "", redirectTo: "/market", pathMatch: "full"}
 ];
 
 @NgModule({
