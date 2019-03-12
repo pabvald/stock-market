@@ -1,0 +1,31 @@
+#container{
+    margin:10px;
+}
+#lbl-crear{
+    margin-left:12.5%;
+    margin-bottom: 15px;
+}
+
+textarea{
+    width: 100%;
+}
+#crear-reto{
+    margin-top: 15px;
+}
+table{
+
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 3px;
+    
+}
+
+button{
+    margin-top: 10px;
+}
+
+.exit{
+    position: absolute;
+    right:10px;
+    top:15px;
+}

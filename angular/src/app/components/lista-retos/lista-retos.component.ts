@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {CrearRetoComponent} from '../../crear-reto/crear-reto.component';
 
 interface Challenge{
   id:number,
@@ -17,7 +18,7 @@ export class ListaRetosComponent implements OnInit {
 
   retos:Challenge[];
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
     /** Se supone que los retos tienen ids distintos pero para que lleve al url correcto les he puesto a todos el mismo*/
@@ -64,4 +65,7 @@ export class ListaRetosComponent implements OnInit {
     return this.retos;
   }
 
+  create_challenge_clicked() {
+    const modalRef = this.modalService.open(CrearRetoComponent);
+  }
 }

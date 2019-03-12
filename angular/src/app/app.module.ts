@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoot } from './components/app';
 import { LoginComponent } from "./components/login";
@@ -11,14 +12,16 @@ import { RetosComponent } from './components/retos/retos.component';
 import { FormsModule } from '@angular/forms';
 import { CandlestickComponent } from "./components/candlestick";
 import { ListaRetosComponent } from './components/lista-retos/lista-retos.component';
+import { CrearRetoComponent } from './components/crear-reto/crear-reto.component';
+
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "mercado", component: MarketComponent},
   {path: "cartera", component: PortfolioComponent},
-  {path: "retos/:id", component: RetosComponent},
-  {path: "retos", component:ListaRetosComponent},
+  {path: "challenge/:id", component: RetosComponent},
+  {path: "challenge", component:ListaRetosComponent},
   {path: "", redirectTo: "/mercado", pathMatch: "full"}
 ];
 
@@ -32,12 +35,15 @@ const appRoutes: Routes = [
     RetosComponent,
     CandlestickComponent,
     ListaRetosComponent,
+    CrearRetoComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
+  entryComponents: [CrearRetoComponent],
   providers: [],
   bootstrap: [AppRoot]
 })
