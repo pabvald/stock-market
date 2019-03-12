@@ -18,7 +18,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let chal of getSelectedChallenges()">
-            <td class="tabla-col-username"><a href="retos/{{chal.id}}">{{chal.nombre}}</a></td>
+            <td class="tabla-col-username"><a href="challenge/{{chal.id}}">{{chal.nombre}}</a></td>
             <td>{{chal.fechaInicio| date: 'dd/MM/yyyy'}}</td>
             <td>{{chal.fechaFin| date: 'dd/MM/yyyy'}}</td>
             <td>{{chal.numParticipantes}}</td>

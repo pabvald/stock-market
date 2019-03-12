@@ -2,11 +2,11 @@
     <!-- Pestañas -->
     <nav>
         <div [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
-        <div [ngClass]="{'tabSelected': page ==='/contacto'}" routerLink="/contacto">Contacto</div>
-        <div [ngClass]="{'tabSelected': page === '/cartera'}" routerLink="/cartera">Mi Cartera</div>
-        <div [ngClass]="{'tabSelected': page === '/retos'}" routerLink="/retos">Retos</div>
-        <div [ngClass]="{'tabSelected': page === '/' || page === '/mercado'}" routerLink="/mercado">Mercados</div>
-        <div [ngClass]="{'tabSelected': page === '/perfil'}" routerLink="/perfil">Perfil</div>
+        <div [ngClass]="{'tabSelected': page ==='/contact'}" routerLink="/contact">Contacto</div>
+        <div [ngClass]="{'tabSelected': page === '/portfolio'}" routerLink="/portfolio">Mi Cartera</div>
+        <div [ngClass]="{'tabSelected': page === '/challenge'}" routerLink="/challenge">Retos</div>
+        <div [ngClass]="{'tabSelected': page === '/' || page === '/market'}" routerLink="/market">Mercados</div>
+        <div [ngClass]="{'tabSelected': page === '/user'}" routerLink="/user">Perfil</div>
         <div [ngClass]="{'tabSelected': page === '/training'}" routerLink="/training">Formación</div>
         <div class="spacer"></div>
         <img src="assets/texto.png">
