@@ -1,0 +1,122 @@
+#main{
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	display: grid;
+	grid-template-areas: 
+		"profile graphic"
+		"profile challenges";
+	grid-auto-columns: 1fr 4fr;
+	grid-auto-rows: 1fr 1fr;
+}
+
+#graphic{
+	background-color: white;
+	grid-area: graphic;
+	height: 95%;
+	width: 95%;
+	margin: auto;
+	border: 3px;
+    border-color: #688C5E;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+#challenges{
+	height: 95%;
+	width: 95%;
+	max-height: 95%;
+	margin: auto;
+	background-color: white;
+	grid-area: challenges;
+	border: 3px;
+    border-color: #688C5E;
+    border-radius: 5px;
+    border-style: solid;
+    overflow: hidden;
+}
+
+#groups_table{
+	height: 100%;
+	width: 100%;
+}
+
+#groups_header{
+	padding-left: 1%;
+	display: grid;
+	grid-template-areas: 
+		"name join_date end_date result position";
+	grid-auto-columns: 2fr 1fr 1fr 1fr 1fr;
+	height: 12%;
+	border-top: 3px solid #688C5E;
+	border-bottom: 3px solid #688C5E;
+	background-color: #9EBF95; 
+}
+
+.group_div{
+	padding-left: 1%;
+	display: grid;
+	grid-template-areas: 
+		"name join_date end_date result position";
+	grid-auto-columns: 2fr 1fr 1fr 1fr 1fr;
+}
+
+#groups_list{
+	height: 88%;
+	background-color: white;
+	max-height: 88%;
+    overflow: auto;
+}
+
+#profile{
+	background-color: red;
+	grid-area: profile;
+	height: 95%;
+	width: 95%;
+	margin: auto;
+	margin-left: 5%;
+}
+
+#profilePicDiv{
+	height: 30%;
+	min-height: 30%;
+	background-color: white;
+}
+
+#profilePic{
+	width: 70%;
+	height: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	border-radius: 15px;
+}
+
+#stats{
+	height: 70%;
+	min-height: 70%;
+	background-color: white;
+	font-size: 16pt;
+	border: 3px;
+    border-color: #688C5E;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+.name{
+	grid-area: name;
+}
+.join_date{
+	grid-area: join_date;
+}
+.end_date{
+	grid-area: end_date;
+}
+.result{
+	grid-area: result;
+}
+.position{
+	grid-area: position;
+}
+

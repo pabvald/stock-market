@@ -1,0 +1,63 @@
+main{
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	display: grid;
+	grid-template-areas: 
+		"profile graphic"
+		"profile title"
+		"profile challenges";
+	grid-template-columns: 1fr 4fr;
+	grid-template-rows: 1fr 2em 1fr;
+}
+
+#profile{
+	grid-area: profile;
+	display: flex;
+	flex-direction: column;
+	justify-content: top;
+	align-items: center;
+	padding-top: 25px;
+}
+
+#graphic{
+	grid-area: graphic;
+}
+#title-graphic{
+	text-align: center;
+	width:100%;
+	padding-top: 5px;
+}
+#title{
+	grid-area: title;
+}
+#challenges{
+	grid-area: challenges;
+	position: relative;
+	min-height: 100px;
+	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+#challenges > p{
+	margin-left: 10px;
+}
+#challenges > table{
+	width: 100%;
+	position:absolute;
+	max-height: 100%;
+	margin-left: 10px;
+	
+}
+th{
+	text-align: left;
+	position: sticky;
+	top: 0;
+	background: white;
+}
+
+#profilePic{
+	max-width: 128px;
+	max-height: 128px;
+	border-radius: 25px;
+}

@@ -1,0 +1,44 @@
+<main>
+	<section id = "profile">
+		<img id = "profilePic" src="../assets/pic-placeholder.jpg">
+		<div id ="stats">
+			<p>Adrián</p>
+			<p>Capital actual: 1000000€</p>
+			<p>Capital inicial: 3000000€</p>
+			<p>Capital invertido: 500000€</p>
+		</div>
+	</section>
+
+	<section id = "graphic">
+		<div id="title-graphic">Evolución del capital</div>
+		<candlestick [data]="priceEvolution"></candlestick>
+	</section>
+
+	<section id="title">
+		<p>Ha participado en los siguientes grupos</p>
+	</section>
+ 
+	<section id = "challenges">
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Fecha de unión</th>
+					<th>Fecha de finalización</th>
+					<th>Resultado</th>
+					<th>Puesto</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let group of groups">
+					<td>{{ group.name }}</td>
+					<td>{{ group.joinDate }}</td>
+					<td>{{ group.endDate }}</td>
+					<td>{{ group.result }}</td>
+					<td>{{ group.position }}/{{group.participantsNumber}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</main>
+	
