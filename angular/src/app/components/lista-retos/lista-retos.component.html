@@ -1,0 +1,31 @@
+<main>
+  <section id="participantes">
+    <div id="container-btn-reto">
+    <button id="btn-crear-reto">Crear Reto</button>
+    </div>
+    <div id="container-tabla">
+      <table id="tabla-ranking">
+        <thead>
+          <tr id="tr-buscador-reto">
+          <td colspan="5"> <input id="buscador-reto"  type="text" placeholder="Buscar reto"></td>
+          </tr>
+          <tr>
+            <th class="tabla-col-username">Nombre</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Número de participantes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chal of getSelectedChallenges()">
+            <td class="tabla-col-username"><a href="retos/{{chal.id}}">{{chal.nombre}}</a></td>
+            <td>{{chal.fechaInicio| date: 'dd/MM/yyyy'}}</td>
+            <td>{{chal.fechaFin| date: 'dd/MM/yyyy'}}</td>
+            <td>{{chal.numParticipantes}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </section>
+</main>
