@@ -1,101 +1,44 @@
-<div id = "main">
-	<div id = "profile">
-		<div id = "profilePicDiv">
-			<img id = "profilePic" src="../assets/pic-placeholder.jpg">
-		</div>
-		<div align="center" id = "stats">
+<main>
+	<section id = "profile">
+		<img id = "profilePic" src="../assets/pic-placeholder.jpg">
+		<div id ="stats">
 			<p>Adrián</p>
 			<p>Capital actual: 1000000€</p>
 			<p>Capital inicial: 3000000€</p>
 			<p>Capital invertido: 500000€</p>
-		</div> 
-	</div>
-
-	<div id = "graphic">
-		<!--<app-chart></app-chart>-->
-		<candlestick [data]="priceEvolution"></candlestick>
-		<p align="right" style = "margin-top: -1.5%; margin-right: 2.5%;"><strong>Evolución del capital</strong></p>
-	</div>
- 
-	<div id = "challenges">
-		<p style="margin-left: 1%;"><strong>Ha participado en los grupos</strong></p>
-		<div id = "groups_table">
-			<div id = "groups_header">
-				<p class = "name">Nombre</p>
-				<p class = "join_date">Fecha de unión</p>
-				<p class = "end_date">Fecha de finalización</p>
-				<p class = "result">Resultado</p>
-				<p class = "position">Puesto</p>
-			</div>
-			<div id = "groups_list">
-				<li style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">PIPO</p>
-						<p class = "join_date">1/1/2000</p>
-						<p class = "end_date">1/2/2000</p>
-						<p class = "result">8%</p>
-						<p class = "position">5/40</p>
-					</div>
-				</li>
-				<li style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">PIPO</p>
-						<p class = "join_date">1/1/2000</p>
-						<p class = "end_date">1/2/2000</p>
-						<p class = "result">8%</p>
-						<p class = "position">5/40</p>
-					</div>
-				</li>
-				<li style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">PIPO</p>
-						<p class = "join_date">1/1/2000</p>
-						<p class = "end_date">1/2/2000</p>
-						<p class = "result">8%</p>
-						<p class = "position">5/40</p>
-					</div>
-				</li>
-				<li style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">PIPO</p>
-						<p class = "join_date">1/1/2000</p>
-						<p class = "end_date">1/2/2000</p>
-						<p class = "result">8%</p>
-						<p class = "position">5/40</p>
-					</div>
-				</li>
-				<li style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">PIPO</p>
-						<p class = "join_date">1/1/2000</p>
-						<p class = "end_date">1/2/2000</p>
-						<p class = "result">8%</p>
-						<p class = "position">5/40</p>
-					</div>
-				</li>
-				<li style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">PIPO</p>
-						<p class = "join_date">1/1/2000</p>
-						<p class = "end_date">1/2/2000</p>
-						<p class = "result">8%</p>
-						<p class = "position">5/40</p>
-					</div>
-				</li>
-
-				<!--
-				<li *ngFor="let group of groups" style="list-style-type:none;">
-					<div class = "group_div">
-						<p class = "name">{{group.name}}</p>
-						<p class = "join_date">{{group.joinDate}}</p>
-						<p class = "end_date">{{group.endDate}}</p>
-						<p class = "result">{{group.result}}%</p>
-						<p class = "position">{{group.position}}/{{group.participantsNumber}}</p>
-					</div>
-				</li>
-				-->
-			</div>
 		</div>
-	</div>
-</div>
+	</section>
+
+	<section id = "graphic">
+		<div id="title-graphic">Evolución del capital</div>
+		<candlestick [data]="priceEvolution"></candlestick>
+	</section>
+
+	<section id="title">
+		<p>Ha participado en los siguientes grupos</p>
+	</section>
+ 
+	<section id = "challenges">
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Fecha de unión</th>
+					<th>Fecha de finalización</th>
+					<th>Resultado</th>
+					<th>Puesto</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let group of groups">
+					<td>{{ group.name }}</td>
+					<td>{{ group.joinDate }}</td>
+					<td>{{ group.endDate }}</td>
+					<td>{{ group.result }}</td>
+					<td>{{ group.position }}/{{group.participantsNumber}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</main>
 	
