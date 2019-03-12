@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Price } from 'src/app/models/price';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
+declare let fc: any;
 
 
 interface UsuarioReto{ 
@@ -17,6 +19,7 @@ export class RetosComponent implements OnInit {
 
   participantes : UsuarioReto[];
   searched_username : string;
+  data: Price[] = fc.randomFinancial()(50);
 
   constructor() { }
 

@@ -5,16 +5,8 @@ main{
     height: 100%;
    
 }
-#grafico{
-  width:85%;
-  height:80%;
-}
-#container-grafico{
-  
-  height: 100%;
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
+#graphico{
+  height:100%;
 }
 
 #participantes{
@@ -116,3 +108,22 @@ thead {
   color:green;
 }
 
+#reto-description{
+  max-height: 20%;
+  height: 20%;
+  margin-left: 15px;
+}
+#candlestick{
+  max-height: 80%;
+  height: 80%;
+}
+select{
+  background-color: #9EBF95;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: solid 3px #688C5E;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
