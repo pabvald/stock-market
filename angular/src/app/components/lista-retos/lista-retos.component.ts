@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {CrearRetoComponent} from '../../crear-reto/crear-reto.component';
+import {CrearRetoComponent} from '../crear-reto/crear-reto.component';
 
 interface Challenge{
   id:number,

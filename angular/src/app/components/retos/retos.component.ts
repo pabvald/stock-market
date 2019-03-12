@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Price } from 'src/app/models/price';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
+declare let fc: any;
 
 
 interface UsuarioReto{ 
@@ -15,8 +17,9 @@ interface UsuarioReto{
 })
 export class RetosComponent implements OnInit {
 
-  participantes:UsuarioReto[];
-  searched_username:string;
+  participantes : UsuarioReto[];
+  searched_username : string;
+  data: Price[] = fc.randomFinancial()(50);
 
   constructor() { }
 
@@ -55,6 +58,7 @@ export class RetosComponent implements OnInit {
   getUserPosition(user:UsuarioReto){
     return this.participantes.indexOf(user)+1;
   }
+
   getSelectedUsers(){
       if(this.searched_username.trim())
         return this.participantes.filter(user => user.nombre.includes(this.searched_username.trim()));
