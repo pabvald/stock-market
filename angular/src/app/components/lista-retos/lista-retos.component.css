@@ -97,4 +97,16 @@ thead {
   z-index: 2;
 }
 
+.challenge_slot{
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.challenge_slot:hover{
+    background-color: #9EBF95;
+}
+
+
 

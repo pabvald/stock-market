@@ -17,11 +17,18 @@ main{
 	flex-direction: column;
 	justify-content: top;
 	align-items: center;
+	text-align: center;
 	padding-top: 25px;
 }
 
 #graphic{
 	grid-area: graphic;
+	border: 3px;
+    border-color: #688C5E;
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 7.5px;
+    margin-right: 10px;
 }
 #title-graphic{
 	text-align: center;
@@ -32,12 +39,19 @@ main{
 	grid-area: title;
 }
 #challenges{
+	border: 3px;
+    border-color: #688C5E;
+    border-radius: 5px;
+    border-style: solid;
 	grid-area: challenges;
 	position: relative;
 	min-height: 100px;
 	max-height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+	margin-bottom: 5px;
+    margin-right: 10px;
+    margin-top: 7.5px;
 }
 #challenges > p{
 	margin-left: 10px;

@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr (click)="onSelectCompany(c)" [class.selected]="selectedCompany === c" *ngFor="let c of getSearchedCompanies()">
+                <tr class = "company_slot"(click)="onSelectCompany(c)" [class.selected]="selectedCompany === c" *ngFor="let c of getSearchedCompanies()">
                     <td>{{ c.name }}</td>
                     <td>{{ c.code }}</td>
                     <td>{{ c.price }}</td>
