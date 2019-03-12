@@ -1,24 +1,24 @@
 main{
     display: grid;
-    grid-template-columns: 50% 50%;
     grid-template-rows: 100%;
     height: 100%;
-   
+    position: relative;
+    overflow: hidden;
 }
-#graphico{
-  height:100%;
-}
+
+
 
 #participantes{
     min-height: 100px;
     max-height: 100%;
-    margin-right:10px;
+   
     margin-bottom: 11px;
     position:relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     
+   
 }
 
 table{
@@ -27,14 +27,14 @@ table{
 }
 
 
-#tr-buscador-usuario{
+#tr-buscador-reto{
   padding:0px;
   margin:0px;
   background-color:#9EBF95;
     height:100%;
 }
 
-#buscador-usuario{
+#buscador-reto{
   border:0px;
    width:100%;
    margin:0px;
@@ -49,7 +49,7 @@ table{
  
   overflow: hidden;
 }
-#btn-unirse-reto{
+#btn-crear-reto{
   margin-top: 4px;
   background-color:#8C4830;
   color:white;
@@ -57,7 +57,7 @@ table{
   font-size:18px;
   margin-bottom:4px;
   border-radius:4px;
-  margin-right:15px;
+  margin-right:20px;
   max-width: 20%;
   float:right;
 }
@@ -67,8 +67,6 @@ table{
   border-spacing: 0; /* Estos dos sirven para que no haya un hueco entre la tabla y el thead */
   border-collapse: collapse;
   overflow-y: hidden
- 
-  
 }
 
 th{
@@ -84,12 +82,12 @@ td{
 
 #container-tabla{
   height:100%;
-  border:3px;
-  border-color:#688C5E;
-  border-style: solid;
-  border-radius:5px;
+  border-top:1px solid;
+  border-bottom: 1px solid;
+ 
   overflow-y: auto;
   margin-top: 1px;
+  
 }
 
 thead {
@@ -100,30 +98,3 @@ thead {
 }
 
 
-.variacionNegativa{
-  color:red;
-}
-
-.variacionPositiva{
-  color:green;
-}
-
-#reto-description{
-  max-height: 20%;
-  height: 20%;
-  margin-left: 15px;
-}
-#candlestick{
-  max-height: 80%;
-  height: 80%;
-}
-select{
-  background-color: #9EBF95;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  border: solid 3px #688C5E;
-  border-radius: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}

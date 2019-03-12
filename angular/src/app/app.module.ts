@@ -11,6 +11,7 @@ import { MarketComponent } from "./components/markets";
 import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
 import { CandlestickComponent } from "./components/candlestick";
+import { ListaRetosComponent } from './components/lista-retos/lista-retos.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ProfileComponent } from "./components/profile/profile.component";
 import { TrainingComponent } from './components/training/training.component';
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
   {path: "recover", component: RecoverComponent},
   {path: "mercado", component: MarketComponent},
   {path: "cartera", component: PortfolioComponent},
-  {path: "retos", component: RetosComponent},
+  {path: "retos/:id", component: RetosComponent},
+  {path: "retos", component:ListaRetosComponent},
   {path: "contacto", component: ContactComponent},
   {path: "perfil", component: ProfileComponent},
   {path: "training", component: TrainingComponent},
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
     PortfolioComponent,
     RetosComponent,
     CandlestickComponent,
+    ListaRetosComponent,
     ContactComponent,
     ProfileComponent,
     TrainingComponent
