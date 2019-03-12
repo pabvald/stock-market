@@ -1,24 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoot } from './components/app';
 import { LoginComponent } from "./components/login";
+import { RecoverComponent } from "./components/recover";
 import { RegisterComponent } from "./components/register";
 import { MarketComponent } from "./components/markets";
 import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
-import { FormsModule } from '@angular/forms';
 import { CandlestickComponent } from "./components/candlestick";
 import { ListaRetosComponent } from './components/lista-retos/lista-retos.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ProfileComponent } from "./components/profile/profile.component";
+import { TrainingComponent } from './components/training/training.component';
 
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
+  {path: "recover", component: RecoverComponent},
   {path: "mercado", component: MarketComponent},
   {path: "cartera", component: PortfolioComponent},
   {path: "retos/:id", component: RetosComponent},
   {path: "retos", component:ListaRetosComponent},
+  {path: "contacto", component: ContactComponent},
+  {path: "perfil", component: ProfileComponent},
+  {path: "training", component: TrainingComponent},
   {path: "", redirectTo: "/mercado", pathMatch: "full"}
 ];
 
@@ -26,12 +34,16 @@ const appRoutes: Routes = [
   declarations: [
     AppRoot,
     LoginComponent,
+    RecoverComponent,
     RegisterComponent,
     MarketComponent,
     PortfolioComponent,
     RetosComponent,
     CandlestickComponent,
     ListaRetosComponent,
+    ContactComponent,
+    ProfileComponent,
+    TrainingComponent
   ],
   imports: [
     BrowserModule,
