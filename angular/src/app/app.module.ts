@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoot } from './components/app';
@@ -12,6 +13,7 @@ import { PortfolioComponent } from "./components/portfolio";
 import { RetosComponent } from './components/retos/retos.component';
 import { CandlestickComponent } from "./components/candlestick";
 import { ListaRetosComponent } from './components/lista-retos/lista-retos.component';
+import { CrearRetoComponent } from './components/crear-reto/crear-reto.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ProfileComponent } from "./components/profile/profile.component";
 import { TrainingComponent } from './components/training/training.component';
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     RetosComponent,
     CandlestickComponent,
     ListaRetosComponent,
+    CrearRetoComponent,
     ContactComponent,
     ProfileComponent,
     TrainingComponent
@@ -48,8 +51,10 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
+  entryComponents: [CrearRetoComponent],
   providers: [],
   bootstrap: [AppRoot]
 })
