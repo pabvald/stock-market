@@ -1,47 +1,34 @@
-<div id="main">
+<main>
     <div id="graphic-container"> 
-        <span  id="graphic-title">{{selectedCompany.name}}</span>
-        <select class="graphic-select" id="graphic-time">
-        </select>
-        <select class="graphic-select" id="graphic-indicator">
-            <option value="MMS">Media móvil simple </option>
-            <option value="MME">Media móvil exponencial </option>            
-        </select>
+        <div id="flex-head-graphic">           
+            <span  id="graphic-indicator-title">Indicador: </span>
+            <select  id="graphic-indicator" [(ngModel)]="selectedIndicator">
+                <option *ngFor="let i of indicators" value="{{i.name}}" [attr.selected]="i === selectedIndicator">{{i.displayName}}</option>                
+            </select>
+            <span  id="graphic-title">{{selectedCompany.name}}</span>
+        </div>
         <figure id="graphic">
             <img src="/assets/markets-graphic.jpg" width="500px" alt="Gráfico">
             <figcaption>Evolución del precio de {{ selectedCompany.name }}</figcaption>
         </figure>
+        
     </div>
     <div id="companies-container">  
         <div id="search-bar">
             <form>
                 <div id="grid-search">
-                    <span id="search-title">  Buscar</span>
+                    <span id="search-title"> Buscar</span>
                     <label id="search-name-title">Nombre</label>
                     <label id="search-code-tile">Código</label>
                     <label id="search-minPrice-title">Precio mínimo</label>
-                    <label id="search-maxPrice-title">Precio máximo</label>
-            
-                    <input id="search-name" type="text" name="searchName"  size=18 placeholder="Ej: Intel" /> 
-                    <input id="search-code" type="text" name="searchCode" size=5 placeholder="Ej: INTC"/> 
-                    <select id="search-minPrice" name="minPrice">
-                        <option value="0">0</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                        <option value="60">60</option>
-                        <option value="70">70 o más</option>
+                    <label id="search-maxPrice-title">Precio máximo</label>            
+                    <input id="search-name" type="text" name="searchName"  size=18 placeholder="Ej: Intel" [(ngModel)]="searchedName"/> 
+                    <input id="search-code" type="text" name="searchCode" size=5 placeholder="Ej: INTC" [(ngModel)]="searchedCode"/> 
+                    <select id="search-minPrice" name="minPrice" [(ngModel)]="lowerPrice" >
+                        <option *ngFor="let price of lowerEndsPrice" value="{{price}}" [attr.selected]="price === lowerPrice">{{price}}</option>                        
                     </select>
-                    <select id="search-maxPrice" name="maxPrice">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                        <option value="60">60</option>
-                        <option value="70">70 o más</option>
+                    <select id="search-maxPrice" name="maxPrice" [(ngModel)]="upperPrice" >
+                        <option *ngFor="let price of upperEndsPrice" value="{{price}}" [attr.selected]="price === upperPrice">{{price}}</option>                        
                     </select>
                 </div>
             </form>
@@ -56,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr (click)="onSelect(c)" [class.selected]="selectedCompany === c" *ngFor="let c of companies">
+                <tr (click)="onSelectCompany(c)" [class.selected]="selectedCompany === c" *ngFor="let c of getSearchedCompanies()">
                     <td>{{ c.name }}</td>
                     <td>{{ c.code }}</td>
                     <td>{{ c.price }}</td>
@@ -97,4 +84,4 @@
         </div>
     </div> 
 
-</div>  
+</main>  

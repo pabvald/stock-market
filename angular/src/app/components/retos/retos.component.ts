@@ -15,8 +15,8 @@ interface UsuarioReto{
 })
 export class RetosComponent implements OnInit {
 
-  participantes:UsuarioReto[];
-  searched_username:string;
+  participantes : UsuarioReto[];
+  searched_username : string;
 
   constructor() { }
 
@@ -55,6 +55,7 @@ export class RetosComponent implements OnInit {
   getUserPosition(user:UsuarioReto){
     return this.participantes.indexOf(user)+1;
   }
+
   getSelectedUsers(){
       if(this.searched_username.trim())
         return this.participantes.filter(user => user.nombre.includes(this.searched_username.trim()));
