@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/../../angular/dist"));
 
 app.get("/*",function(req,res){
-	res.sendFile("index.html",{root: __dirname});
+	res.sendFile("index.html",{root: __dirname + "/../../angular/dist"});
 });
 
 
