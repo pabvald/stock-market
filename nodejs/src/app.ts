@@ -1,4 +1,5 @@
 import express from "express";
+import { Worker } from "worker_threads";
 let app = express();
 let server = require("http").Server(app);
 const bodyParser = require("body-parser");
@@ -21,4 +22,9 @@ app.get("/*",function(req,res){
 
 server.listen(process.env.PORT || 9999, function(){
 	console.log("Server OK. Listening on: "+(process.env.PORT || 9999));
+});
+
+let worker = new Worker(__dirname + "/data/index.js");
+worker.on("online",()=>{
+	console.log("Data worker started OK");
 });
