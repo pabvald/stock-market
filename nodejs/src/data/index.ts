@@ -27,4 +27,4 @@ async function update(){
     console.log("END UPDATING TASK");
 }
 update();
-setTimeout(update,1000);
+setInterval(update,1000*60); // Cada minuto
