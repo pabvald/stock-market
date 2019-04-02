@@ -18,6 +18,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ProfileComponent } from "./components/profile/profile.component";
 import { TrainingComponent } from './components/training/training.component';
 
+import { DataService } from "./services/data";
+import { HttpClientModule } from '@angular/common/http';
+
 const appRoutes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
@@ -52,7 +55,8 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   entryComponents: [CrearRetoComponent],
   providers: [],

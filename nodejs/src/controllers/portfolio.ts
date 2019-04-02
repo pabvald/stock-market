@@ -2,7 +2,7 @@ import { db } from "../db";
 
 export async function getPortfolioSummary(req: any,res: any){
     let nickname = req.params.nickname;
-    let data = await  db.query(`
+    let data = await db.query(`
     WITH AccionesSinVender AS (
         SELECT T1.id
         FROM transaccion T1
@@ -47,5 +47,7 @@ export async function getPortfolioSummary(req: any,res: any){
             activeActions[row.origen].quantity -= row.cantidad;
         }
     }
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(Object.values(activeActions));
 }

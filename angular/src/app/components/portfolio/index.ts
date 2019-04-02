@@ -1,12 +1,8 @@
-import { Component, ViewChildren } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, NgZone } from "@angular/core";
 import { Price } from 'src/app/models/price';
+import { Company } from 'src/app/models/company';
+import { DataService } from 'src/app/services/data';
 declare let fc: any;
-
-interface Company{
-    name: string,
-    code: string,
-    price: number,
-}
 
 interface Action{
     action: string;
@@ -21,208 +17,20 @@ interface Action{
     templateUrl: "portfolio.html",
     styleUrls: ["portfolio.css"]
 })
-export class PortfolioComponent {
+export class PortfolioComponent implements OnInit {
     company: Company;
 
-    companies: Company[];
+    companies: Company[] = [];
 
     history: Action[];
 
     randomData: Price[] = null;
 
-    constructor(){
-        this.companies =[
-        {
-            name: "Google",
-            code: "GOOG",
-            price: 45
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        },{
-            name: "Microsoft",
-            code: "MSFT",
-            price: 23
-        }];
+    ngOnInit(){
+        this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
+    }
 
-        this.companies.sort((a,b) =>{
-            if(a.name < b.name) return -1;
-            if(a.name > b.name) return 1;
-            return 0;
-        });
+    constructor(private data: DataService, private zone: NgZone ){
 
         this.history = [{
             action: "Comprar",
@@ -273,6 +81,15 @@ export class PortfolioComponent {
             quantity: 7,
             price: 6
         }];
+    }
+
+    updatePortfolio(portfolio: Company[]){
+        this.companies = portfolio;
+        this.companies.sort((a,b) =>{
+            if(a.name < b.name) return -1;
+            if(a.name > b.name) return 1;
+            return 0;
+        });
     }
 
     show(c: Company){
