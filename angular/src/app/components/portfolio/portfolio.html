@@ -9,6 +9,7 @@
                     <th>Empresa</th>
                     <th>Código</th>
                     <th>Precio</th>
+                    <th>Cantidad</th>
                     <th>¿Vender?</th>
                 </tr>
             </thead>
@@ -17,6 +18,7 @@
                     <td>{{ c.name }}</td>
                     <td>{{ c.code }}</td>
                     <td>{{ c.price }}</td>
+                    <td>{{ c.quantity }}</td>
                     <td *ngIf="company===c">
                         <button>Vender</button>
                     </td>
