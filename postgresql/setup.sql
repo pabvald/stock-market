@@ -53,12 +53,14 @@ CREATE TABLE transaccion (
     usuario TEXT NOT NULL,
     cantidad INT NOT NULL,
     fecha TIMESTAMP NOT NULL,
-    tipo VARCHAR(6) NOT NULL,
+    producto VARCHAR(6) NOT NULL,
+    origen INT,
     precioAccion INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (usuario) REFERENCES usuario(nickname),
     FOREIGN KEY (precioAccion) REFERENCES precioaccion(id),
+    FOREIGN KEY (origen) REFERENCES transaccion(id),
     CHECK (cantidad > 0),
-    CHECK (tipo IN ('venta','compra'))
+    CHECK (producto IN ('accion'))
 );
 
