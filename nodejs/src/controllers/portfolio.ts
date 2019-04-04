@@ -51,3 +51,29 @@ export async function getPortfolioSummary(req: any,res: any){
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(Object.values(activeActions));
 }
+
+export async function getHistory(req: any, res: any){
+    let nickname = req.params.nickname;
+    let data = await db.query(`
+    SELECT T.origen, E.nombre, T.fecha, T.cantidad, PA.precio
+    FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
+        JOIN empresa E ON PA.empresa=E.codigo
+    WHERE
+        T.usuario = $1
+    ORDER BY T.fecha DESC
+    `,[nickname]);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    let actionHistory = new Array();
+    for(let row of data.rows){
+        actionHistory.push({
+            action: row.origen ? "sell" : "buy",
+            company: row.nombre,
+            date: row.fecha,
+            quantity: row.cantidad,
+            price: row.precio
+        });
+    }
+    res.send(actionHistory);
+}
