@@ -1,16 +1,11 @@
 import { Component, ChangeDetectorRef, OnInit, NgZone } from "@angular/core";
 import { Price } from 'src/app/models/price';
 import { Company } from 'src/app/models/company';
+import { Action } from 'src/app/models/action';
 import { DataService } from 'src/app/services/data';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 declare let fc: any;
-
-interface Action{
-    action: string;
-    company: string;
-    date: Date;
-    quantity: number;
-    price: number;
-}
 
 @Component({
     selector: "portfolio-user",
@@ -28,59 +23,17 @@ export class PortfolioComponent implements OnInit {
 
     ngOnInit(){
         this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
+        this.data.getPortfolioHistory("aarroyoc").subscribe((data)=>this.updateHistory(data));
+        // MOSTRAR GRAFICOS
+        // CALCULAR BENEFICIOS
+        // FORMATO DECIMALES
+        // BOTON VENDER
+        // ACTUALIZAR INFO GENERICA
+        
     }
 
-    constructor(private data: DataService, private zone: NgZone ){
+    constructor(private data: DataService){
 
-        this.history = [{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        },{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        },{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        },{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        }];
     }
 
     updatePortfolio(portfolio: Company[]){
@@ -89,6 +42,17 @@ export class PortfolioComponent implements OnInit {
             if(a.name < b.name) return -1;
             if(a.name > b.name) return 1;
             return 0;
+        });
+    }
+
+    updateHistory(history: Action[]){
+        this.history = history.map((h)=>{
+            if(h.action == "buy"){
+                h.action = "Compra";
+            }else if(h.action == "sell"){
+                h.action = "Venta";
+            }
+            return h;
         });
     }
 
