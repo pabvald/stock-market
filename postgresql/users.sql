@@ -1,6 +1,6 @@
-INSERT INTO usuario VALUES ('aarroyoc','Adrián Arroyo','7777','adrian.arroyo.calle@alumnos.uva.es',9500,'pato.png','Illuminati confirmed'),
-							 ('jugonza','Juan González','contraseña','juan.gonzalez.caminero@alumnos.uva.es',17874,'rickastley.jpeg','Paralelizar hasta reventar');
-							 ('willyrex','Willy Rex','totallynotplaintext','willyrex@minecraft.ad',999999,'willy.jpeg','Staying alive');
+INSERT INTO usuario VALUES  ('aarroyoc',    'Adrián Arroyo','7777',                 'adrian.arroyo.calle@alumnos.uva.es',   9500,   'pato.png',         'Illuminati confirmed'),
+							 ('jugonza',    'Juan González','contraseña',           'juan.gonzalez.caminero@alumnos.uva.es',17874,  'rickastley.jpeg',  'Paralelizar hasta reventar'),
+							 ('willyrex',   'Willy Rex',    'totallynotplaintext',  'willyrex@minecraft.ad',                999999, 'willy.jpeg',       'Staying alive');
 -- Añadir transacciones fake
 INSERT INTO transaccion
 VALUES
