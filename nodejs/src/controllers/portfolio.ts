@@ -52,8 +52,6 @@ export async function getPortfolioSummary(req: any,res: any){
     let nickname = req.params.nickname;
     let activeActions = await portfolio(nickname);
     
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(Object.values(activeActions));
 }
 
@@ -68,8 +66,7 @@ export async function getHistory(req: any, res: any){
         T.usuario = $1
     ORDER BY T.fecha DESC
     `,[nickname]);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
     let actionHistory = new Array();
     for(let row of data.rows){
         actionHistory.push({
@@ -92,10 +89,11 @@ export async function sellActions(req: any, res: any){
     let buyId = req.body.id;
     let quantity = req.body.quantity;
     let nickname = req.body.nickname;
-    // COMPROBAR USUARIO
-    // COMPROBAR CANTIDAD
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    if(req.session.nickname != nickname){
+        res.status(403).send({ok: false});
+        return;
+    }
 
     let activeActions = await portfolio(nickname);
     if(activeActions[buyId]){

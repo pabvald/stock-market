@@ -1,10 +1,10 @@
 <main>
-    <form>
+    <form (ngSubmit)="submit()">
         <img src="/assets/texto.png">
         <label for="username">Usuario</label>
-        <input type="text" id="username" placeholder="Usuario">
+        <input type="text" [(ngModel)]="form.nickname" name="nickname" id="username" placeholder="Usuario">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="Contraseña">
+        <input type="password" [(ngModel)]="form.password" name="nickname" id="password" placeholder="Contraseña">
         <input type="submit" value="Iniciar sesión">
         <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
         <p>¿Has olvidado la contraseña? <a routerLink="/recover">Recupérala</a></p>

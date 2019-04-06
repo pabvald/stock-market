@@ -3,25 +3,35 @@ import { Worker } from "worker_threads";
 let app = express();
 let server = require("http").Server(app);
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
-import { echo, get_users } from './controllers/echo';
+import { echo, ping } from './controllers/echo';
 import { getPortfolioSummary, getHistory, sellActions } from "./controllers/portfolio";
 import { getUserGroups } from "./controllers/groups";
+import { login, register } from "./controllers/login";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + "/../../angular/dist"));
 
+app.use(session({
+	secret: "TuringCompleto",
+	resave: false,
+	saveUninitialized: true
+}));
+
 app.get("/api/echo",echo);
-app.get("/api/list_users",get_users);
+app.get("/api/ping",ping);
 app.get("/api/portfolio/:nickname",getPortfolioSummary);
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
 
 app.post("/api/portfolio/sell",sellActions);
+app.post("/api/login",login);
+app.post("/api/register",register);
 /* CORS THING */
-app.options("/api/portfolio/sell",(req,res)=>{
+app.options("/*",(req,res)=>{
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.sendStatus(200);
