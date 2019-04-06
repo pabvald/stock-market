@@ -6,13 +6,11 @@ const INTERVALS = 50;      // Number of INTERVALS used to build the candlestick 
 
 /**
  * Get the evolution of a company's price.
- * @param req 
- * @param res  
+ * @param code - the code of the company whose evolution is obtained.
  */
-export async function getCompanyEvolution( req : any, res : any) {   
+export async function companyEvolution( code : string ) : Promise<any> {   
     let price : Price;
     let data;
-    let code = req.params.codigo;      // Company code 
     let evolution : Price[] = [];      
     
     try {
@@ -24,8 +22,8 @@ export async function getCompanyEvolution( req : any, res : any) {
                     SELECT * 
                     FROM precioaccion P1 
                     WHERE P1.empresa = $1 AND 
-                          P1.fecha <= current_timestamp - ($2*15 ||' minutes')::interval  AND 
-                          P1.fecha > current_timestamp -  (($2+1)*15 ||' minutes')::interval 
+                          P1.fecha <= current_timestamp - ( $2*15    || ' minutes')::interval  AND 
+                          P1.fecha > current_timestamp  - (($2+1)*15 || ' minutes')::interval 
                     ORDER BY P1.fecha ASC
                 
                 ),  IntervalDesc AS (
@@ -53,7 +51,6 @@ export async function getCompanyEvolution( req : any, res : any) {
                     (SELECT * FROM IntervalDesc LIMIT 1) C;                     
             `, [code, i]);
             
-            price = new Price();
 
             if (data.rows.length != 0 ) {
                 price = {
@@ -85,3 +82,17 @@ export async function getCompanyEvolution( req : any, res : any) {
     return evolution;
 }
 
+
+/**
+ * Get the evolution of a company's price. 
+ * @param req 
+ * @param res 
+ */
+export async function getCompanyEvolution(req : any, res : any ) {
+    let code = req.params.codigo;
+    let evolution = await companyEvolution(code);
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.send(evolution);
+}
