@@ -14,6 +14,7 @@ declare let fc: any;
 })
 export class PortfolioComponent implements OnInit {
     company: Company;
+    numSellActions: number;
 
     companies: Company[] = [];
 
@@ -22,14 +23,20 @@ export class PortfolioComponent implements OnInit {
     randomData: Price[] = null;
 
     ngOnInit(){
-        this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
-        this.data.getPortfolioHistory("aarroyoc").subscribe((data)=>this.updateHistory(data));
+        this.update();
         // MOSTRAR GRAFICOS
         // CALCULAR BENEFICIOS
         // FORMATO DECIMALES
         // BOTON VENDER
         // ACTUALIZAR INFO GENERICA
-        
+        // LOGIN
+        // Quitar CORS
+        // Pasos instalación
+    }
+
+    update(){
+        this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
+        this.data.getPortfolioHistory("aarroyoc").subscribe((data)=>this.updateHistory(data));
     }
 
     constructor(private data: DataService){
@@ -59,5 +66,23 @@ export class PortfolioComponent implements OnInit {
     show(c: Company){
         this.company=c;
         this.randomData = fc.randomFinancial()(50);
+    }
+
+    sell(){
+        if(this.numSellActions < 1 && this.numSellActions > this.company.quantity){
+            return;
+        }
+        let data = {
+            id: this.company.id,
+            quantity: this.numSellActions,
+            nickname: "aarroyoc"
+        };
+        this.data.sellActions(data).subscribe((text)=>{
+            if(text.ok){
+                this.update();
+            }else{
+                alert("Hubo un problema con la petición");
+            }
+        })
     }
 }

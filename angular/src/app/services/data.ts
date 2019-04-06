@@ -20,4 +20,9 @@ export class DataService {
         let req = this.http.get<Action[]>(`${this.base}/api/portfolio/history/${nickname}`);
         return req;
     }
+
+    sellActions(data: any): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/portfolio/sell`,data);
+        return req;
+    }
 } 
