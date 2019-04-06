@@ -27,7 +27,6 @@ export class PortfolioComponent implements OnInit {
         // MOSTRAR GRAFICOS
         // CALCULAR BENEFICIOS
         // FORMATO DECIMALES
-        // BOTON VENDER
         // ACTUALIZAR INFO GENERICA
         // LOGIN
         // Quitar CORS
