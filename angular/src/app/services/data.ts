@@ -22,12 +22,11 @@ export class DataService {
         return req;
     }
 
-    createChallenge(nombre, descripcion, fechaIni, fechaFin, creador): Observable<{id:number}>{
+    createChallenge(nombre, descripcion, fechaIni, fechaFin): Observable<{id:number}>{
         let postData = { nombre:nombre,
             descripcion:descripcion,
             fechainicio:fechaIni,
             fechafin:fechaFin,
-            creador: creador
         };
         let req = this.http.post<{id:number}>(`${this.base}/api/createChallenge`,postData);
         return req;

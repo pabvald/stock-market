@@ -2,11 +2,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div id="container">
-  <i class="fa fa-times exit fa-2x" aria-hidden="true"></i>
+  <i class="fa fa-times exit fa-2x" (click)="close()" aria-hidden="true"></i>
   <div id="crear-reto">
-      <h2 id="lbl-crear">Crear un reto</h2>
+     
       <form [formGroup]="form">
       <table>
+        <h2 id="lbl-crear">Crear un reto</h2>
         <tbody>
           <tr>
             <td>Nombre</td>

@@ -32,7 +32,7 @@ export async function createChallenge(req: any,res: any){
     let descripcion = req.body.descripcion;
     let fechaini = req.body.fechainicio;
     let fechafin = req.body.fechafin;
-    let creador = req.body.creador;
+    let creador = req.session.nickname;
 
     let query = await db.query(`
     INSERT INTO Reto (id,nombre,descripcion,fechaInicio,fechaFin,creador)

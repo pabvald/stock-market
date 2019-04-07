@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/services/data';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import {CHALLENGE_NAME_MAX_LENGTH} from 'src/app/models/challenge';
 
 @Component({
   selector: 'app-crear-reto',
@@ -42,6 +42,12 @@ export class CrearRetoComponent implements OnInit {
       if (this.form.get("nombre").invalid){
         valid = false;
         this.nameError = "El reto debe tener un nombre";
+      }
+      let nombre:String = this.form.get("nombre").value;
+
+      if (nombre!=null && nombre.length>CHALLENGE_NAME_MAX_LENGTH){
+        valid = false;
+        this.nameError = `El tamaño máximo de un reto es ${CHALLENGE_NAME_MAX_LENGTH}`;
       }
 
       if(this.form.get("fechaIni").invalid){
@@ -83,18 +89,21 @@ export class CrearRetoComponent implements OnInit {
 
      
       if (valid){
-        let nombre = this.form.get("nombre").value;
-      let descripcion = this.form.get("descripcion").value;
+        let descripcion = this.form.get("descripcion").value;
      
-        let pipo = this.data.createChallenge(nombre,descripcion,fechaIni,fechaFin,null);
+        let creation = this.data.createChallenge(nombre,descripcion,fechaIni,fechaFin);
         
-        pipo.subscribe((data)=>{
+        creation.subscribe((data)=>{
           this.router.navigateByUrl(`/challenge/${data.id}`);
-         this.activeModal.close()}
-          );
+         this.close();
+        });
       }
      
     
+  }
+
+  close(){
+    this.activeModal.close();
   }
 
 

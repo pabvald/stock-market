@@ -12,21 +12,29 @@ import {DataService} from 'src/app/services/data';
 export class ListaRetosComponent implements OnInit {
 
   retos:Challenge[];
+  searched_challenge:String;
 
   constructor(private modalService: NgbModal, private data:DataService) { }
 
   ngOnInit() {
     this.data.getChallengeList().subscribe((data)=>this.setRetos(data));
+    this.searched_challenge="";
   }
 
   setRetos(retos:Challenge[]){
-    this.retos = retos;
+   this.retos = retos;
   }
   getSelectedChallenges():Challenge[]{
-    return this.retos;
+    if(this.searched_challenge.trim())
+      return this.retos.filter(challenge => challenge.nombre.toLowerCase().includes(this.searched_challenge.trim().toLowerCase()));
+    else
+      return this.retos;
   }
 
   create_challenge_clicked() {
-    const modalRef = this.modalService.open(CrearRetoComponent);
+    this.modalService.open(CrearRetoComponent);
   }
+
+
+
 }
