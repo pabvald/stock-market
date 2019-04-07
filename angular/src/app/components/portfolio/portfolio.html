@@ -20,7 +20,8 @@
                     <td>{{ c.price }}</td>
                     <td>{{ c.quantity }}</td>
                     <td *ngIf="company===c">
-                        <button>Vender</button>
+                        <input type="number" min="1" max="{{ c.quantity }}" [(ngModel)]="numSellActions">
+                        <button (click)="sell()">Vender</button>
                     </td>
                 </tr>
             </tbody>

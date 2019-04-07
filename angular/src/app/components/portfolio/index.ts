@@ -1,16 +1,11 @@
 import { Component, ChangeDetectorRef, OnInit, NgZone } from "@angular/core";
 import { Price } from 'src/app/models/price';
 import { Company } from 'src/app/models/company';
+import { Action } from 'src/app/models/action';
 import { DataService } from 'src/app/services/data';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 declare let fc: any;
-
-interface Action{
-    action: string;
-    company: string;
-    date: Date;
-    quantity: number;
-    price: number;
-}
 
 @Component({
     selector: "portfolio-user",
@@ -19,6 +14,7 @@ interface Action{
 })
 export class PortfolioComponent implements OnInit {
     company: Company;
+    numSellActions: number;
 
     companies: Company[] = [];
 
@@ -27,60 +23,23 @@ export class PortfolioComponent implements OnInit {
     randomData: Price[] = null;
 
     ngOnInit(){
-        this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
+        this.update();
+        // MOSTRAR GRAFICOS
+        // CALCULAR BENEFICIOS
+        // FORMATO DECIMALES
+        // ACTUALIZAR INFO GENERICA
+        // LOGIN
+        // Quitar CORS
+        // Pasos instalación
     }
 
-    constructor(private data: DataService, private zone: NgZone ){
+    update(){
+        this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
+        this.data.getPortfolioHistory("aarroyoc").subscribe((data)=>this.updateHistory(data));
+    }
 
-        this.history = [{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        },{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        },{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        },{
-            action: "Comprar",
-            company: "Google",
-            date: new Date(),
-            quantity: 5,
-            price: 42
-        },{
-            action: "Vender",
-            company: "Microsoft",
-            date: new Date(),
-            quantity: 7,
-            price: 6
-        }];
+    constructor(private data: DataService){
+
     }
 
     updatePortfolio(portfolio: Company[]){
@@ -92,8 +51,37 @@ export class PortfolioComponent implements OnInit {
         });
     }
 
+    updateHistory(history: Action[]){
+        this.history = history.map((h)=>{
+            if(h.action == "buy"){
+                h.action = "Compra";
+            }else if(h.action == "sell"){
+                h.action = "Venta";
+            }
+            return h;
+        });
+    }
+
     show(c: Company){
         this.company=c;
         this.randomData = fc.randomFinancial()(50);
+    }
+
+    sell(){
+        if(this.numSellActions < 1 && this.numSellActions > this.company.quantity){
+            return;
+        }
+        let data = {
+            id: this.company.id,
+            quantity: this.numSellActions,
+            nickname: "aarroyoc"
+        };
+        this.data.sellActions(data).subscribe((text)=>{
+            if(text.ok){
+                this.update();
+            }else{
+                alert("Hubo un problema con la petición");
+            }
+        })
     }
 }
