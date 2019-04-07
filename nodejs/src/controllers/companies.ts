@@ -1,4 +1,6 @@
 import { db } from "../db";
+import { Price } from "../../../angular/src/app/models/price";
+import { Company } from "../../../angular/src/app/models/company";
 
 
 const INTERVALS = 50;      // Number of INTERVALS used to build the candlestick chart.
@@ -7,15 +9,15 @@ const INTERVALS = 50;      // Number of INTERVALS used to build the candlestick 
  * Get the evolution of a company's price.
  * @param code - the code of the company whose evolution is obtained.
  */
-export async function companyEvolution( code : string ) : Promise<any> {   
-    let price : any;
+async function companyEvolution( code : string ) : Promise<any> {   
+    let price : Price;
     let data;
-    let evolution : any[] = [];      
+    let noMore : boolean = false;
+    let evolution : Price[] = [];      
     
     try {
 
-        for(let i = 0; i < INTERVALS; i++ ) {
-            
+        for(let i = 0; i < INTERVALS && !noMore; i++ ) {            
             data = await db.query(`
                 WITH IntervalAsc AS (
                     SELECT * 
@@ -59,20 +61,12 @@ export async function companyEvolution( code : string ) : Promise<any> {
                     close : data.rows[0].close,
                     date : data.rows[0].date,
                     volume : data.rows[0].count
-               };
+                };              
+                evolution.push(price);
+                
             } else { 
-                price = {
-                    high : 0,
-                    low : 0,
-                    open : 0,
-                    close : 0,
-                    date : null,
-                    volume : 0,
-               };
-            } 
-
-            // Add the price to the evolution array 
-            evolution.push(price);
+               noMore = true;
+            }           
         }
 
     } catch(err) {
@@ -84,14 +78,57 @@ export async function companyEvolution( code : string ) : Promise<any> {
 
 /**
  * Get the evolution of a company's price. 
- * @param req 
- * @param res 
+ * @param req - http request 
+ * @param res - http response
  */
 export async function getCompanyEvolution(req : any, res : any ) {
-    let code = req.params.codigo;
-    let evolution = await companyEvolution(code);
+    let code = req.params.code;
+    let evolution = null; 
+    try {
+       evolution =  await companyEvolution(code);       
+    } catch(err) {
+        res.status(500).send({ok: false});
+    }    
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(evolution);
+}
+
+
+
+/**
+ * Get all the companies with its current price in the stock market.
+ * @param req - http request
+ * @param res - http response
+ */
+export async function getMarket(req : any, res : any ) {
+    let data;
+    let companies = new Array();
+    
+    try {
+        data = await db.query(`
+            SELECT DISTINCT C.codigo as code, C.nombre as name, P.precio as price, P.id as id
+            FROM empresa C , precioaccion P  
+            WHERE P.empresa=C.codigo AND
+            P.fecha >= ALL (SELECT P2.fecha 
+                            FROM precioaccion P2 
+                            WHERE P2.empresa=P.empresa);
+        `,[]);
+
+        for (let row of data.rows) {
+            companies.push({
+                name : row.name,
+                code : row.code,
+                price : row.price,
+                id : row.id,
+                quantity : null,              
+            });
+        }
+
+        res.send(companies);        
+
+    } catch (err) {
+        res.status(500).send({ok: false});
+    }
 }

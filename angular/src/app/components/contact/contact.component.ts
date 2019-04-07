@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, NgZone } from "@angular/core";
+import { DataService } from 'src/app/services/data';
+import { EmailForm } from '../../models/forms/email';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -6,10 +9,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+  
+    form : EmailForm;
+    error : string = "";
 
-  constructor() { }
+    constructor( private dataService : DataService ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() { }
+
+    /**
+     * 
+     */
+    submit() {
+        this.error = "";
+
+        if (this.form.address == "") {
+          this.error = "Introduzca una dirección de correo electrónico, por favor.";
+          return; 
+        }
+        if (this.form.subject == "") {
+          this.error = "Introduzca el asunto de su mensaje, por favor.";
+          return;
+        }
+        if (this.form.body == "") {
+          this.error = "Escriba un mensaje, por favor.";
+          return;
+        }
+
+        this.dataService.sendEmail(this.form).subscribe((data) => {
+          if (data.ok) {
+            alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
+            window.location.href = "/";
+          } else {
+            alert("Su mensaje no ha podido ser enviado. Por favor, inténtelo de nuevo más tarde.")
+          }
+        });
+    }
 
 }
