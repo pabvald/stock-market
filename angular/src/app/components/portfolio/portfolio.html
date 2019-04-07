@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="nickname">
     <section id="graphics">
         <candlestick [data]="randomData"></candlestick>
     </section>
@@ -60,4 +60,7 @@
         <br>
         Dinero gastado en comisiones: 50$
     </section>
+</main>
+<main *ngIf="!nickname">
+    <p>Esta parte de la página es exclusiva para usuarios registrados</p>
 </main>

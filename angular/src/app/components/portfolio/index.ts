@@ -5,6 +5,7 @@ import { Action } from 'src/app/models/action';
 import { DataService } from 'src/app/services/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StateService } from 'src/app/services/state';
 declare let fc: any;
 
 @Component({
@@ -13,6 +14,7 @@ declare let fc: any;
     styleUrls: ["portfolio.css"]
 })
 export class PortfolioComponent implements OnInit {
+    nickname: string;
     company: Company;
     numSellActions: number;
 
@@ -29,17 +31,16 @@ export class PortfolioComponent implements OnInit {
         // FORMATO DECIMALES
         // ACTUALIZAR INFO GENERICA
         // LOGIN
-        // Quitar CORS
         // Pasos instalación
     }
 
     update(){
-        this.data.getPortfolioSummary("aarroyoc").subscribe((data)=>this.updatePortfolio(data));
-        this.data.getPortfolioHistory("aarroyoc").subscribe((data)=>this.updateHistory(data));
+        this.data.getPortfolioSummary(this.state.nickname).subscribe((data)=>this.updatePortfolio(data));
+        this.data.getPortfolioHistory(this.state.nickname).subscribe((data)=>this.updateHistory(data));
     }
 
-    constructor(private data: DataService){
-
+    constructor(private data: DataService, private state: StateService){
+        this.nickname = state.nickname;
     }
 
     updatePortfolio(portfolio: Company[]){
