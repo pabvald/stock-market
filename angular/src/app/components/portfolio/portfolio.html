@@ -9,6 +9,7 @@
                     <th>Empresa</th>
                     <th>Código</th>
                     <th>Precio</th>
+                    <th>Variación</th>
                     <th>Cantidad</th>
                     <th>¿Vender?</th>
                 </tr>
@@ -18,6 +19,7 @@
                     <td>{{ c.name }}</td>
                     <td>{{ c.code }}</td>
                     <td>{{ c.price }}</td>
+                    <td>{{ c.benefit }}</td>
                     <td>{{ c.quantity }}</td>
                     <td *ngIf="company===c">
                         <input type="number" min="1" max="{{ c.quantity }}" [(ngModel)]="numSellActions">

@@ -44,6 +44,7 @@ export class PortfolioComponent implements OnInit {
     }
 
     updatePortfolio(portfolio: Company[]){
+        console.log(portfolio);
         this.companies = portfolio;
         this.companies.sort((a,b) =>{
             if(a.name < b.name) return -1;
@@ -74,8 +75,7 @@ export class PortfolioComponent implements OnInit {
         }
         let data = {
             id: this.company.id,
-            quantity: this.numSellActions,
-            nickname: "aarroyoc"
+            quantity: this.numSellActions
         };
         this.data.sellActions(data).subscribe((text)=>{
             if(text.ok){

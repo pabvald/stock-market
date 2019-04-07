@@ -6,6 +6,7 @@ import {Challenge} from "src/app/models/challenge";
 import { Action } from "src/app/models/action";
 import { RegisterForm } from 'src/app/models/forms/register';
 import { LoginForm } from 'src/app/models/forms/login';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: "root"
@@ -17,7 +18,13 @@ export class DataService {
     }
     
     getPortfolioSummary(nickname: string): Observable<Company[]>{
-        let req = this.http.get<Company[]>(`${this.base}/api/portfolio/${nickname}`);
+        let req = this.http.get<any>(`${this.base}/api/portfolio/${nickname}`);
+        req = req.pipe(map(data=>
+           data.map(stock=>{
+                stock.benefit = (stock.current-stock.price)*stock.quantity;
+                return stock;
+            })
+        ));
         return req;
     }
 
