@@ -13,21 +13,35 @@ async function portfolio(nickname: string): Promise<any>{
                 SELECT COALESCE(SUM(T2.cantidad),0)
                 FROM transaccion T2
                 WHERE T2.origen=T1.id)
+    ),
+    PrecioActualEmpresa AS (
+        SELECT DISTINCT P.empresa,
+        (
+            SELECT P2.precio 
+            FROM precioAccion P2 
+            WHERE 
+                P2.empresa=P.empresa 
+            ORDER BY fecha DESC 
+            LIMIT 1
+        ) AS precio
+        FROM precioAccion P
     )
-    SELECT T3.id, T3.cantidad, PA.precio, E.codigo, E.nombre, T3.origen
+    SELECT T3.id, T3.cantidad, PA.precio, E.codigo, E.nombre, T3.origen, PAE.precio AS actual
     FROM transaccion T3
         JOIN precioaccion PA ON T3.precioaccion=PA.id
         JOIN empresa E ON PA.empresa=E.codigo
+        JOIN PrecioActualEmpresa PAE ON PA.empresa=PAE.empresa
     WHERE
         T3.producto='accion' AND
         T3.usuario=$1 AND
         T3.origen IN ( SELECT ASV.id FROM AccionesSinVender ASV)
     UNION
-    SELECT ASV.id, T4.cantidad, PA.precio, E.codigo, E.nombre, T4.origen
+    SELECT ASV.id, T4.cantidad, PA.precio, E.codigo, E.nombre, T4.origen, PAE.precio AS actual
     FROM AccionesSinVender ASV
         NATURAL JOIN transaccion T4
         JOIN precioaccion PA ON T4.precioaccion=PA.id
         JOIN empresa E ON PA.empresa=E.codigo
+        JOIN PrecioActualEmpresa PAE ON PA.empresa=PAE.empresa
     `,[nickname]);
     let activeActions: any = new Object();
     for(let row of data.rows){
@@ -36,6 +50,7 @@ async function portfolio(nickname: string): Promise<any>{
             activeActions[row.id] = {
                 id: row.id,
                 quantity: row.cantidad,
+                current: row.actual,
                 price: row.precio,
                 code: row.codigo,
                 name: row.nombre
@@ -88,12 +103,12 @@ export async function getHistory(req: any, res: any){
 export async function sellActions(req: any, res: any){
     let buyId = req.body.id;
     let quantity = req.body.quantity;
-    let nickname = req.body.nickname;
 
-    if(req.session.nickname != nickname){
+    if(req.session.nickname){
         res.status(403).send({ok: false});
         return;
     }
+    let nickname = req.session.nickname;
 
     let activeActions = await portfolio(nickname);
     if(activeActions[buyId]){

@@ -9,6 +9,7 @@ const nodeMailer = require('nodemailer');
 import { echo, ping } from './controllers/echo';
 import { getPortfolioSummary, getHistory, sellActions } from "./controllers/portfolio";
 import { getUserGroups } from "./controllers/groups";
+import {getAllChallenges,createChallenge} from './controllers/challenge';
 import { login, register } from "./controllers/login";
 import { sendEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
@@ -32,6 +33,9 @@ app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
 app.get("/api/market/evolution/:code", getCompanyEvolution);
 app.get("/api/market/companies", getMarket);
+app.get("/api/challenges",getAllChallenges);
+app.post("/api/createChallenge",createChallenge);
+
 
 app.post("/api/portfolio/sell",sellActions);
 app.post("/api/login",login);

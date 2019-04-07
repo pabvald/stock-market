@@ -61,7 +61,7 @@ export class RetosComponent implements OnInit {
 
   getSelectedUsers(){
       if(this.searched_username.trim())
-        return this.participantes.filter(user => user.nombre.includes(this.searched_username.trim()));
+        return this.participantes.filter(user => user.nombre.toLowerCase().includes(this.searched_username.trim().toLowerCase()));
       else
         return this.participantes;
   }
