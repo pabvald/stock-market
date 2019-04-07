@@ -1,6 +1,4 @@
 import { db } from "../db";
-import { Price } from "../../../angular/src/app/models/price";
-import { Company } from "../../../angular/src/app/models/company";
 
 
 const INTERVALS = 50;      // Number of INTERVALS used to build the candlestick chart.
@@ -10,10 +8,10 @@ const INTERVALS = 50;      // Number of INTERVALS used to build the candlestick 
  * @param code - the code of the company whose evolution is obtained.
  */
 async function companyEvolution( code : string ) : Promise<any> {   
-    let price : Price;
+    let price : any;
     let data;
     let noMore : boolean = false;
-    let evolution : Price[] = [];      
+    let evolution : any[] = [];      
     
     try {
 
