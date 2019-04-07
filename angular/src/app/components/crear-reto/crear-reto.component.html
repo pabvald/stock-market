@@ -2,29 +2,48 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div id="container">
-  <i class="fa fa-times exit fa-2x" aria-hidden="true"></i>
+  <i class="fa fa-times exit fa-2x" (click)="close()" aria-hidden="true"></i>
   <div id="crear-reto">
-      <h2 id="lbl-crear">Crear un reto</h2>
-      <form>
+     
+      <form [formGroup]="form">
       <table>
+        <h2 id="lbl-crear">Crear un reto</h2>
         <tbody>
           <tr>
             <td>Nombre</td>
-            <td> <input name="nombre" type="text"></td>
+            <td> <input name="nombre" formControlName="nombre" type="text"><br/>
+            </td>
           </tr>
           <tr>
-          <td colspan="2"><textarea placeholder="Descripcion"></textarea></td>
+              <td colspan="2">
+                <span *ngIf="nameError!=null" class="text-danger">{{nameError}}</span>
+             </td>
+            </tr>
+         
+          <tr>
+          <td colspan="2"><textarea formControlName="descripcion"  placeholder="Descripcion"></textarea></td>
           </tr>
           <tr>
           <td>Fecha de Inicio:</td>
-          <td><input name="fechaIni" type="date" /></td>
+          <td><input name="fechaIni"  formControlName="fechaIni"   type="date"  min="{{today | date:'yyyy-MM-dd'}}" /></td>
           </tr>
           <tr>
+              <td colspan="2">
+                <span *ngIf="startDateError!=null"class="text-danger">{{startDateError}}</span>
+             </td>
+            </tr>
+          <tr>
               <td>Fecha de Finalización:</td>
-              <td><input name="fechaFin" type="date"/></td>
+              <td><input name="fechaFin"  formControlName="fechaFin"  type="date" ></td>
           </tr>
+          <tr>
+              <td colspan="2">
+                <span *ngIf="endDateError!=null" class="text-danger">{{endDateError}}</span>
+             </td>
+            </tr>
+          <tr>
         </tbody>
-        <button class="btn btn-secondary">Crear reto</button>
+        <button class="btn btn-secondary" (click)="pressedCreateButton()">Crear reto</button>
 
       </table>
 
