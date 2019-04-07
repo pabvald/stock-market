@@ -21,7 +21,7 @@ async function update(){
     for(let row of current_data.rows){
         let precio: number = row.precio;
         precio += Math.round(normal());
-        precio = Math.max(0.1,precio);
+        precio = Math.max(1,precio);
         let res = await db.query("INSERT INTO precioAccion VALUES (DEFAULT,$1,NOW(),$2)",[row.empresa,precio]);
     }
     console.log("END UPDATING TASK");

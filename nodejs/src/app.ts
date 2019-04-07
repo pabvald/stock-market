@@ -8,6 +8,7 @@ const session = require("express-session");
 import { echo, ping } from './controllers/echo';
 import { getPortfolioSummary, getHistory, sellActions } from "./controllers/portfolio";
 import { getUserGroups } from "./controllers/groups";
+import {getAllChallenges,createChallenge} from './controllers/challenge';
 import { login, register } from "./controllers/login";
 
 app.use(bodyParser.json());
@@ -26,6 +27,8 @@ app.get("/api/ping",ping);
 app.get("/api/portfolio/:nickname",getPortfolioSummary);
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
+app.get("/api/challenges",getAllChallenges);
+app.post("/api/createChallenge",createChallenge);
 
 app.post("/api/portfolio/sell",sellActions);
 app.post("/api/login",login);
