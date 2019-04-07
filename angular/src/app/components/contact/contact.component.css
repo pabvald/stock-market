@@ -30,3 +30,7 @@ input[type="submit"]{
     font-family: "Unica One";
     align-self: center;
 }
+
+p {
+    color: red;
+}

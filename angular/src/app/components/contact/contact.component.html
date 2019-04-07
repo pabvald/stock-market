@@ -4,12 +4,13 @@
         <fieldset>
           <legend>Contáctanos</legend>
           <label for="inEmail">Email</label>          
-          <input type="email" id="inEmail" name="firstname" size=30 placeholder="Introduce un email de contacto">
+          <input type="email" [(ngModel)]="form.address" id="inEmail" name="email" size=30 required placeholder="Introduce un email de contacto">
           <label for="inAffair"> Asunto</label>          
-          <input type="text" id="inAffair" name="affair" size=30 placeholder="Resume el motivo de tu consulta"/>          
+          <input type="text" [(ngModel)]="form.subject" id="inSubject" name="subject" size=30 required placeholder="Resume el motivo de tu consulta"/>          
           <label for="inMessage">Mensaje</label>          
-          <textarea rows="12" cols="55" placeholder="Escribe aquí tu mensaje"></textarea>          
-          <input type="submit" id="" name="send" value="Enviar mensaje"/>
+          <textarea [(ngModel)]="form.body" rows="12" cols="55" id="inBody" required placeholder="Escribe aquí tu mensaje"></textarea>          
+          <input (click)="submit()" type="submit" id="" name="send" value="Enviar mensaje"/>
         </fieldset>
+        <p>{{error}}</p>
       </form>
 </main>
