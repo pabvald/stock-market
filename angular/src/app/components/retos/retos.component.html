@@ -23,7 +23,7 @@
           <tbody>
             <tr *ngFor="let user of getSelectedUsers()">
               <td>{{getUserPosition(user)}}</td>
-              <td class="tabla-col-username"><a routerLink="../../user" >{{user.nombre}}</a></td>
+              <td class="tabla-col-username"><a routerLink="/user" >{{user.nombre}}</a></td>
               <td [ngClass]="{'variacionPositiva': user.variacion>0, 'variacionNegativa': user.variacion<0}">{{user.variacion}}%</td>
               <td [ngClass]="{'variacionPositiva': user.beneficio>0, 'variacionNegativa': user.beneficio<0}">{{user.beneficio}}€</td>
             </tr>

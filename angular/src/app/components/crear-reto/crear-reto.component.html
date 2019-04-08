@@ -24,15 +24,6 @@
           <td colspan="2"><textarea formControlName="descripcion"  placeholder="Descripcion"></textarea></td>
           </tr>
           <tr>
-          <td>Fecha de Inicio:</td>
-          <td><input name="fechaIni"  formControlName="fechaIni"   type="date"  min="{{today | date:'yyyy-MM-dd'}}" /></td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                <span *ngIf="startDateError!=null"class="text-danger">{{startDateError}}</span>
-             </td>
-            </tr>
-          <tr>
               <td>Fecha de Finalización:</td>
               <td><input name="fechaFin"  formControlName="fechaFin"  type="date" ></td>
           </tr>

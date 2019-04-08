@@ -21,8 +21,7 @@ export async function getAllChallenges(req: any,res: any){
             });
        
     }
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
     res.send(retos);
 }
 
@@ -30,7 +29,7 @@ export async function getAllChallenges(req: any,res: any){
 export async function createChallenge(req: any,res: any){
     let nombre = req.body.nombre;
     let descripcion = req.body.descripcion;
-    let fechaini = req.body.fechainicio;
+    let fechaini = new Date();
     let fechafin = req.body.fechafin;
     let creador = req.session.nickname;
 
@@ -39,7 +38,23 @@ export async function createChallenge(req: any,res: any){
     VALUES(DEFAULT,$1, $2, $3, $4, $5) RETURNING id
     `,[nombre,descripcion,fechaini,fechafin,creador]);
 
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  
+    let data = await db.query(`
+        WITH spentMoney AS(
+			SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+			FROM transaccion T
+			WHERE T.usuario = $1 AND
+				  T.origen IS NULL
+			), earnedMoney AS(
+			SELECT COALESCE(SUM(T.cantidad),0) AS ganado
+			FROM transaccion T
+			WHERE T.usuario = $1 AND
+				  T.origen IS NOT NULL
+            )
+            INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado 
+                FROM Usuario U, spentMoney S, earnedMoney E
+                  WHERE U.nickname = $1))`,[creador,query.rows[0].id]);
+    
     res.send({id:query.rows[0].id});
 }
+
