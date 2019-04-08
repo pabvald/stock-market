@@ -35,11 +35,10 @@ export async function createChallenge(req: any,res: any){
 
     let query = await db.query(`
     INSERT INTO Reto (id,nombre,descripcion,fechaInicio,fechaFin,creador)
-    VALUES(DEFAULT,$1, $2, $3, $4, $5) RETURNING id
+    VALUES(DEFAULT,$1, $2, $3, $4, $5) RETURNING id;
     `,[nombre,descripcion,fechaini,fechafin,creador]);
 
-  
-    let data = await db.query(`
+    await db.query(`
         WITH spentMoney AS(
 			SELECT COALESCE(SUM(T.cantidad),0) AS gastado
 			FROM transaccion T
@@ -53,8 +52,40 @@ export async function createChallenge(req: any,res: any){
             )
             INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado 
                 FROM Usuario U, spentMoney S, earnedMoney E
-                  WHERE U.nickname = $1))`,[creador,query.rows[0].id]);
+                  WHERE U.nickname = $1));`,[creador,query.rows[0].id]);
     
     res.send({id:query.rows[0].id});
+}
+
+export async function getChallengeUsers(req: any,res: any){
+
+    let data = await db.query(`SELECT U.nickname, 
+    (
+        SELECT U.saldo+S.ganado-E.gastado 
+        FROM 
+            (SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+            FROM transaccion T
+            WHERE T.usuario = U.nickname AND
+                T.origen IS NULL AND T.fecha<=R.fechaFin)E,
+            (	SELECT COALESCE(SUM(T.cantidad),0) AS ganado
+			FROM transaccion T
+			WHERE T.usuario = U.nickname AND
+				  T.origen IS NOT NULL AND T.fecha<=R.fechaFin
+            )S
+    )AS saldo, U.balanceInicial
+    FROM Participante P, Usuario U,Reto R
+    WHERE U.nickname =P.participante AND P.reto=0 AND R.id = P.reto;`);
+
+    let users = [];
+    for(let row of data.rows){
+        users.push({
+            nickname: row.nickname,
+            saldo: row.saldo,
+            balanceInicial:row.balanceInicial
+        });
+   
+}
+
+    return (users)
 }
 
