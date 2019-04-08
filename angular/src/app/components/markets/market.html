@@ -73,11 +73,12 @@
                     </li>
                     <li> 
                         <label for="totalPrice">Total (€):</label>
-                        <input type="text" class="input-field" name="totalPrice" value="{{selectedCompany.price*numberBuyStocks}}" readonly/>
+                        <input type="text" class="input-field" name="totalPrice" value="{{selectedCompany.price*numberBuyStocks || 0}}" readonly/>
                     </li>
-                    <li>     
+                    <li *ngIf="nickname">     
                        <label></label> <input (click)="buy()" type="submit" value="Operar ahora">
                     </li>
+                    <p *ngIf="!nickname">(Debe iniciar sesión para operar)</p>
                 </ul>
             </form>
         </div>

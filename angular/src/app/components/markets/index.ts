@@ -7,6 +7,7 @@ import { Indicator } from 'src/app/models/indicator';
 import { DataService } from 'src/app/services/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StateService } from 'src/app/services/state';
 declare let fc: any;
 
 
@@ -41,19 +42,22 @@ export class MarketComponent{
     selectedIndicator : Indicator;
 
     companyEvolution : Price[] = null;
+
+    nickname : string;
     
     /**
      * Do initialization operations.
      */
     ngOnInit() {
         this.updateMarket();
-         
-        this.selectedIndicator = this.indicators[0];
+        this.selectedIndicator = this.indicators[0];    
         this.lowerPrice = this.lowerEndsPrice[0];
         this.upperPrice = this.upperEndsPrice[0];
     }
 
-    constructor(private dataService : DataService) { }
+    constructor(private dataService : DataService, private stateService : StateService) { 
+        this.nickname = this.stateService.nickname;
+    }
 
     /**
      * Update the companies in the stock market.
@@ -80,6 +84,8 @@ export class MarketComponent{
             if(a.name > b.name) return 1;
             return 0;
         }); 
+        this.selectedCompany = this.companies[0]; 
+        this.updateEvolution();       
     }
 
     /**
@@ -87,7 +93,7 @@ export class MarketComponent{
      * @param evoution - the evolution of the selected company's stock price.
      */
     setCompanyEvolution(evolution : Price[]) {
-        this.companyEvolution = evolution;
+        this.companyEvolution = evolution;       
     }
 
     /**
@@ -112,17 +118,10 @@ export class MarketComponent{
      */
     onSelectCompany(selected : Company){
         this.selectedCompany = selected;
-        // this.updateEvolution(); 
-        this.companyEvolution = fc.randomFinancial()(50);
+        this.updateEvolution(); 
+        //this.companyEvolution = fc.randomFinancial()(50);
     }
 
-    /**
-     * Set the selected indicator.
-     * @param selected 
-     */
-    onSelectIndicator(selected : Indicator) {
-        this.selectedIndicator = selected;
-    }
 
     /**
      * Do the stock purchase.
@@ -139,7 +138,7 @@ export class MarketComponent{
             if (text.ok) {
                 alert("La operación ha sido realizada correctamente");
             } else {
-                alert("Hubo un problema con la petición");
+                alert("Hubo un problema con la petición. Inténtelo de nuevo más tarde ");
             }
         });
     }
