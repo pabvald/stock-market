@@ -1,8 +1,7 @@
 export class Group{
-	name: string;
-    joinDate: string;
-    endDate: string;
-    result: number;
-    position: number;
-    participantsNumber: number;
+	nombre: string;
+    fechainicio: Date;
+    fechafin: Date;
+    ranking: number;
+    numparticipantes: number;
 }

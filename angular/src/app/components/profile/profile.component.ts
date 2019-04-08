@@ -21,17 +21,21 @@ export class ProfileComponent {
   biography: string = "Amante de los estafilococos, profeta de mi propio éxito. Estudiante por las mañanas, sabio a todas horas. La bolsa, mi amante y mi esposa. Æ";
   //groups = GROUPS;
   constructor(private data: DataService){
-	  this.data.getUserGroups("jugonza").subscribe((d) => this.fillGroups(d));
-	  this.data.getUserInfo("jugonza").subscribe((d) => this.fillInfo(d));
+	  this.data.getUserGroups("aarroyoc").subscribe((d) => this.fillGroups(d));
+	  this.data.getUserInfo("aarroyoc").subscribe((d) => this.fillInfo(d));
   }
 
   fillGroups(g : Group[]){
-  	console.log(g);
+    g.forEach(function(group:Group){
+        group.fechainicio = new Date(group.fechainicio);
+        group.fechafin = new Date(group.fechafin);
+    });
   	this.groups = g;
+    console.log(this.groups);
   }
 
   fillInfo(u : User){
-  	this.name = u.name;
+  	this.name = u.nombre;
   	this.currentMoney = u.saldo + u.ganado - u.gastado;
   	this.investedMoney = u.gastado;
   	this.initialMoney = u.saldo;

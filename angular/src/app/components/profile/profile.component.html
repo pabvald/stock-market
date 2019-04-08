@@ -32,11 +32,15 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let group of groups">
-					<td>{{ group.name }}</td>
-					<td>{{ group.joinDate }}</td>
-					<td>{{ group.endDate }}</td>
-					<td>{{ group.result }}</td>
-					<td>{{ group.position }}/{{group.participantsNumber}}</td>
+					<td>{{ group.nombre }}</td>
+					<td>{{ group.fechainicio.getDate() }}/
+						{{ group.fechainicio.getMonth() }}/
+						{{ group.fechainicio.getFullYear() }}</td>
+					<td>{{ group.fechafin.getDate() }}/
+						{{ group.fechafin.getMonth() }}/
+						{{ group.fechafin.getFullYear() }}</td>
+					<td>{{ group.balancefinal - group.balanceinicial }}€</td>
+					<td>{{ group.ranking }}/{{ group.numparticipantes }}</td>
 				</tr>
 			</tbody>
 		</table>
