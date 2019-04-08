@@ -22,10 +22,13 @@ export class PortfolioComponent implements OnInit {
 
     history: Action[];
 
-    randomData: Price[] = null;
+    price: Price[] = null;
 
     ngOnInit(){
         this.update();
+        setInterval(()=>{
+            this.update();
+        },1000*60);
         // MOSTRAR GRAFICOS
         // CALCULAR BENEFICIOS
         // FORMATO DECIMALES
@@ -66,7 +69,10 @@ export class PortfolioComponent implements OnInit {
 
     show(c: Company){
         this.company=c;
-        this.randomData = fc.randomFinancial()(50);
+        this.data.getCompanyEvolution(c.code).subscribe((price)=>{
+            this.price = price;
+        });
+        //this.randomData = fc.randomFinancial()(50);
     }
 
     sell(){
