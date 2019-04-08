@@ -1,6 +1,6 @@
 import { Group } from 'src/app/models/group';
 
-export const GROUPS: Group[] = [
+export const GROUPS: Group[] = []/*
 	{name: "Clase 1ºB", joinDate: "1/1/2000", endDate: "1/2/2000", result: 8, position: 5, participantsNumber: 40},
 	{name: "Adictos a la bolsa", joinDate: "1/4/2008", endDate: "10/9/2008", result: 8, position: 5, participantsNumber: 40},
 	{name: "Curso Inversores Palencia", joinDate: "7/5/2010", endDate: "7/7/2010", result: 8, position: 5, participantsNumber: 40},
@@ -17,4 +17,4 @@ export const GROUPS: Group[] = [
 	//{name: "PIPO", joinDate: "1/1/2000", endDate: "1/2/2000", result: 8, position: 5, participantsNumber: 40},
 	//{name: "PIPO", joinDate: "1/1/2000", endDate: "1/2/2000", result: 8, position: 5, participantsNumber: 40},
 	
-]
+]*/
