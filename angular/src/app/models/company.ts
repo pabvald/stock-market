@@ -4,4 +4,5 @@ export interface Company{
     price: number,
     quantity: number,
     id: number,
+    benefit: number,
 }

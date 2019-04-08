@@ -7,7 +7,7 @@
       <table id="tabla-ranking">
         <thead>
           <tr id="tr-buscador-reto">
-          <td colspan="5"> <input id="buscador-reto"  type="text" placeholder="Buscar reto"></td>
+          <td colspan="5"> <input id="buscador-reto"  type="text" placeholder="Buscar reto" [(ngModel)]="searched_challenge"></td>
           </tr>
           <tr>
             <th class="tabla-col-username">Nombre</th>
@@ -18,7 +18,7 @@
         </thead>
         <tbody>
           <tr class="challenge_slot" *ngFor="let chal of getSelectedChallenges()">
-            <td class="tabla-col-username"><a href="challenge/{{chal.id}}">{{chal.nombre}}</a></td>
+            <td class="tabla-col-username"><a [routerLink]="chal.id">{{chal.nombre}}</a></td>
             <td>{{chal.fechaInicio| date: 'dd/MM/yyyy'}}</td>
             <td>{{chal.fechaFin| date: 'dd/MM/yyyy'}}</td>
             <td>{{chal.numParticipantes}}</td>

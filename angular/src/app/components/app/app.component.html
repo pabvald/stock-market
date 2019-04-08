@@ -1,15 +1,15 @@
 <div id="superflex">
     <!-- Pestañas -->
     <nav>
-        <div [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
+        <div *ngIf="!nickname" [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
+        <div *ngIf="nickname != undefined" [ngClass]="{'tabSelected': page === '/user'}" routerLink="/user">{{ nickname }}</div>
         <div [ngClass]="{'tabSelected': page ==='/contact'}" routerLink="/contact">Contacto</div>
+        <div [ngClass]="{'tabSelected': page === '/training'}" routerLink="/training">Formación</div>        
         <div [ngClass]="{'tabSelected': page === '/portfolio'}" routerLink="/portfolio">Mi Cartera</div>
         <div [ngClass]="{'tabSelected': page === '/challenge'}" routerLink="/challenge">Retos</div>
-        <div [ngClass]="{'tabSelected': page === '/' || page === '/market'}" routerLink="/market">Mercados</div>
-        <div [ngClass]="{'tabSelected': page === '/user'}" routerLink="/user">Perfil</div>
-        <div [ngClass]="{'tabSelected': page === '/training'}" routerLink="/training">Formación</div>
+        <div [ngClass]="{'tabSelected': page === '/' || page === '/market'}" routerLink="/market">Mercados</div>        
         <div class="spacer"></div>
-        <img src="assets/texto.png">
+        <img routerLink="/market" src="assets/texto.png">
     </nav>
     <!-- Contenido principal -->
     <div id="main">
