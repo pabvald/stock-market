@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Price } from 'src/app/models/price';
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
+import {DataService} from 'src/app/services/data';
+import { ActivatedRoute } from "@angular/router";
+import {ChallengeUser} from "src/app/models/challenge";
+
 declare let fc: any;
 
 
@@ -21,7 +24,7 @@ export class RetosComponent implements OnInit {
   searched_username : string;
   data: Price[] = fc.randomFinancial()(50);
 
-  constructor() { }
+  constructor(private dataS:DataService,private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.searched_username = "";
@@ -53,6 +56,18 @@ export class RetosComponent implements OnInit {
       {nombre:"AdrianistanCultFollower", variacion:-85, beneficio:-987},
       
     ];
+    let id = parseInt(this.route.snapshot.paramMap.get("id"));
+    this.dataS.getChallengeUsers(id).subscribe((data)=>this.setParticipantes(data));
+  }
+
+  setParticipantes(participantes:ChallengeUser[]){
+    this.participantes = [];
+    for(let i=0;i<participantes.length;i++){
+      let p = participantes[i];
+      this.participantes.push({nombre:p.nickname,beneficio:p.balanceFinal-p.balanceInicial,variacion:p.balanceFinal/p.balanceInicial});
+    }
+
+    this.participantes.sort((a,b)=>a.variacion>b.variacion ? -1 : 1);
   }
 
   getUserPosition(user:UsuarioReto){

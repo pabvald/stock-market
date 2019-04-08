@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Company } from "src/app/models/company";
-import {Challenge} from "src/app/models/challenge";
+import {Challenge,ChallengeUser} from "src/app/models/challenge";
 import { Action } from "src/app/models/action";
 import { RegisterForm } from 'src/app/models/forms/register';
 import { LoginForm } from 'src/app/models/forms/login';
@@ -41,6 +41,11 @@ export class DataService {
             fechafin:fechaFin,
         };
         let req = this.http.post<{id:number}>(`${this.base}/api/createChallenge`,postData);
+        return req;
+    }
+
+    getChallengeUsers(id:number):Observable<ChallengeUser[]>{
+        let req = this.http.get<ChallengeUser[]>(`${this.base}/api/challenge/${id}`);
         return req;
     }
 

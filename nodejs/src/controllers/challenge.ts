@@ -58,7 +58,7 @@ export async function createChallenge(req: any,res: any){
 }
 
 export async function getChallengeUsers(req: any,res: any){
-
+    let reto =  req.params.id;
     let data = await db.query(`SELECT U.nickname, 
     (
         SELECT U.saldo+S.ganado-E.gastado 
@@ -66,26 +66,25 @@ export async function getChallengeUsers(req: any,res: any){
             (SELECT COALESCE(SUM(T.cantidad),0) AS gastado
             FROM transaccion T
             WHERE T.usuario = U.nickname AND
-                T.origen IS NULL AND T.fecha<=R.fechaFin)E,
+                T.origen IS NULL AND T.fecha>=R.fechaFin)E,
             (	SELECT COALESCE(SUM(T.cantidad),0) AS ganado
 			FROM transaccion T
 			WHERE T.usuario = U.nickname AND
-				  T.origen IS NOT NULL AND T.fecha<=R.fechaFin
+				  T.origen IS NOT NULL AND T.fecha>=R.fechaFin
             )S
-    )AS saldo, U.balanceInicial
+    )AS saldo, P.balanceinicial
     FROM Participante P, Usuario U,Reto R
-    WHERE U.nickname =P.participante AND P.reto=0 AND R.id = P.reto;`);
+    WHERE U.nickname =P.participante AND P.reto=$1 AND R.id = P.reto;`,[reto]);
 
     let users = [];
     for(let row of data.rows){
         users.push({
             nickname: row.nickname,
-            saldo: row.saldo,
-            balanceInicial:row.balanceInicial
+            balanceFinal: row.saldo,
+            balanceInicial:row.balanceinicial
         });
-   
 }
 
-    return (users)
+res.send(users);
 }
 
