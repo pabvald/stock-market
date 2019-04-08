@@ -4,6 +4,7 @@ import {GROUPS} from './groups'
 import { Group } from 'src/app/models/group';
 import { User } from 'src/app/models/user';
 import { DataService } from 'src/app/services/data';
+import { StateService } from 'src/app/services/state';
 declare let fc: any;
 
 @Component({
@@ -20,9 +21,13 @@ export class ProfileComponent {
   initialMoney: number = 3000000;
   biography: string = "Amante de los estafilococos, profeta de mi propio éxito. Estudiante por las mañanas, sabio a todas horas. La bolsa, mi amante y mi esposa. Æ";
   //groups = GROUPS;
-  constructor(private data: DataService){
+  constructor(private data: DataService, private stateService : StateService){
+    //console.log(stateService.nickname);
+    //this.data.getPortfolioHistory("aarroyoc").subscribe((d) => this.priceEvolution = d);
 	  this.data.getUserGroups("aarroyoc").subscribe((d) => this.fillGroups(d));
 	  this.data.getUserInfo("aarroyoc").subscribe((d) => this.fillInfo(d));
+    //this.data.getUserGroups(stateService.nickname).subscribe((d) => this.fillGroups(d));
+    //this.data.getUserInfo(stateService.nickname).subscribe((d) => this.fillInfo(d));
   }
 
   fillGroups(g : Group[]){

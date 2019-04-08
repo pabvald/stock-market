@@ -26,8 +26,6 @@ CREATE TABLE participante (
     reto INT,
     participante TEXT,
     balanceInicial INT NOT NULL,
-    balanceFinal INT,
-    ranking INT,
     PRIMARY KEY (reto,participante),
     FOREIGN KEY (reto) REFERENCES reto(id),
     FOREIGN KEY (participante) REFERENCES usuario(nickname),

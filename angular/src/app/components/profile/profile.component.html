@@ -27,7 +27,7 @@
 					<th>Fecha de unión</th>
 					<th>Fecha de finalización</th>
 					<th>Resultado</th>
-					<th>Puesto</th>
+					<th>Participantes</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,8 +39,8 @@
 					<td>{{ group.fechafin.getDate() }}/
 						{{ group.fechafin.getMonth() }}/
 						{{ group.fechafin.getFullYear() }}</td>
-					<td>{{ group.balancefinal - group.balanceinicial }}€</td>
-					<td>{{ group.ranking }}/{{ group.numparticipantes }}</td>
+					<td><!--{{ group.balancefinal - group.balanceinicial }}€-->Falta balance final</td>
+					<td>{{ group.numparticipantes }}</td>
 				</tr>
 			</tbody>
 		</table>

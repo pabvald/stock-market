@@ -3,8 +3,9 @@ import { db } from "../db";
 //Returns the groups a user has been or is in, with all their fields
 export async function getUserGroups(req: any,res: any){
     let nickname = req.params.nickname;
+    //SELECT R.nombre, R.fechainicio, R.fechafin, P.balanceinicial, P.balancefinal, P.ranking, Temp.numParticipantes
     let data = await db.query(`
-        SELECT R.nombre, R.fechainicio, R.fechafin, P.balanceinicial, P.balancefinal, P.ranking, Temp.numParticipantes
+        SELECT R.nombre, R.fechainicio, R.fechafin, P.balanceinicial, Temp.numParticipantes
         FROM reto R, participante P, usuario U, (SELECT R.id, COUNT(*) AS numParticipantes
                                                 FROM participante P, Reto R 
                                                 WHERE P.reto = R.id
