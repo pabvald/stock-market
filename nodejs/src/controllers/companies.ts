@@ -35,7 +35,7 @@ async function companyEvolution( code : string ) : Promise<any> {
 
                 ),  Maximin AS ( 
                     SELECT MAX(precio) as high, MIN(precio) as low, COUNT(*) as volume 
-                    FROM IntervaloAsc
+                    FROM IntervalAsc
                 )
                 
                     
@@ -57,15 +57,16 @@ async function companyEvolution( code : string ) : Promise<any> {
                     low : data.rows[0].low,
                     open : data.rows[0].open,
                     close : data.rows[0].close,
-                    date : data.rows[0].date,
-                    volume : data.rows[0].count
+                    date : new Date(data.rows[0].date),
+                    volume : Number(data.rows[0].volume),
                 };              
                 evolution.push(price);
-                
+
             } else { 
                noMore = true;
             }           
         }
+        console.log(evolution);
 
     } catch(err) {
         console.log(err.stack);
@@ -87,6 +88,7 @@ export async function getCompanyEvolution(req : any, res : any ) {
     } catch(err) {
         res.status(500).send({ok: false});
     }    
+
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

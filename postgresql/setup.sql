@@ -64,3 +64,12 @@ CREATE TABLE transaccion (
     CHECK (producto IN ('accion'))
 );
 
+-- Grant privileges 
+GRANT ALL PRIVILEGES ON TABLE usuario TO stock_nodejs;
+GRANT ALL PRIVILEGES ON TABLE reto TO stock_nodejs;
+GRANT ALL PRIVILEGES ON TABLE participante TO stock_nodejs;
+GRANT ALL PRIVILEGES ON TABLE empresa TO stock_nodejs;
+GRANT ALL PRIVILEGES ON TABLE precioaccion TO stock_nodejs;
+GRANT ALL PRIVILEGES ON TABLE transaccion TO stock_nodejs;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to stock_nodejs;
+

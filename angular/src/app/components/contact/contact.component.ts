@@ -43,7 +43,7 @@ export class ContactComponent implements OnInit {
           return;
         } 
 
-        this.dataService.sendEmail(this.form).subscribe((data) => {
+        this.dataService.sendContactEmail(this.form).subscribe((data) => {
           if (data.ok) {
             alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
             window.location.href = "/";
