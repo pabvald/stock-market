@@ -1,6 +1,6 @@
 export class User{
 	nickname: string;
-	name: string;
+	nombre: string;
     password: string;
 	correo: string;
 	saldo: number;
