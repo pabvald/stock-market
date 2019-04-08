@@ -11,7 +11,7 @@ import { getPortfolioSummary, getHistory, sellActions } from "./controllers/port
 import { getUserGroups } from "./controllers/groups";
 import { getAllChallenges,createChallenge} from './controllers/challenge';
 import { login, register } from "./controllers/login";
-import { sendContactEmail, sendRecoverPasswEmail } from "./controllers/contact";
+import { sendContactEmail, sendRecoverPasswordEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
 import { getCompanyEvolution, getMarket } from "./controllers/companies";
 
@@ -42,7 +42,7 @@ app.post("/api/login",login);
 app.post("/api/register",register);
 app.post("/api/market/buy", buyStocks);
 app.post("/api/contact", sendContactEmail);
-app.post("/api/recoverpassword", sendRecoverPasswEmail);
+app.post("/api/recoverpassword", sendRecoverPasswordEmail);
 
 
 /* CORS THING */

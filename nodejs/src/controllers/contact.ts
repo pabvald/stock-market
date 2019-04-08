@@ -69,7 +69,7 @@ export async function sendContactEmail(req : any, res : any) {
  * @param req - http request.
  * @param res - http request. 
  */
-export async function sendRecoverPasswEmail(req : any, res : any ) {
+export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
     let newPassword = req.body.newPassword;
     let nickname = req.body.nickname;

@@ -110,13 +110,13 @@ export class DataService {
         return req;
     }
 
-    /* --------------------------------------------------- PASSWORD RECOVERY ------------------------------------*/
+    /* ---------------------------------------------- PASSWORD RECOVERY ------------------------------------------*/
 
     /**
      * Send recovery-password email to an user.
      * @param data - must include: nickname, address (email address), newPassword
      */
-    sendRevorPasswEmail( data : any ) : Observable<any> {
+    sendRecoverPasswordEmail( data : any ) : Observable<any> {
         let req = this.http.post<any>(`${this.base}/api/recoverpassword`,data,{withCredentials: false});
         return req;
     }
