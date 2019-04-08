@@ -8,7 +8,7 @@
           <label for="inAffair"> Asunto</label>          
           <input type="text" [(ngModel)]="form.subject" id="inSubject" name="subject" size=30 required placeholder="Resume el motivo de tu consulta"/>          
           <label for="inMessage">Mensaje</label>          
-          <textarea [(ngModel)]="form.body" rows="12" cols="55" id="inBody" required placeholder="Escribe aquí tu mensaje"></textarea>          
+          <textarea  rows="12" cols="55" id="inBody"  required placeholder="Escribe aquí tu mensaje" [(ngModel)]="form.body" [ngModelOptions]="{standalone: true}"></textarea>          
           <input (click)="submit()" type="submit" id="" name="send" value="Enviar mensaje"/>
         </fieldset>
         <p>{{error}}</p>

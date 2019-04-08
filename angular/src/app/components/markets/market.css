@@ -257,3 +257,10 @@ main {
     border: 1px solid #9EBF95;
     border-radius: 3px; 
 }
+
+p {
+    font-size: 8pt;
+    margin: 0;
+    font-weight: bold;
+    margin-left: 25%;
+}   
