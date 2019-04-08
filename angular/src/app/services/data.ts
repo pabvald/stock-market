@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Company } from "src/app/models/company";
+import { Group } from 'src/app/models/group';
+import { User } from 'src/app/models/user';
 import {Challenge} from "src/app/models/challenge";
 import { Action } from "src/app/models/action";
 import { RegisterForm } from 'src/app/models/forms/register';
@@ -28,6 +30,16 @@ export class DataService {
             })
         ));
         return req;
+    }
+    getUserGroups(nickname: string): Observable<Group[]>{
+    	let req = this.http.get<Group[]>(`${this.base}/api/user/groups/${nickname}`);
+    	//console.log(req);
+    	return req;
+    }
+    getUserInfo(nickname: string): Observable<User>{
+    	let req = this.http.get<User>(`${this.base}/api/user/information/${nickname}`);
+    	//console.log(req);
+    	return req;
     }
 
     getChallengeList(): Observable<Challenge[]>{
