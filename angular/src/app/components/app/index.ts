@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { StateService } from 'src/app/services/state';
+import { DataService } from 'src/app/services/data';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,18 @@ import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 })
 export class AppRoot {
 
+  nickname: string;
   page = "nada";
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private data: DataService, private state: StateService) {
+    /* Hacer PING para saber si tenemos sesión o no*/
+    this.data.ping().subscribe((data)=>{
+      if(data.ok){
+        this.nickname = data.nickname;
+        this.state.nickname = data.nickname;
+      }
+    });
+
 
     /* Actualizar parte superior de la pestaña */
     this.router.events.subscribe((event)=>{

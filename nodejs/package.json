@@ -11,8 +11,11 @@
 	"author": "",
 	"license": "PRIVATE",
 	"dependencies": {
+		"bcrypt": "^3.0.5",
 		"body-parser": "^1.18.3",
 		"express": "^4.16.4",
+		"express-session": "^1.15.6",
+		"nodemailer": "^6.1.0",
 		"pg": "^7.9.0",
 		"random": "^2.1.1"
 	},

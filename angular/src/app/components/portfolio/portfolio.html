@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="nickname">
     <section id="graphics">
         <candlestick [data]="randomData"></candlestick>
     </section>
@@ -9,6 +9,7 @@
                     <th>Empresa</th>
                     <th>Código</th>
                     <th>Precio</th>
+                    <th>Variación</th>
                     <th>Cantidad</th>
                     <th>¿Vender?</th>
                 </tr>
@@ -18,9 +19,11 @@
                     <td>{{ c.name }}</td>
                     <td>{{ c.code }}</td>
                     <td>{{ c.price }}</td>
+                    <td>{{ c.benefit }}</td>
                     <td>{{ c.quantity }}</td>
                     <td *ngIf="company===c">
-                        <button>Vender</button>
+                        <input type="number" min="1" max="{{ c.quantity }}" [(ngModel)]="numSellActions">
+                        <button (click)="sell()">Vender</button>
                     </td>
                 </tr>
             </tbody>
@@ -59,4 +62,7 @@
         <br>
         Dinero gastado en comisiones: 50$
     </section>
+</main>
+<main *ngIf="!nickname">
+    <p>Esta parte de la página es exclusiva para usuarios registrados</p>
 </main>

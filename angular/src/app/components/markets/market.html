@@ -7,10 +7,9 @@
             </select>
             <span  id="graphic-title">{{selectedCompany.name}}</span>
         </div>
-        <figure id="graphic">
-            <img src="/assets/markets-graphic.jpg" width="500px" alt="Gráfico">
-            <figcaption>Evolución del precio de {{ selectedCompany.name }}</figcaption>
-        </figure>
+        <div id="graphic">
+            <candlestick [data]="companyEvolution"></candlestick>
+        </div>
         
     </div>
     <div id="companies-container">  
@@ -63,21 +62,21 @@
                     </li>
                     <li> 
                         <label><b>Compra</b></label>
-                    </li>
+                    </li> 
                     <li>
                         <label for="companyPrice">Precio (€):</label>
                         <input type="text" class="input-field" name="companyPrice" value="{{selectedCompany.price}}" readonly/>  
                     </li>   
                     <li> 
                         <label for="numberOfStocks">Nº acciones: </label>                    
-                        <input type="text" class="input-field" name="numberOfStocks" />      
+                        <input type="text" class="input-field" name="numberOfStocks" [(ngModel)]="numberBuyStocks" />  
                     </li>
                     <li> 
                         <label for="totalPrice">Total (€):</label>
-                        <input type="text" class="input-field" name="totalPrice" value="{{selectedCompany.price }}" readonly/>
+                        <input type="text" class="input-field" name="totalPrice" value="{{selectedCompany.price*numberBuyStocks}}" readonly/>
                     </li>
                     <li>     
-                       <label></label> <input type="submit" value="Operar ahora">
+                       <label></label> <input (click)="buy()" type="submit" value="Operar ahora">
                     </li>
                 </ul>
             </form>

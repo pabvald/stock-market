@@ -3,22 +3,58 @@ import { Worker } from "worker_threads";
 let app = express();
 let server = require("http").Server(app);
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const nodeMailer = require('nodemailer');
 
-import { echo, get_users } from './controllers/echo';
-import { getPortfolioSummary } from "./controllers/portfolio";
+import { echo, ping } from './controllers/echo';
+import { getPortfolioSummary, getHistory, sellActions } from "./controllers/portfolio";
 import { getUserGroups } from "./controllers/groups";
 import { getUserInformation } from "./controllers/userinfo";
+import {getAllChallenges,createChallenge} from './controllers/challenge';
+import { login, register } from "./controllers/login";
+import { sendEmail } from "./controllers/contact";
+import { buyStocks } from "./controllers/buy";
+import { getCompanyEvolution, getMarket } from "./controllers/companies";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + "/../../angular/dist"));
 
+app.use(session({
+	secret: "TuringCompleto",
+	resave: false,
+	saveUninitialized: true
+}));
+
 app.get("/api/echo",echo);
-app.get("/api/list_users",get_users);
+app.get("/api/ping",ping);
 app.get("/api/portfolio/:nickname",getPortfolioSummary);
+
 app.get("/api/user/groups/:nickname", getUserGroups);
 app.get("/api/user/information/:nickname", getUserInformation);
+
+app.get("/api/portfolio/history/:nickname",getHistory);
+app.get("/api/user/groups:nickname", getUserGroups);
+app.get("/api/market/evolution/:code", getCompanyEvolution);
+app.get("/api/market/companies", getMarket);
+app.get("/api/challenges",getAllChallenges);
+app.post("/api/createChallenge",createChallenge);
+
+
+app.post("/api/portfolio/sell",sellActions);
+app.post("/api/login",login);
+app.post("/api/register",register);
+app.post("/api/market/buy", buyStocks);
+app.post("/api/contact", sendEmail);
+
+
+/* CORS THING */
+app.options("/*",(req,res)=>{
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.sendStatus(200);
+});
 
 app.get("/*",function(req,res){
 	res.sendFile("index.html",{root: __dirname + "/../../angular/dist"});
