@@ -7,3 +7,9 @@ export interface Challenge{
     nombre:string,
     numParticipantes:number;
   }
+
+export interface ChallengeUser{
+  nickname:string,
+  balanceInicial:number,
+  balanceFinal:number
+}

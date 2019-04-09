@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Company } from "src/app/models/company";
+import {Challenge,ChallengeUser} from "src/app/models/challenge";
 import { Group } from 'src/app/models/group';
 import { User } from 'src/app/models/user';
-import {Challenge} from "src/app/models/challenge";
 import { Action } from "src/app/models/action";
 import { RegisterForm } from 'src/app/models/forms/register';
 import { LoginForm } from 'src/app/models/forms/login';
@@ -47,13 +47,40 @@ export class DataService {
         return req;
     }
 
-    createChallenge(nombre, descripcion, fechaIni, fechaFin): Observable<{id:number}>{
+    createChallenge(nombre, descripcion, fechaFin): Observable<{id:number}>{
         let postData = { nombre:nombre,
             descripcion:descripcion,
-            fechainicio:fechaIni,
             fechafin:fechaFin,
         };
         let req = this.http.post<{id:number}>(`${this.base}/api/createChallenge`,postData);
+        return req;
+    }
+
+    addUserToChallenge(idReto:number):Observable<Object>{
+        let postData = { 
+            reto:idReto,
+        };
+        
+        let req = this.http.post(`${this.base}/api/challenge/addUser`,postData);
+        return req;
+    }
+
+    removeUserFromChallenge(idReto:number){
+        let postData = { 
+            reto:idReto,
+        };
+        
+        let req = this.http.post(`${this.base}/api/challenge/removeUser`,postData);
+        return req;
+    }
+    
+    getChallengeUsers(id:number):Observable<ChallengeUser[]>{
+        let req = this.http.get<ChallengeUser[]>(`${this.base}/api/challenge/${id}`);
+        return req;
+    }
+
+    getChallengeInfo(idReto:number):Observable<any>{
+        let req = this.http.get<any>(`${this.base}/api/challengeData/${idReto}`);
         return req;
     }
 

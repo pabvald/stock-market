@@ -1,8 +1,10 @@
 <main>
   <section id="participantes">
+    <span *ngIf="nickname">
     <div id="container-btn-reto">
     <button id="btn-crear-reto" (click)="create_challenge_clicked()">Crear Reto</button>
     </div>
+  </span>
     <div id="container-tabla">
       <table id="tabla-ranking">
         <thead>

@@ -49,7 +49,7 @@ table{
  
   overflow: hidden;
 }
-#btn-unirse-reto{
+#btn-unirse-reto,#btn-salir-reto{
   margin-top: 4px;
   background-color:#8C4830;
   color:white;
