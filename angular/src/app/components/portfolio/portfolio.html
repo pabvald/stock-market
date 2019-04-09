@@ -52,15 +52,15 @@
         </table>
     </section>
     <section id="resumen">
-        Capital inicial: 100.000$
+        Saldo inicial: {{ user.saldo }}
         <br>
-        Capital actual: 120.000$
+        Saldo actual: {{ user.saldo + user.ganado - user.gastado }}
         <br>
-        Variación (dólares): +20.000$
+        Variación (dólares): {{ user.ganado - user.gastado }}
         <br>
-        Variación (porcentaje): +20%
+        Variación (porcentaje): {{ (user.ganado - user.gastado)/user.saldo }}
         <br>
-        Dinero gastado en comisiones: 50$
+        Dinero gastado en comisiones: 0$
     </section>
 </main>
 <main *ngIf="!nickname">

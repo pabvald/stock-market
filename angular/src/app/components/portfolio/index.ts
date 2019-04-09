@@ -24,6 +24,8 @@ export class PortfolioComponent implements OnInit {
 
     price: Price[] = null;
 
+    user: any = null;
+
     ngOnInit(){
         this.update();
         setInterval(()=>{
@@ -40,6 +42,7 @@ export class PortfolioComponent implements OnInit {
     update(){
         this.data.getPortfolioSummary(this.state.nickname).subscribe((data)=>this.updatePortfolio(data));
         this.data.getPortfolioHistory(this.state.nickname).subscribe((data)=>this.updateHistory(data));
+        this.data.getUserInfo(this.state.nickname).subscribe((data)=>{this.updateUserInfo(data)});
     }
 
     constructor(private data: DataService, private state: StateService){
@@ -65,6 +68,10 @@ export class PortfolioComponent implements OnInit {
             }
             return h;
         });
+    }
+
+    updateUserInfo(data: any){
+        this.user=data;
     }
 
     show(c: Company){
