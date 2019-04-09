@@ -114,11 +114,22 @@ export class DataService {
     /* ---------------------------------------------------- CONTACT ---------------------------------------------*/
     
     /**
-     * Send email to admin.
+     * Send email to the admin and user.
      * @param data - message(subject, email address, content)
      */
-    sendEmail( data : EmailForm) : Observable<any> {
+    sendContactEmail( data : EmailForm) : Observable<any> {
         let req = this.http.post<any>(`${this.base}/api/contact`,data,{withCredentials: false});
+        return req;
+    }
+
+    /* ---------------------------------------------- PASSWORD RECOVERY ------------------------------------------*/
+
+    /**
+     * Send recovery-password email to an user.
+     * @param data - must include: nickname, address (email address), newPassword
+     */
+    sendRecoverPasswordEmail( data : any ) : Observable<any> {
+        let req = this.http.post<any>(`${this.base}/api/recoverpassword`,data,{withCredentials: false});
         return req;
     }
     

@@ -13,12 +13,18 @@ export class ContactComponent implements OnInit {
     form : EmailForm;
     error : string = "";
 
-    constructor( private dataService : DataService ) { }
+    constructor( private dataService : DataService ) { 
+        this.form = {
+            address : "",
+            subject : "",
+            body : ""
+        }
+    }
 
     ngOnInit() { }
 
     /**
-     * 
+     * Send the email to the administrador if all the fields of the form are right.
      */
     submit() {
         this.error = "";
@@ -33,10 +39,11 @@ export class ContactComponent implements OnInit {
         }
         if (this.form.body == "") {
           this.error = "Escriba un mensaje, por favor.";
+          console.log(this.form.body);
           return;
-        }
+        } 
 
-        this.dataService.sendEmail(this.form).subscribe((data) => {
+        this.dataService.sendContactEmail(this.form).subscribe((data) => {
           if (data.ok) {
             alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
             window.location.href = "/";
