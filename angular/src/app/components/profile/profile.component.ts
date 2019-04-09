@@ -14,6 +14,7 @@ declare let fc: any;
 })
 export class ProfileComponent {
   priceEvolution: Price[] = fc.randomFinancial()(50);
+  imageURL: string;
   groups: Group[];
   name: string = "Willy";
   currentMoney: number = 1000000;
@@ -45,5 +46,6 @@ export class ProfileComponent {
   	this.investedMoney = u.gastado;
   	this.initialMoney = u.saldo;
   	this.biography = u.biografia;
+    this.imageURL = u.urlfoto;
   }
 }
