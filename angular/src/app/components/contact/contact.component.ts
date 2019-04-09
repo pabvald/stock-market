@@ -50,7 +50,6 @@ export class ContactComponent implements OnInit {
             if (data.ok) {              
               alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
               this.sending = false;
-              window.location.href = "/";
             } else {
               alert("Su mensaje no ha podido ser enviado. Por favor, inténtelo de nuevo más tarde.");
               this.sending = false;
