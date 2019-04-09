@@ -20,7 +20,21 @@ export class DataService {
     constructor(private http: HttpClient){
 
     }
+
+    /**
+     * Check if there is a user logged in. 
+     */
+    ping(): Observable<any>{
+        let req = this.http.get<any>(`${this.base}/api/ping`,{withCredentials: true});
+        return req;
+    }
    
+    /* --------------------------------------------------------- PORTFOLIO ----------------------------------------------*/
+
+    /**
+     * Get the summary of the user's portfolio.
+     * @param nickname - user's nickname.
+     */
     getPortfolioSummary(nickname: string): Observable<Company[]>{
         let req = this.http.get<any>(`${this.base}/api/portfolio/${nickname}`);
         req = req.pipe(map(data=>
@@ -31,22 +45,70 @@ export class DataService {
         ));
         return req;
     }
+
+    /**
+     * Get the history of the user's transactions.
+     * @param nickname - user's nickname
+     */
+    getPortfolioHistory(nickname: string): Observable<Action[]>{
+        let req = this.http.get<Action[]>(`${this.base}/api/portfolio/history/${nickname}`);
+        return req;
+    }
+
+    /**
+     * Sell user's stocks. 
+     * @param data - information  of the sale. 
+     */
+    sellActions(data: any): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/portfolio/sell`,data,{withCredentials: true});
+        return req;
+    }   
+
+
+
+
+    /* ---------------------------------------------- USER ---------------------------------------------------------- */
+
+    /**
+     * Get a list of the user's groups.
+     * @param nickname - user's nickname.
+     */
     getUserGroups(nickname: string): Observable<Group[]>{
     	let req = this.http.get<Group[]>(`${this.base}/api/user/groups/${nickname}`);
     	//console.log(req);
     	return req;
     }
+
+    /**
+     * Get user's basic information.
+     * @param nickname - user's nickname.
+     */
     getUserInfo(nickname: string): Observable<User>{
     	let req = this.http.get<User>(`${this.base}/api/user/information/${nickname}`);
     	//console.log(req);
     	return req;
     }
 
+
+
+
+    /*---------------------------------------------- CHALLENGES -----------------------------------------------------*/
+
+    /**
+     * Get a list of all challenges.
+     */
     getChallengeList(): Observable<Challenge[]>{
         let req = this.http.get<Challenge[]>(`${this.base}/api/challenges`);
         return req;
     }
 
+    /**
+     * Insert a new challenge in the DB.
+     * @param nombre  
+     * @param descripcion 
+     * @param fechaIni 
+     * @param fechaFin 
+     */
     createChallenge(nombre, descripcion, fechaIni, fechaFin): Observable<{id:number}>{
         let postData = { nombre:nombre,
             descripcion:descripcion,
@@ -57,20 +119,6 @@ export class DataService {
         return req;
     }
 
-    getPortfolioHistory(nickname: string): Observable<Action[]>{
-        let req = this.http.get<Action[]>(`${this.base}/api/portfolio/history/${nickname}`);
-        return req;
-    }
-
-    sellActions(data: any): Observable<any>{
-        let req = this.http.post<any>(`${this.base}/api/portfolio/sell`,data,{withCredentials: true});
-        return req;
-    }   
-
-    ping(): Observable<any>{
-        let req = this.http.get<any>(`${this.base}/api/ping`,{withCredentials: true});
-        return req;
-    }
 
 
     /* ------------------------------------------------ REGISTER ----------------------------------------------------*/
@@ -135,6 +183,7 @@ export class DataService {
         return req;
     }   
 
+
     
     /* ---------------------------------------------------- CONTACT ---------------------------------------------*/    
     /**
@@ -145,6 +194,8 @@ export class DataService {
         let req = this.http.post<any>(`${this.base}/api/contact`,data,{withCredentials: false});
         return req;
     }
+
+
 
     /* ---------------------------------------------- PASSWORD RECOVERY ------------------------------------------*/
 

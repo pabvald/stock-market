@@ -80,27 +80,37 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to stock_nodejs;
 -- Insert Nasdaq companies and its initial stock price 
 INSERT INTO empresa
 VALUES ('SIRI', 'Sirius Xm Radio Inc.'),
-    ('APPL','Apple'),
-    ('MSFT','Microsoft'),
-    ('CSCO', 'Cisco Systems'),
-    ('MRVL', 'Marvell'),
-    ('BBBY', 'Beth Bath & Beyond'),
-    ('GOOG','Google'),
-    ('NVDA', 'Nvidia'),
-    ('INTC','Intel'),
-    ('ADBE','Adobe'),
-    ('PYPL','PayPal'),
-    ('TWTR','Twitter'),
-    ('AMD' ,'AMD'),
-    ('QCOM','Qualcomm'),
-    ('PLUG', 'Plug Power'),
-    ('SYMC', 'Symantec'),
-    ('NFLX', 'Netflix'),
-    ('EBAY', 'Ebay Inc.'),
-    ('BIDU', 'Baidu'),
-    ('DLTR', 'Dollar Tree'),
-    ('AMZN', 'Amazom.com'),
-    ('SBUX', 'Starbucks');
+       ('APPL','Apple'),
+       ('MSFT','Microsoft'),
+       ('CSCO', 'Cisco Systems'),
+       ('MRVL', 'Marvell'),
+       ('BBBY', 'Beth Bath & Beyond'),
+       ('GOOG','Google'),
+       ('NVDA', 'Nvidia'),
+       ('INTC','Intel'),
+       ('ADBE','Adobe'),
+       ('PYPL','PayPal'),
+       ('TWTR','Twitter'),
+       ('AMD' ,'AMD'),
+       ('QCOM','Qualcomm'),
+       ('PLUG', 'Plug Power'),
+       ('SYMC', 'Symantec'),
+       ('NFLX', 'Netflix'),
+       ('EBAY', 'Ebay Inc.'),
+       ('BIDU', 'Baidu'),
+       ('DLTR', 'Dollar Tree'),
+       ('AMZN', 'Amazom.com'),
+       ('SBUX', 'Starbucks'),
+       ('ZIXI', 'Zix'),
+       ('FTEK', 'Fuel Tech'),
+       ('FSLR', 'First Solar'),
+       ('HA'  , 'Hawaiian Holdings'),
+       ('WYNN', 'Wynn Resorts'),
+       ('BIIB', 'Biogen Idec'),
+       ('EDAP', 'Edap Tms.'),
+       ('GERN', 'Geron'),
+       ('TIGR', 'Tigerlogic');
+
 
 
 
@@ -126,19 +136,28 @@ VALUES (DEFAULT,'SIRI',NOW(),15000),
        (DEFAULT,'BIDU',NOW(),60085),
        (DEFAULT,'DLTR',NOW(),14160),
        (DEFAULT,'AMZN',NOW(),8099),
-       (DEFAULT,'SBUX',NOW(),2886);    
+       (DEFAULT,'SBUX',NOW(),7686),
+       (DEFAULT,'ZIXI',NOW(),2541),  
+       (DEFAULT,'FTEK',NOW(),1786),  
+       (DEFAULT,'FSLR',NOW(),5686),  
+       (DEFAULT,'HA'  ,NOW(),7886),  
+       (DEFAULT,'WYNN',NOW(),886),  
+       (DEFAULT,'BIIB',NOW(),756),  
+       (DEFAULT,'EDAP',NOW(),2886),  
+       (DEFAULT,'GERN',NOW(),3456),  
+       (DEFAULT,'TIGR',NOW(),44246); 
        
 -- Insert some users
 INSERT INTO usuario VALUES ('aarroyoc','Adrián Arroyo','7777','adrian.arroyo.calle@alumnos.uva.es',9500,'pato.png','Illuminati confirmed'),
-                                                        ('jugonza','Juan González','contraseña','juan.gonzalez.caminero@alumnos.uva.es',17874,'rickastley.jpeg','Paralelizar hasta reventar'),
-                                                        ('willyrex','Willy Rex','totallynotplaintext','willyrex@minecraft.ad',999999,'willy.jpeg','Staying alive');
+                            ('jugonza','Juan González','contraseña','juan.gonzalez.caminero@alumnos.uva.es',17874,'rickastley.jpeg','Paralelizar hasta reventar'),
+                            ('willyrex','Willy Rex','totallynotplaintext','willyrex@minecraft.ad',999999,'willy.jpeg','Staying alive');
 
 
 
 -- Insert some challenges 
 INSERT INTO reto VALUES (0,'Adictos a la bolsa','Somos un grupo de personas adictas a las bolsas de playa','2000-12-31','2001-5-20','aarroyoc'),
-                            (1,'Bolsatr0n medina del campo','Grupo de competición del curso de bolsa de medina','2007-10-15','2007-12-15','aarroyoc'),
-                            (2,'Clase 1ºB','Clase de 1ºB','2009-3-4','2009-5-20','aarroyoc');
+                        (1,'Bolsatr0n medina del campo','Grupo de competición del curso de bolsa de medina','2007-10-15','2007-12-15','aarroyoc'),
+                        (2,'Clase 1ºB','Clase de 1ºB','2009-3-4','2009-5-20','aarroyoc');
 
 INSERT INTO participante VALUES (0, 'aarroyoc', 5000),(0, 'jugonza', 2500),(1, 'willyrex', 10000),(2, 'aarroyoc', 1000),(2, 'jugonza', 1500),(2, 'willyrex', 4500);
 
