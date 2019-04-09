@@ -5,7 +5,7 @@ const ADMIN_ACCOUNT = "stockexchangessw@gmail.com";         // Administrator acc
 const ADMIN_ACCOUNT_NODE_PASSW = "imaiqnxonsomwxur";        // Node password
 const ADMIN_ACCOUNT_PASSW = "admin123>";                    // 'Human' password 
 
-const CONFIRMATION_CONTACT_MESSAGE = "Dear user.\n\n Your message has been received. The administrator will contact you as soon as possible in order to solve your problem. Tank you.";
+const CONFIRMATION_CONTACT_MESSAGE = `Estimado usuario.\n\n Hemos recibido su mensaje. El administrador se pondrá en contacto con usted lo antes posible. Gracias.`;
 
 
 /**
@@ -38,7 +38,7 @@ export async function sendContactEmail(req : any, res : any) {
     let mailUserOptions = {
         from: "stockexchangessw@gmail.com", 
         to: userAddress, 
-        subject: 'Message received',
+        subject: 'Mensaje recibido',
         text: CONFIRMATION_CONTACT_MESSAGE, 
     };
 
@@ -73,7 +73,7 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
     let newPassword = req.body.newPassword;
     let nickname = req.body.nickname;
-    let body = `Dear ${nickname}.\n\n Your new password for 'StockExchangeBattleRoyale' is '${newPassword}'.\n\n (This email was automatically generated. Please, don't answer this email)`;
+    let body = `Estimado ${nickname}.\n\n Su nueva contraseña de 'StockExchangeBattleRoyale' es '${newPassword}'.\n\n (Este email ha sido generado automáticamente. Por favor, no responda a este mensaje)`;
     let userAddress = req.body.address;
 
     let transporter = nodeMailer.createTransport({
@@ -115,7 +115,7 @@ export async function sendRegisterConfirmationEmail(req : any, res : any) {
 
     let nickname = req.body.nickname;
     let userAddress = req.body.address;
-    let body = `Dear ${nickname}.\n\n You are now a member of the StockExchangeBattleRoyale community. Enjoy it!.\n\n (This email was automatically generated. Please, don't answer this email)`;
+    let body = `Estimado ${nickname}.\n\n Ahora forma usted parte de la comunidad de  StockExchangeBattleRoyale. ¡Disfrútalo!.\n\n (Este email ha sido generado automáticamente. Por favor, no responda a este mensaje)`;
     
 
     let transporter = nodeMailer.createTransport({
@@ -131,7 +131,7 @@ export async function sendRegisterConfirmationEmail(req : any, res : any) {
     let mailOptions = {
         from: "stockexchangessw@gmail.com", 
         to: userAddress, 
-        subject: 'Registration in StockExchangeBattleRoyale', 
+        subject: 'Registro en StockExchangeBattleRoyale', 
         text: body, 
     };
 
