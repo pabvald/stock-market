@@ -22,20 +22,34 @@ interface UsuarioReto{
 export class RetosComponent implements OnInit {
 
   participantes : UsuarioReto[];
-  nickname:string;
+  cName:string;
+  cDescription:string;
+  cEndDate:Date;
+  creator:string;
   searched_username : string;
   data: Price[] = fc.randomFinancial()(50);
   id:number;
 
   constructor(private dataS:DataService,private route: ActivatedRoute, private state:StateService) {
+    this.participantes = [];
     this.searched_username = "";
-    this.nickname = state.nickname;
     this.id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data));
+
+    this.dataS.getChallengeInfo(this.id).subscribe((data)=>{
+      this.cDescription = data.descripcion;
+      this.cName = data.nombre;
+      this.creator = data.creador;
+      this.cEndDate = data.fechafin;
+    })
    }
 
+
+  get nickname(){
+    return this.state.nickname;
+  }
+  
   ngOnInit() {
-    
   }
 
   setParticipantes(participantes:ChallengeUser[]){
@@ -65,4 +79,20 @@ export class RetosComponent implements OnInit {
     
   }
 
+  isParticipante(){
+    for(let i=0;i<this.participantes.length;i++){
+      if(this.participantes[0].nombre==this.nickname)
+        return true;
+    }
+    return false;
+  }
+
+  leave(){
+    let req = this.dataS.removeUserFromChallenge(this.id);
+    req.subscribe((_)=>this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data)))
+  }
+
+  hasEnded():boolean{
+    return new Date() > this.cEndDate;
+  }
 }

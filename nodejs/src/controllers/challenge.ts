@@ -111,3 +111,29 @@ export async function getChallengeUsers(req: any,res: any){
 res.send(users);
 }
 
+export async function getChallengeInfo(req: any,res: any){
+    let reto =  req.params.id;
+
+    let data = await db.query(`
+    SELECT R.nombre, R.descripcion,R.creador, R.fechafin
+    FROM reto R
+    WHERE r.id = $1;
+    `,[reto]);
+
+   
+    res.send(data.rows[0]);
+    
+}
+
+export async function removeUserFromChallenge(req:any,res:any){
+    let nickname = req.session.nickname;
+    let reto = req.body.reto;
+
+
+    await db.query(`
+    DELETE FROM Participante WHERE
+    reto=$2 AND participante=$1;
+    `,[nickname,reto]);
+
+    res.send({status:1});
+}

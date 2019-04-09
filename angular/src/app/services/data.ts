@@ -52,9 +52,23 @@ export class DataService {
         let req = this.http.post(`${this.base}/api/challenge/addUser`,postData);
         return req;
     }
+
+    removeUserFromChallenge(idReto:number){
+        let postData = { 
+            reto:idReto,
+        };
+        
+        let req = this.http.post(`${this.base}/api/challenge/removeUser`,postData);
+        return req;
+    }
     
     getChallengeUsers(id:number):Observable<ChallengeUser[]>{
         let req = this.http.get<ChallengeUser[]>(`${this.base}/api/challenge/${id}`);
+        return req;
+    }
+
+    getChallengeInfo(idReto:number):Observable<any>{
+        let req = this.http.get<any>(`${this.base}/api/challengeData/${idReto}`);
         return req;
     }
 

@@ -1,11 +1,16 @@
 <main>
   <section id="graphico">
     <div id="candlestick"><candlestick [data]="data"></candlestick></div>
-    <div id="reto-description">Nuestra filosofía de vida: el dinero. Nuestro nombre: La Hermandad del Puño Cerrado</div>
+    <div id="reto-description">{{cDescription}}
+    </div>
   </section>
   <section id="participantes">
+   
     <div id="container-btn-reto">
-    <button id="btn-unirse-reto" (click)="join()">Unirse al reto</button>
+        <span *ngIf="nickname!=null || hasEnded()">
+    <span *ngIf="!isParticipante()"><button id="btn-unirse-reto" (click)="join()">Unirse al reto</button></span>
+    <span *ngIf="isParticipante()"><button id="btn-salir-reto" (click)="leave()">Salir del reto</button></span>
+          </span>
     </div>
     <div id="container-tabla">
       <table id="tabla-ranking">
