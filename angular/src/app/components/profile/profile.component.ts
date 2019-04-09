@@ -40,6 +40,7 @@ export class ProfileComponent {
         group.fechainicio = new Date(group.fechainicio);
         group.fechafin = new Date(group.fechafin);
         group.variacion = group.balanceinicial/group.balancefinal*100;
+        group.variacion = parseFloat(group.variacion.toPrecision(5));
         if(group.balanceinicial > group.balancefinal){
           group.signovariacion = "-";
         }else{
