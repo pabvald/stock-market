@@ -57,6 +57,29 @@ export async function createChallenge(req: any,res: any){
     res.send({id:query.rows[0].id});
 }
 
+
+export async function addUserToChallenge(req:any,res:any){
+    let nickname = req.session.nickname;
+    let reto = req.body.reto;
+    await db.query(`
+    WITH spentMoney AS(
+        SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+        FROM transaccion T
+        WHERE T.usuario = $1 AND
+              T.origen IS NULL
+        ), earnedMoney AS(
+        SELECT COALESCE(SUM(T.cantidad),0) AS ganado
+        FROM transaccion T
+        WHERE T.usuario = $1 AND
+              T.origen IS NOT NULL
+        )
+        INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado 
+            FROM Usuario U, spentMoney S, earnedMoney E
+              WHERE U.nickname = $1));`,[nickname,reto]);
+
+        res.send({status:1});
+}
+
 export async function getChallengeUsers(req: any,res: any){
     let reto =  req.params.id;
     let data = await db.query(`SELECT U.nickname, 

@@ -44,6 +44,15 @@ export class DataService {
         return req;
     }
 
+    addUserToChallenge(idReto:number):Observable<Object>{
+        let postData = { 
+            reto:idReto,
+        };
+        
+        let req = this.http.post(`${this.base}/api/challenge/addUser`,postData);
+        return req;
+    }
+    
     getChallengeUsers(id:number):Observable<ChallengeUser[]>{
         let req = this.http.get<ChallengeUser[]>(`${this.base}/api/challenge/${id}`);
         return req;
