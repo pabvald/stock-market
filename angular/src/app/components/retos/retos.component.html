@@ -7,7 +7,7 @@
   <section id="participantes">
    
     <div id="container-btn-reto">
-        <span *ngIf="nickname!=null || hasEnded()">
+        <span *ngIf="nickname!=null && !hasEnded()">
     <span *ngIf="!isParticipante()"><button id="btn-unirse-reto" (click)="join()">Unirse al reto</button></span>
     <span *ngIf="isParticipante()"><button id="btn-salir-reto" (click)="leave()">Salir del reto</button></span>
           </span>

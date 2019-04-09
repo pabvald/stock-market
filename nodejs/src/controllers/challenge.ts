@@ -103,7 +103,7 @@ export async function getChallengeUsers(req: any,res: any){
     for(let row of data.rows){
         users.push({
             nickname: row.nickname,
-            balanceFinal: row.saldo,
+            balanceFinal: parseInt(row.saldo),
             balanceInicial:row.balanceinicial
         });
 }
@@ -120,7 +120,6 @@ export async function getChallengeInfo(req: any,res: any){
     WHERE r.id = $1;
     `,[reto]);
 
-   
     res.send(data.rows[0]);
     
 }

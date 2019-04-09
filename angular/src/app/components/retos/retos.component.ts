@@ -30,6 +30,7 @@ export class RetosComponent implements OnInit {
   data: Price[] = fc.randomFinancial()(50);
   id:number;
 
+
   constructor(private dataS:DataService,private route: ActivatedRoute, private state:StateService) {
     this.participantes = [];
     this.searched_username = "";
@@ -40,8 +41,10 @@ export class RetosComponent implements OnInit {
       this.cDescription = data.descripcion;
       this.cName = data.nombre;
       this.creator = data.creador;
-      this.cEndDate = data.fechafin;
+      this.cEndDate = new Date(data.fechafin); 
     })
+
+
    }
 
 
@@ -56,7 +59,7 @@ export class RetosComponent implements OnInit {
     this.participantes = [];
     for(let i=0;i<participantes.length;i++){
       let p = participantes[i];
-      this.participantes.push({nombre:p.nickname,beneficio:p.balanceFinal-p.balanceInicial,variacion:p.balanceFinal/p.balanceInicial});
+      this.participantes.push({nombre:p.nickname,beneficio:p.balanceFinal-p.balanceInicial,variacion:(p.balanceFinal/p.balanceInicial)*100-100});
     }
 
     this.participantes.sort((a,b)=>a.variacion>b.variacion ? -1 : 1);
@@ -93,6 +96,12 @@ export class RetosComponent implements OnInit {
   }
 
   hasEnded():boolean{
-    return new Date() > this.cEndDate;
+    if (!this.cEndDate)
+      return false;
+
+    this.cEndDate.setHours(0,0,0,0);
+    let today = new Date();
+    today.setHours(0,0,0,0);
+    return today > this.cEndDate;
   }
 }
