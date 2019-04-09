@@ -18,7 +18,7 @@ export async function login(req: any,res: any){
         }
         let valid = await bcrypt.compare(password,data.rows[0].password);
         if(valid){
-            log(req,nickname);
+            log(req,res,nickname);
             res.send({ok: true});
         }else{
             res.status(400).send({ok: false});
@@ -44,7 +44,7 @@ export async function register(req: any, res: any){
             VALUES
             ($1,$2,$3,$4,100000)
             `,[nickname,name,hash,email]);
-        log(req,nickname);
+        log(req,res,nickname);
         res.send({ok: true});
     }catch(e){
         console.error(e);
@@ -53,6 +53,7 @@ export async function register(req: any, res: any){
     
 }
 
-function log(req: any,nickname: string){
+function log(req: any,res: any,nickname: string){
     req.session.nickname = nickname;
+    res.cookie("nickname",nickname);
 }
