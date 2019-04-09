@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   {path: "challenge/:id", component: RetosComponent},
   {path: "challenge", component:ListaRetosComponent},
   {path: "contact", component: ContactComponent},
-  {path: "user", component: ProfileComponent},
+  {path: "user/:nickname", component: ProfileComponent},
   {path: "training", component: TrainingComponent},
   {path: "", redirectTo: "/market", pathMatch: "full"}
 ];
