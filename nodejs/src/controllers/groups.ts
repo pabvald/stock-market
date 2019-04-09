@@ -5,7 +5,7 @@ export async function getUserGroups(req: any,res: any){
     let nickname = req.params.nickname;
     //SELECT R.nombre, R.fechainicio, R.fechafin, P.balanceinicial, P.balancefinal, P.ranking, Temp.numParticipantes
     let data = await db.query(`
-        SELECT DISTINCT R.nombre, R.fechainicio, R.fechafin, P.balanceinicial, Temp.numParticipantes, Diferencia.balancefinal
+        SELECT DISTINCT R.id, R.nombre, R.fechainicio, R.fechafin, P.balanceinicial, Temp.numParticipantes, Diferencia.balancefinal
         FROM reto R, participante P, usuario U, (SELECT R.id, COUNT(*) AS numParticipantes
                                                 FROM participante P, Reto R 
                                                 WHERE P.reto = R.id

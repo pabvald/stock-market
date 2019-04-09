@@ -33,7 +33,7 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let group of groups">
-					<td>{{ group.nombre }}</td>
+					<td> <a routerLink="/challenge/{{group.id}}">{{group.nombre}}</a> </td>
 					<td>{{ group.fechainicio.getDate() }}/
 						{{ group.fechainicio.getMonth() }}/
 						{{ group.fechainicio.getFullYear() }}</td>

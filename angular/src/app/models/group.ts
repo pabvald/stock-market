@@ -1,5 +1,6 @@
 export class Group{
 	nombre: string;
+	id: number;
     fechainicio: Date;
     fechafin: Date;
     balancefinal: number;
