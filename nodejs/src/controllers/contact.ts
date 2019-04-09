@@ -5,7 +5,7 @@ const ADMIN_ACCOUNT = "stockexchangessw@gmail.com";         // Administrator acc
 const ADMIN_ACCOUNT_NODE_PASSW = "imaiqnxonsomwxur";        // Node password
 const ADMIN_ACCOUNT_PASSW = "admin123>";                    // 'Human' password 
 
-const CONFIRMATION_MESSAGE = "Dear user. Your message has been received. The administrator will contact you as soon as possible in order to solve your problem.";
+const CONFIRMATION_CONTACT_MESSAGE = "Dear user.\n\n Your message has been received. The administrator will contact you as soon as possible in order to solve your problem. Tank you.";
 
 
 /**
@@ -39,7 +39,7 @@ export async function sendContactEmail(req : any, res : any) {
         from: "stockexchangessw@gmail.com", 
         to: userAddress, 
         subject: 'Message received',
-        text: CONFIRMATION_MESSAGE, 
+        text: CONFIRMATION_CONTACT_MESSAGE, 
     };
 
     // Send message to the administrator 
@@ -73,7 +73,7 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
     let newPassword = req.body.newPassword;
     let nickname = req.body.nickname;
-    let body = `Dear ${nickname}. Your new password is  '${newPassword}' .`;
+    let body = `Dear ${nickname}.\n\n Your new password for 'StockExchangeBattleRoyale' is '${newPassword}'.\n\n (This email was automatically generated. Please, don't answer this email)`;
     let userAddress = req.body.address;
 
     let transporter = nodeMailer.createTransport({
@@ -105,3 +105,46 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
         }
     });
 }
+
+/**
+ * Send a registration confirmation email to the user.
+ * @param req - http request.
+ * @param res - http request. 
+ */
+export async function sendRegisterConfirmationEmail(req : any, res : any) {
+
+    let nickname = req.body.nickname;
+    let userAddress = req.body.address;
+    let body = `Dear ${nickname}.\n\n You are now a member of the StockExchangeBattleRoyale community. Enjoy it!.\n\n (This email was automatically generated. Please, don't answer this email)`;
+    
+
+    let transporter = nodeMailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: ADMIN_ACCOUNT, 
+            pass: ADMIN_ACCOUNT_NODE_PASSW            
+        }
+    });
+
+    let mailOptions = {
+        from: "stockexchangessw@gmail.com", 
+        to: userAddress, 
+        subject: 'Registration in StockExchangeBattleRoyale', 
+        text: body, 
+    };
+
+
+    // Send register confirmation email to user.
+    transporter.sendMail(mailOptions, (error : any, info : any) => {
+        if (error) {
+            console.log(error);
+            res.send({ok: false});
+        } else {
+            console.log('Message %s sent to user: %s', info.messageId, info.response);
+            res.send({ok: true});
+        }
+    });
+}
+

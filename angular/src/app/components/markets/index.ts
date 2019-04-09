@@ -119,7 +119,6 @@ export class MarketComponent{
     onSelectCompany(selected : Company){
         this.selectedCompany = selected;
         this.updateEvolution(); 
-        //this.companyEvolution = fc.randomFinancial()(50);
     }
 
 

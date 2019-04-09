@@ -65,25 +65,50 @@ export class DataService {
     sellActions(data: any): Observable<any>{
         let req = this.http.post<any>(`${this.base}/api/portfolio/sell`,data,{withCredentials: true});
         return req;
-    }
-
-    register(data: RegisterForm): Observable<any>{
-        let req = this.http.post<any>(`${this.base}/api/register`,data,{withCredentials: true});
-        return req;
-    }
-
-    login(data: LoginForm): Observable<any>{
-        let req = this.http.post<any>(`${this.base}/api/login`,data,{withCredentials: true});
-        return req;
-    }
+    }   
 
     ping(): Observable<any>{
         let req = this.http.get<any>(`${this.base}/api/ping`,{withCredentials: true});
         return req;
     }
 
-    /* ---------------------------------------------------- MARKET --------------------------------------------*/
 
+    /* ------------------------------------------------ REGISTER ----------------------------------------------------*/
+
+    /**
+     * Insert the user in the database.
+     * @param data - register form.
+     */
+    register(data: RegisterForm): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/register`,data,{withCredentials: true});
+        return req;
+    }
+
+    /**
+     * Send registration confirmation email to the new user.
+     * @param data - must include: nickname, user's email address.
+     */
+    sendRegisterConfirmationEmail(data : any) : Observable<any> {
+        let req = this.http.post<any>(`${this.base}/api/registerconfirmation`,data,{withCredentials: true});
+        return req;
+    }
+
+
+
+    /* -------------------------------------------------- LOGIN ---------------------------------------------------*/
+
+    /**
+     * Log user in. 
+     * @param data - login form
+     */
+    login(data: LoginForm): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/login`,data,{withCredentials: true});
+        return req;
+    }
+
+
+
+    /* ---------------------------------------------------- MARKET --------------------------------------------*/
     /**
      * Try the given purchase. 
      * @param data - purchase information.
@@ -111,11 +136,10 @@ export class DataService {
     }   
 
     
-    /* ---------------------------------------------------- CONTACT ---------------------------------------------*/
-    
+    /* ---------------------------------------------------- CONTACT ---------------------------------------------*/    
     /**
      * Send email to the admin and user.
-     * @param data - message(subject, email address, content)
+     * @param data - email form (subject, email address, content)
      */
     sendContactEmail( data : EmailForm) : Observable<any> {
         let req = this.http.post<any>(`${this.base}/api/contact`,data,{withCredentials: false});

@@ -12,7 +12,7 @@ import { getUserGroups } from "./controllers/groups";
 import { getUserInformation } from "./controllers/userinfo";
 import {getAllChallenges,createChallenge} from './controllers/challenge';
 import { login, register } from "./controllers/login";
-import { sendContactEmail, sendRecoverPasswordEmail } from "./controllers/contact";
+import { sendContactEmail, sendRecoverPasswordEmail, sendRegisterConfirmationEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
 import { getCompanyEvolution, getMarket } from "./controllers/companies";
 
@@ -48,6 +48,7 @@ app.post("/api/register",register);
 app.post("/api/market/buy", buyStocks);
 app.post("/api/contact", sendContactEmail);
 app.post("/api/recoverpassword", sendRecoverPasswordEmail);
+app.post("/api/registerconfirmation", sendRegisterConfirmationEmail);
 
 
 /* CORS THING */
