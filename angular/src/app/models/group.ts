@@ -1,8 +1,11 @@
 export class Group{
-	name: string;
-    joinDate: string;
-    endDate: string;
-    result: number;
-    position: number;
-    participantsNumber: number;
+	nombre: string;
+	id: number;
+    fechainicio: Date;
+    fechafin: Date;
+    balancefinal: number;
+    balanceinicial: number;
+    numparticipantes: number;
+    variacion: number;
+    signovariacion: string;
 }

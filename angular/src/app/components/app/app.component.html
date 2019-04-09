@@ -2,7 +2,7 @@
     <!-- Pestañas -->
     <nav>
         <div *ngIf="!nickname" [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
-        <div *ngIf="nickname != undefined" [ngClass]="{'tabSelected': page === '/user'}" routerLink="/user">{{ nickname }}</div>
+        <div *ngIf="nickname != undefined" [ngClass]="{'tabSelected': page === '/user'}" routerLink="/user/{{ nickname }}">{{ nickname }}</div>
         <div [ngClass]="{'tabSelected': page ==='/contact'}" routerLink="/contact">Contacto</div>
         <div [ngClass]="{'tabSelected': page === '/training'}" routerLink="/training">Formación</div>        
         <div [ngClass]="{'tabSelected': page === '/portfolio'}" routerLink="/portfolio">Mi Cartera</div>

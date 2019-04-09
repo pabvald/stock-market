@@ -1,12 +1,13 @@
 <main>
 	<section id = "profile">
-		<img id = "profilePic" src="../assets/pic-placeholder.jpg">
+		<!--<img id = "profilePic" src="../assets/pic-placeholder.jpg">-->
+		<img id = "profilePic" src="../assets/profilepics/{{ imageURL }}">
 		<div id ="stats">
-			<p>Willy</p>
-			<p>Capital actual: 1000000€</p>
-			<p>Capital inicial: 3000000€</p>
-			<p>Capital invertido: 500000€</p>
-			<p>Amante de los estafilococos, profeta de mi propio éxito. Estudiante por las mañanas, sabio a todas horas. La bolsa, mi amante y mi esposa. Æ</p>
+			<p>{{name}}</p>
+			<p>Capital actual: {{currentMoney}}€</p>
+			<p>Capital inicial: {{initialMoney}}€</p>
+			<p>Capital invertido: {{investedMoney}}€</p>
+			<p>{{biography}}</p>
 		</div>
 	</section>
 
@@ -24,19 +25,23 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th>Fecha de unión</th>
+					<th>Fecha de creación</th>
 					<th>Fecha de finalización</th>
 					<th>Resultado</th>
-					<th>Puesto</th>
+					<th>Participantes</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let group of groups">
-					<td>{{ group.name }}</td>
-					<td>{{ group.joinDate }}</td>
-					<td>{{ group.endDate }}</td>
-					<td>{{ group.result }}</td>
-					<td>{{ group.position }}/{{group.participantsNumber}}</td>
+					<td> <a routerLink="/challenge/{{group.id}}">{{group.nombre}}</a> </td>
+					<td>{{ group.fechainicio.getDate() }}/
+						{{ group.fechainicio.getMonth() }}/
+						{{ group.fechainicio.getFullYear() }}</td>
+					<td>{{ group.fechafin.getDate() }}/
+						{{ group.fechafin.getMonth() }}/
+						{{ group.fechafin.getFullYear() }}</td>
+					<td>{{ group.balancefinal - group.balanceinicial }}€ ({{group.signovariacion}}{{group.variacion}}%)</td>
+					<td>{{ group.numparticipantes }}</td>
 				</tr>
 			</tbody>
 		</table>

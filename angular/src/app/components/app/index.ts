@@ -15,6 +15,9 @@ export class AppRoot {
 
   constructor(private router: Router, private data: DataService, private state: StateService) {
     /* Hacer PING para saber si tenemos sesión o no*/
+    if(state.nickname !== undefined){
+      this.nickname = state.nickname;
+    }
     this.data.ping().subscribe((data)=>{
       if(data.ok){
         this.nickname = data.nickname;

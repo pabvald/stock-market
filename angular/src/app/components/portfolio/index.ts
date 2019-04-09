@@ -22,10 +22,15 @@ export class PortfolioComponent implements OnInit {
 
     history: Action[];
 
-    randomData: Price[] = null;
+    price: Price[] = null;
+
+    user: any = null;
 
     ngOnInit(){
         this.update();
+        setInterval(()=>{
+            this.update();
+        },1000*60);
         // MOSTRAR GRAFICOS
         // CALCULAR BENEFICIOS
         // FORMATO DECIMALES
@@ -37,6 +42,7 @@ export class PortfolioComponent implements OnInit {
     update(){
         this.data.getPortfolioSummary(this.state.nickname).subscribe((data)=>this.updatePortfolio(data));
         this.data.getPortfolioHistory(this.state.nickname).subscribe((data)=>this.updateHistory(data));
+        this.data.getUserInfo(this.state.nickname).subscribe((data)=>{this.updateUserInfo(data)});
     }
 
     constructor(private data: DataService, private state: StateService){
@@ -64,9 +70,16 @@ export class PortfolioComponent implements OnInit {
         });
     }
 
+    updateUserInfo(data: any){
+        this.user=data;
+    }
+
     show(c: Company){
         this.company=c;
-        this.randomData = fc.randomFinancial()(50);
+        this.data.getCompanyEvolution(c.code).subscribe((price)=>{
+            this.price = price;
+        });
+        //this.randomData = fc.randomFinancial()(50);
     }
 
     sell(){

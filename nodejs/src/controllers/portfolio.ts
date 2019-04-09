@@ -104,7 +104,7 @@ export async function sellActions(req: any, res: any){
     let buyId = req.body.id;
     let quantity = req.body.quantity;
 
-    if(req.session.nickname){
+    if(!req.session.nickname){
         res.status(403).send({ok: false});
         return;
     }

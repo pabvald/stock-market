@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Company } from "src/app/models/company";
 import {Challenge,ChallengeUser} from "src/app/models/challenge";
+import { Group } from 'src/app/models/group';
+import { User } from 'src/app/models/user';
 import { Action } from "src/app/models/action";
 import { RegisterForm } from 'src/app/models/forms/register';
 import { LoginForm } from 'src/app/models/forms/login';
@@ -28,6 +30,16 @@ export class DataService {
             })
         ));
         return req;
+    }
+    getUserGroups(nickname: string): Observable<Group[]>{
+    	let req = this.http.get<Group[]>(`${this.base}/api/user/groups/${nickname}`);
+    	//console.log(req);
+    	return req;
+    }
+    getUserInfo(nickname: string): Observable<User>{
+    	let req = this.http.get<User>(`${this.base}/api/user/information/${nickname}`);
+    	//console.log(req);
+    	return req;
     }
 
     getChallengeList(): Observable<Challenge[]>{
@@ -129,11 +141,22 @@ export class DataService {
     /* ---------------------------------------------------- CONTACT ---------------------------------------------*/
     
     /**
-     * Send email to admin.
+     * Send email to the admin and user.
      * @param data - message(subject, email address, content)
      */
-    sendEmail( data : EmailForm) : Observable<any> {
+    sendContactEmail( data : EmailForm) : Observable<any> {
         let req = this.http.post<any>(`${this.base}/api/contact`,data,{withCredentials: false});
+        return req;
+    }
+
+    /* ---------------------------------------------- PASSWORD RECOVERY ------------------------------------------*/
+
+    /**
+     * Send recovery-password email to an user.
+     * @param data - must include: nickname, address (email address), newPassword
+     */
+    sendRecoverPasswordEmail( data : any ) : Observable<any> {
+        let req = this.http.post<any>(`${this.base}/api/recoverpassword`,data,{withCredentials: false});
         return req;
     }
     

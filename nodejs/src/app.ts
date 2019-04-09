@@ -10,8 +10,9 @@ import { echo, ping } from './controllers/echo';
 import { getPortfolioSummary, getHistory, sellActions } from "./controllers/portfolio";
 import { getUserGroups } from "./controllers/groups";
 import {getAllChallenges,createChallenge,getChallengeUsers,addUserToChallenge, getChallengeInfo,removeUserFromChallenge} from './controllers/challenge';
+import { getUserInformation } from "./controllers/userinfo";
 import { login, register } from "./controllers/login";
-import { sendEmail } from "./controllers/contact";
+import { sendContactEmail, sendRecoverPasswordEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
 import { getCompanyEvolution, getMarket } from "./controllers/companies";
 
@@ -29,6 +30,10 @@ app.use(session({
 app.get("/api/echo",echo);
 app.get("/api/ping",ping);
 app.get("/api/portfolio/:nickname",getPortfolioSummary);
+
+app.get("/api/user/groups/:nickname", getUserGroups);
+app.get("/api/user/information/:nickname", getUserInformation);
+
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
 app.get("/api/market/evolution/:code", getCompanyEvolution);
@@ -45,7 +50,8 @@ app.post("/api/portfolio/sell",sellActions);
 app.post("/api/login",login);
 app.post("/api/register",register);
 app.post("/api/market/buy", buyStocks);
-app.post("/api/contact", sendEmail);
+app.post("/api/contact", sendContactEmail);
+app.post("/api/recoverpassword", sendRecoverPasswordEmail);
 
 
 /* CORS THING */
