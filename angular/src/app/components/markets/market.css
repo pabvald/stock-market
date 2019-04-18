@@ -8,13 +8,14 @@ main {
    grid-template-rows: 2fr 1fr;
    grid-template-areas: "graphic companies"
                         "operations companies";
-    height: calc(100% - 75px);
-    width: calc(100% - 50px);
+   height: calc(100% - 100px);
+   width: calc(100% - 50px);
    align-content: center;
    justify-content: center;
    grid-row-gap:10px;
    grid-column-gap:20px;
    padding:20px;
+   padding-bottom: 0%;
    font-family: 'Unica One';
 }
 
@@ -28,8 +29,8 @@ main {
     background-color:#9EBF95;    
     border: 5px solid #688C5E;  
     border-radius: 5px;
-    display: grid;
-    
+    display: grid;    
+    padding: 0;
 }
 
 #companies-container { 

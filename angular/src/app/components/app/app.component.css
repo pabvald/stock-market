@@ -30,6 +30,9 @@ nav > div:focus{
 #main{
     flex: 1;
     background-color: white;
+    max-height: 90%;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 footer{

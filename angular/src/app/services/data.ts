@@ -11,6 +11,7 @@ import { LoginForm } from 'src/app/models/forms/login';
 import { EmailForm } from 'src/app/models/forms/email';
 import { Price } from '../models/price';
 import { map } from 'rxjs/operators';
+import { Indicator, IndicatorValue } from '../models/indicator';
 
 @Injectable({
     providedIn: "root"
@@ -124,8 +125,18 @@ export class DataService {
      * Get the evolution of a company's price.
      * @param code - the code of the company whose price evolution is required.
      */
-    getCompanyEvolution(code : string) : Observable<Price[]> {
+    getPriceEvolution(code : string) : Observable<Price[]> {
         let req = this.http.get<Price[]>(`${this.base}/api/market/evolution/${code}`);
+        return req;
+    }
+
+    /**
+     * Get the evolution of the indicator of a company's price. 
+     * @param code - the code of the company 
+     * @param indicator  - the indicator 
+     */
+    getIndicatorEvolution(code : string, indicator : string) : Observable<IndicatorValue[]> {
+        let req = this.http.get<IndicatorValue[]>(`${this.base}/api/market/ind/${code}/${indicator}`);
         return req;
     }
 

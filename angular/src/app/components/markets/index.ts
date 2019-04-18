@@ -3,7 +3,7 @@ import { CandlestickComponent } from "src/app/components/candlestick";
 import { Price } from 'src/app/models/price';
 import { Company } from 'src/app/models/company';
 import { Action } from 'src/app/models/action';
-import { Indicator } from 'src/app/models/indicator';
+import { Indicator, IndicatorValue } from 'src/app/models/indicator';
 import { DataService } from 'src/app/services/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -26,7 +26,8 @@ export class MarketComponent{
                     { name: "MMP", displayName: "Media móvil ponderada" },
                     { name: "RSI", displayName: "RSI" },
                     { name: "MACD",displayName: "MACD" },
-                    { name: "WR",  displayName: "William %R" }
+                    { name: "WR",  displayName: "William %R" },
+                    { name: "NONE", displayName: "Ninguno"}
                 ]; 
  
     companies : Company[];
@@ -41,7 +42,8 @@ export class MarketComponent{
     selectedCompany : Company;
     selectedIndicator : Indicator;
 
-    companyEvolution : Price[] = null;
+    priceEvolution : Price[] = null;
+    indicatorEvolution: IndicatorValue[] = null;
 
     nickname : string;
     
@@ -50,7 +52,7 @@ export class MarketComponent{
      */
     ngOnInit() {
         this.updateMarket();
-        this.selectedIndicator = this.indicators[0];    
+        this.selectedIndicator = this.indicators[this.indicators.length-1];
         this.lowerPrice = this.lowerEndsPrice[0];
         this.upperPrice = this.upperEndsPrice[0];
     }
@@ -67,13 +69,15 @@ export class MarketComponent{
     }
 
     /**
-     * Update the selected company's stock price.
+     * Update the selected company's stock price evolution and its indicator.
      */
-    updateEvolution() {
-        this.dataService.getCompanyEvolution(this.selectedCompany.code).subscribe((data)=>this.setCompanyEvolution(data));  
+    updateCompanyEvolution() {
+        this.dataService.getPriceEvolution(this.selectedCompany.code).subscribe((data)=>this.setPriceEvolution(data));  
+        this.dataService.getIndicatorEvolution(this.selectedCompany.code, this.selectedIndicator.name).subscribe((data)=>this.setIndicatorEvolution(data));
     }
+   
 
-    /**
+    /** 
      * Set the companies. 
      * @param cs - all the companies in the stock market.
      */
@@ -85,15 +89,23 @@ export class MarketComponent{
             return 0;
         }); 
         this.selectedCompany = this.companies[0]; 
-        this.updateEvolution();       
+        this.updateCompanyEvolution();     
     }
 
     /**
      * Set the evolution of the selected Company.
-     * @param evoution - the evolution of the selected company's stock price.
+     * @param evolution - the evolution of the selected company's stock price.
      */
-    setCompanyEvolution(evolution : Price[]) {
-        this.companyEvolution = evolution;       
+    setPriceEvolution(evolution : Price[]) {
+        this.priceEvolution = evolution;       
+    }
+
+    /**
+     * Set the evolution of the selected indicator
+     * @param evolution - the evolution of selected indicator's value.
+     */
+    setIndicatorEvolution(evolution : IndicatorValue[]) {
+        this.indicatorEvolution = evolution;
     }
 
     /**
@@ -118,8 +130,7 @@ export class MarketComponent{
      */
     onSelectCompany(selected : Company){
         this.selectedCompany = selected;
-        this.updateEvolution(); 
-        //this.companyEvolution = fc.randomFinancial()(50);
+        this.updateCompanyEvolution(); 
     }
 
 
