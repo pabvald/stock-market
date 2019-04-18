@@ -2,13 +2,14 @@
     <div id="graphic-container"> 
         <div id="flex-head-graphic">           
             <span  id="graphic-indicator-title">Indicador: </span>
-            <select  id="graphic-indicator" [(ngModel)]="selectedIndicator">
-                <option *ngFor="let i of indicators" value="{{i.name}}" [attr.selected]="i === selectedIndicator">{{i.displayName}}</option>                
+            <select  id="graphic-indicator" [(ngModel)]="selectedIndicator" >
+                <option *ngFor="let i of indicators" value="{{i.name}}" 
+                        [attr.selected]="i.name === selectedIndicator.name">{{i.displayName}}</option>                
             </select>
             <span  id="graphic-title">{{selectedCompany.name}}</span>
         </div>
         <div id="graphic">
-            <candlestick [data]="companyEvolution"></candlestick>
+            <candlestick [data]="priceEvolution"></candlestick>
         </div>
         
     </div>
