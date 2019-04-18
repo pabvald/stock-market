@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, NgZone } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, NgZone,NgModule, ɵNgOnChangesFeature } from "@angular/core";
 import { CandlestickComponent } from "src/app/components/candlestick";
 import { Price } from 'src/app/models/price';
 import { Company } from 'src/app/models/company';
@@ -21,12 +21,12 @@ export class MarketComponent{
     lowerEndsPrice  = [ 0, 10, 20, 30, 50, 70, 100, 150 ];
     upperEndsPrice  = [ 10, 20, 30, 50, 70, 100, 150, 200,
                         1000, 2000, 3000, 4000, 10000, 20000 ].reverse();
-    indicators =  [ { name: "MMS", displayName: "Media móvil simple" },
-                    { name: "MME", displayName: "Media móvil exponencial" },
-                    { name: "MMP", displayName: "Media móvil ponderada" },
-                    { name: "RSI", displayName: "RSI" },
-                    { name: "MACD",displayName: "MACD" },
-                    { name: "WR",  displayName: "William %R" },
+    indicators =  [ { name: "MMS",  displayName: "Media móvil simple" },
+                    { name: "MME",  displayName: "Media móvil exponencial" },
+                    { name: "MMP",  displayName: "Media móvil ponderada" },
+                    { name: "RSI",  displayName: "RSI" },
+                    { name: "MACD", displayName: "MACD" },
+                    { name: "WR",   displayName: "William %R" },
                     { name: "NONE", displayName: "Ninguno"}
                 ]; 
  
@@ -126,11 +126,19 @@ export class MarketComponent{
 
     /**
      * Set the selectedCompany.
-     * @param company -  clicked company
+     * @param selected -  clicked company
      */
-    onSelectCompany(selected : Company){
+    onSelectCompany(selected : Company) {
         this.selectedCompany = selected;
         this.updateCompanyEvolution(); 
+    }
+
+    /**
+     * Set the selectedIndicator.
+     * @param selected - selected indicator.
+     */
+    onSelectIndicator() {
+        console.log("Indicador: " + this.selectedIndicator.displayName);
     }
 
 

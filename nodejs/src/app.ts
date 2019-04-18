@@ -14,7 +14,7 @@ import { getUserInformation } from "./controllers/userinfo";
 import { login, register } from "./controllers/login";
 import { sendContactEmail, sendRecoverPasswordEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
-import { getCompanyEvolution, getMarket } from "./controllers/companies";
+import { getPriceEvolution, getMarket, getIndicatorEvolution } from "./controllers/companies";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,7 +36,8 @@ app.get("/api/user/information/:nickname", getUserInformation);
 
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
-app.get("/api/market/evolution/:code", getCompanyEvolution);
+app.get("/api/market/evolution/:code", getPriceEvolution);
+app.get("/api/market/ind/:code/:indicator", getIndicatorEvolution);
 app.get("/api/market/companies", getMarket);
 app.get("/api/challenges",getAllChallenges);
 app.post("/api/createChallenge",createChallenge);
