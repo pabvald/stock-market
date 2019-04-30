@@ -2,7 +2,6 @@ import express from "express";
 import { Worker } from "worker_threads";
 let app = express();
 let server = require("http").Server(app);
-const bodyParser = require("body-parser");
 const session = require("express-session");
 const nodeMailer = require('nodemailer');
 
@@ -16,8 +15,7 @@ import { sendContactEmail, sendRecoverPasswordEmail } from "./controllers/contac
 import { buyStocks } from "./controllers/buy";
 import { getCompanyEvolution, getMarket } from "./controllers/companies";
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 
 app.use(express.static(__dirname + "/../../angular/dist"));
 
