@@ -6,13 +6,15 @@ export async function getUserInformation(req: any,res: any){
     let nickname = req.params.nickname;
     let data = await db.query(`
         WITH spentMoney AS(
-			SELECT SUM(T.cantidad * T.precioaccion) AS gastado
+			SELECT SUM(T.cantidad * PA.precio) AS gastado
 			FROM transaccion T
+			JOIN precioaccion PA ON T.precioaccion=PA.id
 			WHERE T.usuario = $1 AND
 				  T.origen IS NULL
 			), earnedMoney AS(
-			SELECT SUM(T.cantidad * T.precioaccion) AS ganado
+			SELECT SUM(T.cantidad * PA.precio) AS ganado
 			FROM transaccion T
+			JOIN precioaccion PA ON T.precioaccion=PA.id
 			WHERE T.usuario = $1 AND
 				  T.origen IS NOT NULL
 			)
@@ -25,7 +27,7 @@ export async function getUserInformation(req: any,res: any){
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     //console.log(data.rows[0]);
     data.rows[0].ganado = parseFloat(data.rows[0].ganado); 
-    data.rows[0].gastado = parseFloat(data.rows[0].gastado); 
+	data.rows[0].gastado = parseFloat(data.rows[0].gastado); 
     res.send(data.rows[0]);
 }
 

@@ -75,13 +75,15 @@ export async function addUserToChallenge(req:any,res:any){
     let reto = req.body.reto;
     await db.query(`
     WITH spentMoney AS(
-        SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+        SELECT COALESCE(SUM(T.cantidad * PA.precio),0) AS gastado
         FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
         WHERE T.usuario = $1 AND
               T.origen IS NULL
         ), earnedMoney AS(
-        SELECT COALESCE(SUM(T.cantidad),0) AS ganado
+        SELECT COALESCE(SUM(T.cantidad* PA.precio),0) AS ganado
         FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
         WHERE T.usuario = $1 AND
               T.origen IS NOT NULL
         )
@@ -98,12 +100,14 @@ export async function getChallengeUsers(req: any,res: any){
     (
         SELECT U.saldo+S.ganado-E.gastado 
         FROM 
-            (SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+            (SELECT COALESCE(SUM(T.cantidad*PA.precio),0) AS gastado
             FROM transaccion T
+            JOIN precioaccion PA ON T.precioaccion=PA.id
             WHERE T.usuario = U.nickname AND
                 T.origen IS NULL AND T.fecha<=R.fechaFin)E,
-            (	SELECT COALESCE(SUM(T.cantidad),0) AS ganado
-			FROM transaccion T
+            (	SELECT COALESCE(SUM(T.cantidad*PA.precio),0) AS ganado
+            FROM transaccion T
+            JOIN precioaccion PA ON T.precioaccion=PA.id
 			WHERE T.usuario = U.nickname AND
 				  T.origen IS NOT NULL AND T.fecha<=R.fechaFin
             )S

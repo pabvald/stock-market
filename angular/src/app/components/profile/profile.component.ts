@@ -39,11 +39,9 @@ export class ProfileComponent {
     g.forEach(function(group:Group){
         group.fechainicio = new Date(group.fechainicio);
         group.fechafin = new Date(group.fechafin);
-        group.variacion = group.balanceinicial/group.balancefinal*100;
+        group.variacion = group.balancefinal/group.balanceinicial*100-100;
         group.variacion = parseFloat(group.variacion.toPrecision(5));
-        if(group.balanceinicial > group.balancefinal){
-          group.signovariacion = "-";
-        }else{
+        if(group.balanceinicial <= group.balancefinal){
           group.signovariacion = "+";
         }
     });
