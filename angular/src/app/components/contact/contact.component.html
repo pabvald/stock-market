@@ -9,7 +9,10 @@
           <input type="text" [(ngModel)]="form.subject" id="inSubject" name="subject" size=30 required placeholder="Resume el motivo de tu consulta"/>          
           <label for="inMessage">Mensaje</label>          
           <textarea  rows="12" cols="55" id="inBody"  required placeholder="Escribe aquí tu mensaje" [(ngModel)]="form.body" [ngModelOptions]="{standalone: true}"></textarea>          
-          <input (click)="submit()" type="submit" id="" name="send" value="Enviar mensaje"/>
+          <input  *ngIf="!sending" (click)="submit()" type="submit" id="" name="send" value="Enviar mensaje"/>
+          <div    *ngIf="sending"   id = "spinner" align="center" style="display: initial;">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          </div>
         </fieldset>
         <p>{{error}}</p>
       </form>

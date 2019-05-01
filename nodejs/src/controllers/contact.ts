@@ -1,11 +1,12 @@
-
+import { db } from "../db";
 const nodeMailer = require('nodemailer');    // Node module which allows to send emails.
 
 const ADMIN_ACCOUNT = "stockexchangessw@gmail.com";         // Administrator account 
 const ADMIN_ACCOUNT_NODE_PASSW = "imaiqnxonsomwxur";        // Node password
 const ADMIN_ACCOUNT_PASSW = "admin123>";                    // 'Human' password 
 
-const CONFIRMATION_MESSAGE = "Dear user. Your message has been received. The administrator will contact you as soon as possible in order to solve your problem.";
+const CONFIRMATION_MESSAGE = `Estimado usuario. \n\n Su mensaje ha sido recibido. El administrador se pondrá en contacto con usted lo antes posible para
+                              solucionar su consulta. \n\n (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
 
 
 /**
@@ -71,10 +72,19 @@ export async function sendContactEmail(req : any, res : any) {
  */
 export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
-    let newPassword = req.body.newPassword;
-    let nickname = req.body.nickname;
-    let body = `Dear ${nickname}. Your new password is  '${newPassword}' .`;
-    let userAddress = req.body.address;
+    let email = req.body.email;
+    let recovery = await recoverByEmail(email); 
+    
+    let password =  recovery.password;
+    let nickname = recovery.nickname;
+
+    if (!nickname || !password) {
+        res.send({error:1});
+    }
+
+    let body = `Estimado ${nickname}.\n\n Has solicitado la recuperación de tu contraseña. Tu contraseña en StockExchangeBattleRoyale es '${password}'. \n\n 
+                (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
+
 
     let transporter = nodeMailer.createTransport({
         host: "smtp.gmail.com",
@@ -88,7 +98,7 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
     let mailOptions = {
         from: "stockexchangessw@gmail.com", 
-        to: userAddress, 
+        to: email, 
         subject: 'Password recovery', 
         text: body, 
     };
@@ -98,10 +108,38 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
     transporter.sendMail(mailOptions, (error : any, info : any) => {
         if (error) {
             console.log(error);
-            res.send({ok: false});
+            res.send({error: 2});
         } else {
             console.log('Message %s sent to user: %s', info.messageId, info.response);
-            res.send({ok: true});
+            res.send({error : 0});
         }
     });
+}
+
+/**
+ * Get the nickname and  password of an given user.
+ * @param email - the email of the user whose password has to be obtained.
+ */
+async function recoverByEmail( email : string) {
+    
+    let data;
+    let recovery;
+
+    try {
+        data = await db.query(`
+            SELECT U.password, U.nickname FROM usuario U WHERE U.correo=$1;
+        `, [email]);
+
+        if (data.rows.length > 0) {
+            recovery = {
+                nickname : data.rows[0].nickname,
+                password : data.rows[0].password, 
+            };  
+        }             
+    
+    } catch(err) {
+        console.log(err.stack);
+    }
+
+    return recovery;
 }

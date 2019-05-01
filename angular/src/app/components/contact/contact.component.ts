@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-  
+
+    sending : boolean = false;
     form : EmailForm;
     error : string = "";
 
@@ -42,15 +43,17 @@ export class ContactComponent implements OnInit {
           console.log(this.form.body);
           return;
         } 
-
-        this.dataService.sendContactEmail(this.form).subscribe((data) => {
-          if (data.ok) {
-            alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
-            window.location.href = "/";
-          } else {
-            alert("Su mensaje no ha podido ser enviado. Por favor, inténtelo de nuevo más tarde.")
-          }
-        });
+        if (!this.sending) {
+          this.sending = true;
+          this.dataService.sendContactEmail(this.form).subscribe((data) => {
+            if (data.ok) {
+              alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
+            } else {
+              alert("Su mensaje no ha podido ser enviado. Por favor, inténtelo de nuevo más tarde.")
+            }
+          });
+          this.sending = false;
+        }
     }
 
 }
