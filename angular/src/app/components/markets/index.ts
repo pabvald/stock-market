@@ -57,7 +57,7 @@ export class MarketComponent{
         this.upperPrice = this.upperEndsPrice[0];
     }
 
-    constructor(private dataService : DataService, private stateService : StateService) { 
+    constructor( private dataService : DataService, private stateService : StateService) { 
         this.nickname = this.stateService.nickname;
     }
 
@@ -146,18 +146,23 @@ export class MarketComponent{
      * Do the stock purchase.
      */
     buy()  {
-        if(this.numberBuyStocks < 1) return;
+        if (this.numberBuyStocks < 1 || !this.numberBuyStocks) {
+            alert("El número de acciones a comprar debe ser mayor o igual que 1.");
+            return;
+        }
 
         let data = {
             id: this.selectedCompany.id,
             number : this.numberBuyStocks
         };
 
-        this.dataService.buyStocks(data).subscribe((text)=>{
-            if (text.ok) {
+        this.dataService.buyStocks(data).subscribe((response)=>{
+            if (response.error == 0) {
                 alert("La operación ha sido realizada correctamente");
+            } else if(response.error == 2) {
+                alert("Su saldo actual no es suficiente para comprar este número de acciones.")
             } else {
-                alert("Hubo un problema con la petición. Inténtelo de nuevo más tarde ");
+                alert("Hubo un problema con la petición. Por favor, inténtelo de nuevo más tarde ");
             }
         });
     }
