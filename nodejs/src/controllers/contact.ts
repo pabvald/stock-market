@@ -6,7 +6,7 @@ const ADMIN_ACCOUNT_NODE_PASSW = "imaiqnxonsomwxur";        // Node password
 const ADMIN_ACCOUNT_PASSW = "admin123>";                    // 'Human' password 
 
 const CONFIRMATION_MESSAGE = `Estimado usuario. \n\n Su mensaje ha sido recibido. El administrador se pondrá en contacto con usted lo antes posible para
-                              solucionar su consulta. \n\n (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
+solucionar su consulta. \n\n (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
 
 
 /**
@@ -83,7 +83,7 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
     }
 
     let body = `Estimado ${nickname}.\n\n Has solicitado la recuperación de tu contraseña. Tu contraseña en StockExchangeBattleRoyale es '${password}'. \n\n 
-                (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
+    (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
 
 
     let transporter = nodeMailer.createTransport({

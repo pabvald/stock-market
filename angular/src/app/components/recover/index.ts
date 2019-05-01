@@ -36,13 +36,16 @@ export class RecoverComponent {
             this.dataService.sendRecoverPasswordEmail(data).subscribe((response)=>{
                 if (response.error == 0) {
                     alert("Hemos enviado un correo con su contraseña a la dirección especificada. Consulte su bandeja de entrada.")
+                    this.sending = false;
                 } else if (response.error == 1) {
                     this.error = "No existe ningún usuario con esa dirección de correo. Compruebe que el email introducido es correcto";
+                    this.sending = false;
                 } else if (response.error == 2) {
                     alert("Ha habido un problema. Por favor, inténtelo de nuevo más tarde.");
+                    this.sending = false;
                 }
             });
-            this.sending = false;
+            
         }
     }
 
