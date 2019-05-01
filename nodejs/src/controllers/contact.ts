@@ -73,14 +73,15 @@ export async function sendContactEmail(req : any, res : any) {
 export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
     let email = req.body.email;
-    let recovery = await recoverByEmail(email); 
-    
+    let recovery = await recoverByEmail(email);     
+    if (!recovery) {
+        res.send({error:1});
+        return;
+    }
+
     let password =  recovery.password;
     let nickname = recovery.nickname;
 
-    if (!nickname || !password) {
-        res.send({error:1});
-    }
 
     let body = `Estimado ${nickname}.\n\n Has solicitado la recuperación de tu contraseña. Tu contraseña en StockExchangeBattleRoyale es '${password}'. \n\n 
     (Este mensaje ha sido generado de forma automática. No intente responderlo.)`;
@@ -130,7 +131,7 @@ async function recoverByEmail( email : string) {
             SELECT U.password, U.nickname FROM usuario U WHERE U.correo=$1;
         `, [email]);
 
-        if (data.rows.length > 0) {
+        if (data.rows[0]) {
             recovery = {
                 nickname : data.rows[0].nickname,
                 password : data.rows[0].password, 

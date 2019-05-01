@@ -38,7 +38,7 @@ export class RecoverComponent {
                     alert("Hemos enviado un correo con su contraseña a la dirección especificada. Consulte su bandeja de entrada.")
                     this.sending = false;
                 } else if (response.error == 1) {
-                    this.error = "No existe ningún usuario con esa dirección de correo. Compruebe que el email introducido es correcto";
+                    this.error = "No existe ningún usuario con esa dirección de correo.";
                     this.sending = false;
                 } else if (response.error == 2) {
                     alert("Ha habido un problema. Por favor, inténtelo de nuevo más tarde.");
