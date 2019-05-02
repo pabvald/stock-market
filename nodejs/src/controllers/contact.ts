@@ -42,7 +42,7 @@ export async function sendContactEmail(req : any, res : any) {
         from: "stockexchangessw@gmail.com", 
         to: userAddress, 
         subject: 'Mensaje recibido',
-        text: CONFIRMATION_CONTACT_MESSAGE, 
+        text: CONFIRMATION_MESSAGE
     };
 
     // Send message to the administrator 
@@ -126,6 +126,49 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
     });
 }
 
+/**
+ * Send a registration confirmation email to the user.
+ * @param req - http request.
+ * @param res - http request. 
+ */
+export async function sendRegisterConfirmationEmail(req : any, res : any) {
+
+    let nickname = req.body.nickname;
+    let userAddress = req.body.address;
+    let body = `Estimado ${nickname}.\n\n Ahora forma usted parte de la comunidad de  StockExchangeBattleRoyale. ¡Disfrútelo!.\n\n(Este email ha sido generado automáticamente. Por favor, no responda a este mensaje)`;
+    
+
+    let transporter = nodeMailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: ADMIN_ACCOUNT, 
+            pass: ADMIN_ACCOUNT_NODE_PASSW            
+        }
+    });
+
+    let mailOptions = {
+        from: "stockexchangessw@gmail.com", 
+        to: userAddress, 
+        subject: 'Registro en StockExchangeBattleRoyale', 
+        text: body, 
+    };
+
+
+    // Send register confirmation email to user.
+    transporter.sendMail(mailOptions, (error : any, info : any) => {
+        if (error) {
+            console.log(error);
+            res.send({ok: false});
+        } else {
+            console.log('Message %s sent to user: %s', info.messageId, info.response);
+            res.send({ok: true});
+        }
+    });
+}
+
+
 
 /**
  * Get a user's nickname by its email.
@@ -176,3 +219,4 @@ async function changePasswordByNickname(nickname : string, password : string){
 
     return 0;
 }
+

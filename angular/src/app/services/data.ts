@@ -140,10 +140,6 @@ export class DataService {
         return req;
     }
 
-    getPortfolioHistory(nickname: string): Observable<Action[]>{
-        let req = this.http.get<Action[]>(`${this.base}/api/portfolio/history/${nickname}`);
-        return req;
-    }
 
 
     /* ------------------------------------------------ REGISTER ----------------------------------------------------*/
