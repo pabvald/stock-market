@@ -130,7 +130,7 @@ export class MarketComponent{
      */
     onSelectCompany(selected : Company){
         this.selectedCompany = selected;
-        this.updateCompanyEvolution(); 
+        this.updateEvolution(); 
     }
 
 

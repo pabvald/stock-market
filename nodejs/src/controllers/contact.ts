@@ -5,7 +5,7 @@ const ADMIN_ACCOUNT = "stockexchangessw@gmail.com";         // Administrator acc
 const ADMIN_ACCOUNT_NODE_PASSW = "imaiqnxonsomwxur";        // Node password
 const ADMIN_ACCOUNT_PASSW = "admin123>";                    // 'Human' password 
 
-const CONFIRMATION_MESSAGE = "Dear user. Your message has been received. The administrator will contact you as soon as possible in order to solve your problem.";
+const CONFIRMATION_CONTACT_MESSAGE = `Estimado usuario.\n\n Hemos recibido su mensaje. El administrador se pondrá en contacto con usted lo antes posible. Gracias.`;
 
 
 /**
@@ -38,8 +38,8 @@ export async function sendContactEmail(req : any, res : any) {
     let mailUserOptions = {
         from: "stockexchangessw@gmail.com", 
         to: userAddress, 
-        subject: 'Message received',
-        text: CONFIRMATION_MESSAGE, 
+        subject: 'Mensaje recibido',
+        text: CONFIRMATION_CONTACT_MESSAGE, 
     };
 
     // Send message to the administrator 
@@ -73,7 +73,7 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
 
     let newPassword = req.body.newPassword;
     let nickname = req.body.nickname;
-    let body = `Dear ${nickname}. Your new password is  '${newPassword}' .`;
+    let body = `Estimado ${nickname}.\n\n Su nueva contraseña de 'StockExchangeBattleRoyale' es '${newPassword}'.\n\n (Este email ha sido generado automáticamente. Por favor, no responda a este mensaje)`;
     let userAddress = req.body.address;
 
     let transporter = nodeMailer.createTransport({
@@ -105,3 +105,46 @@ export async function sendRecoverPasswordEmail(req : any, res : any ) {
         }
     });
 }
+
+/**
+ * Send a registration confirmation email to the user.
+ * @param req - http request.
+ * @param res - http request. 
+ */
+export async function sendRegisterConfirmationEmail(req : any, res : any) {
+
+    let nickname = req.body.nickname;
+    let userAddress = req.body.address;
+    let body = `Estimado ${nickname}.\n\n Ahora forma usted parte de la comunidad de  StockExchangeBattleRoyale. ¡Disfrútalo!.\n\n (Este email ha sido generado automáticamente. Por favor, no responda a este mensaje)`;
+    
+
+    let transporter = nodeMailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: ADMIN_ACCOUNT, 
+            pass: ADMIN_ACCOUNT_NODE_PASSW            
+        }
+    });
+
+    let mailOptions = {
+        from: "stockexchangessw@gmail.com", 
+        to: userAddress, 
+        subject: 'Registro en StockExchangeBattleRoyale', 
+        text: body, 
+    };
+
+
+    // Send register confirmation email to user.
+    transporter.sendMail(mailOptions, (error : any, info : any) => {
+        if (error) {
+            console.log(error);
+            res.send({ok: false});
+        } else {
+            console.log('Message %s sent to user: %s', info.messageId, info.response);
+            res.send({ok: true});
+        }
+    });
+}
+
