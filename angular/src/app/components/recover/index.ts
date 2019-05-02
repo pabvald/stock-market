@@ -35,7 +35,7 @@ export class RecoverComponent {
             this.sending = true;
             this.dataService.sendRecoverPasswordEmail(data).subscribe((response)=>{
                 if (response.error == 0) {
-                    alert("Hemos enviado un correo con su contraseña a la dirección especificada. Consulte su bandeja de entrada.")
+                    alert("Hemos enviado un correo con su nueva contraseña a la dirección especificada. Consulte su bandeja de entrada.")
                     this.sending = false;
                 } else if (response.error == 1) {
                     this.error = "No existe ningún usuario con esa dirección de correo.";
