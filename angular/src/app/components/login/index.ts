@@ -10,6 +10,7 @@ import { StateService } from 'src/app/services/state';
 })
 export class LoginComponent {
 
+    error = "";
     form: LoginForm;
 
     constructor(private data: DataService, private state: StateService){
@@ -20,9 +21,12 @@ export class LoginComponent {
     }
 
     submit(){
+        this.error = "";
         this.data.login(this.form).subscribe((data)=>{
             if(data.ok){
                 window.location.href = "/";
+            } else {
+                this.error = "Usuario o contraseña no válidos."
             }
         })
     }

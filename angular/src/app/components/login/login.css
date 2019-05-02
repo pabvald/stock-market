@@ -18,3 +18,7 @@ input[type="submit"]{
     padding-bottom: 10px;
     font-family: "Unica One";
 }
+
+#error_message {
+    color : red;
+}
