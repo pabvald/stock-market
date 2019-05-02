@@ -5,7 +5,10 @@
         <input type="text" [(ngModel)]="form.nickname" name="nickname" id="username" placeholder="Usuario">
         <label for="password">Contraseña</label>
         <input type="password" [(ngModel)]="form.password" name="nickname" id="password" placeholder="Contraseña">
-        <input type="submit" value="Iniciar sesión">
+        <input *ngIf="!loading" type="submit" value="Iniciar sesión">
+        <div   *ngIf="loading"   id = "spinner" align="center" style="display: initial;">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
         <p id="error_message">{{error}}</p>
         <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
         <p>¿Has olvidado la contraseña? <a routerLink="/recover">Recupérala</a></p>        
