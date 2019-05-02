@@ -47,16 +47,16 @@ export class ContactComponent implements OnInit {
         if (!this.sending) {
           this.sending = true;
           this.dataService.sendContactEmail(this.form).subscribe((data) => {
-            if (data.ok) {              
+            if (data.ok) {
               alert("Su mensaje ha sido enviado con éxito. El administrador se pondrá en contacto usted lo antes posible.");
               this.sending = false;
             } else {
-              alert("Su mensaje no ha podido ser enviado. Por favor, inténtelo de nuevo más tarde.");
+              alert("Su mensaje no ha podido ser enviado. Por favor, inténtelo de nuevo más tarde.")
               this.sending = false;
             }
           });
+          
         }
-        
     }
 
 }

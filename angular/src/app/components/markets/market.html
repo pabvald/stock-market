@@ -2,7 +2,7 @@
     <div id="graphic-container"> 
         <div id="flex-head-graphic">           
             <span  id="graphic-indicator-title">Indicador: </span>
-            <select  id="graphic-indicator" [(ngModel)]="selectedIndicator" >
+            <select  id="graphic-indicator" (change)="onSelectIndicator" [(ngModel)]="selectedIndicator" >
                 <option *ngFor="let i of indicators" value="{{i.name}}" 
                         [attr.selected]="i.name === selectedIndicator.name">{{i.displayName}}</option>                
             </select>

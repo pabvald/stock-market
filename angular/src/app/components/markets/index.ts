@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, NgZone } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, NgZone,NgModule, ɵNgOnChangesFeature } from "@angular/core";
 import { CandlestickComponent } from "src/app/components/candlestick";
 import { Price } from 'src/app/models/price';
 import { Company } from 'src/app/models/company';
@@ -21,12 +21,12 @@ export class MarketComponent{
     lowerEndsPrice  = [ 0, 10, 20, 30, 50, 70, 100, 150 ];
     upperEndsPrice  = [ 10, 20, 30, 50, 70, 100, 150, 200,
                         1000, 2000, 3000, 4000, 10000, 20000 ].reverse();
-    indicators =  [ { name: "MMS", displayName: "Media móvil simple" },
-                    { name: "MME", displayName: "Media móvil exponencial" },
-                    { name: "MMP", displayName: "Media móvil ponderada" },
-                    { name: "RSI", displayName: "RSI" },
-                    { name: "MACD",displayName: "MACD" },
-                    { name: "WR",  displayName: "William %R" },
+    indicators =  [ { name: "MMS",  displayName: "Media móvil simple" },
+                    { name: "MME",  displayName: "Media móvil exponencial" },
+                    { name: "MMP",  displayName: "Media móvil ponderada" },
+                    { name: "RSI",  displayName: "RSI" },
+                    { name: "MACD", displayName: "MACD" },
+                    { name: "WR",   displayName: "William %R" },
                     { name: "NONE", displayName: "Ninguno"}
                 ]; 
  
@@ -57,7 +57,7 @@ export class MarketComponent{
         this.upperPrice = this.upperEndsPrice[0];
     }
 
-    constructor(private dataService : DataService, private stateService : StateService) { 
+    constructor( private dataService : DataService, private stateService : StateService) { 
         this.nickname = this.stateService.nickname;
     }
 
@@ -126,11 +126,19 @@ export class MarketComponent{
 
     /**
      * Set the selectedCompany.
-     * @param company -  clicked company
+     * @param selected -  clicked company
      */
-    onSelectCompany(selected : Company){
+    onSelectCompany(selected : Company) {
         this.selectedCompany = selected;
         this.updateEvolution(); 
+    }
+
+    /**
+     * Set the selectedIndicator.
+     * @param selected - selected indicator.
+     */
+    onSelectIndicator() {
+        console.log("Indicador: " + this.selectedIndicator.displayName);
     }
 
 
@@ -138,18 +146,23 @@ export class MarketComponent{
      * Do the stock purchase.
      */
     buy()  {
-        if(this.numberBuyStocks < 1) return;
+        if (this.numberBuyStocks < 1 || !this.numberBuyStocks) {
+            alert("El número de acciones a comprar debe ser mayor o igual que 1.");
+            return;
+        }
 
         let data = {
             id: this.selectedCompany.id,
             number : this.numberBuyStocks
         };
 
-        this.dataService.buyStocks(data).subscribe((text)=>{
-            if (text.ok) {
+        this.dataService.buyStocks(data).subscribe((response)=>{
+            if (response.error == 0) {
                 alert("La operación ha sido realizada correctamente");
+            } else if(response.error == 2) {
+                alert("Su saldo actual no es suficiente para comprar este número de acciones.")
             } else {
-                alert("Hubo un problema con la petición. Inténtelo de nuevo más tarde ");
+                alert("Hubo un problema con la petición. Por favor, inténtelo de nuevo más tarde ");
             }
         });
     }
