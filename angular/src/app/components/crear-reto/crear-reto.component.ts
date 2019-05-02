@@ -84,7 +84,8 @@ export class CrearRetoComponent implements OnInit {
         creation.subscribe((data)=>{
           this.router.navigateByUrl(`/challenge/${data.id}`);
          this.close();
-        });
+        },
+        error=>{this.endDateError = "La sesión ha caducado, es necesario que hagas login de nuevo."});
       }
      
     
