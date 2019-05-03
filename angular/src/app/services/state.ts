@@ -13,7 +13,9 @@ export class StateService{
      * Get the cookies.
      */
     private getCookie(name: string): string|void{
+       
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+       
         if (match) return match[2];
     }
 
@@ -30,5 +32,9 @@ export class StateService{
      */
     get nickname(): string|undefined{
         return this.getCookie("nickname") || undefined;
+    }
+
+    deleteNicknameCookie(){
+        document.cookie = 'nickname'+'=; Max-Age=-99999999;'; 
     }
 }

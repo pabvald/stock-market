@@ -175,6 +175,11 @@ export class DataService {
         return req;
     }
 
+    logout(): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/logout`,{});
+        return req;
+    }
+
 
 
     /* ---------------------------------------------------- MARKET --------------------------------------------*/
