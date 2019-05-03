@@ -14,14 +14,14 @@ export async function login(req: any,res: any){
             nickname = $1
         `,[nickname]);
         if(data.rows.length === 0){
-            res.status(400).send({ok: false});
+            res.send({ok: false});
         }
         let valid = await bcrypt.compare(password,data.rows[0].password);
         if(valid){
             log(req,res,nickname);
             res.send({ok: true});
         }else{
-            res.status(400).send({ok: false});
+            res.send({ok: false});
         }
     }catch(e){
         console.error(e);

@@ -2,7 +2,6 @@ import express from "express";
 import { Worker } from "worker_threads";
 let app = express();
 let server = require("http").Server(app);
-const bodyParser = require("body-parser");
 const session = require("express-session");
 const nodeMailer = require('nodemailer');
 
@@ -12,12 +11,11 @@ import { getUserGroups } from "./controllers/groups";
 import {getAllChallenges,createChallenge,getChallengeUsers,addUserToChallenge, getChallengeInfo,removeUserFromChallenge} from './controllers/challenge';
 import { getUserInformation } from "./controllers/userinfo";
 import { login, register } from "./controllers/login";
-import { sendContactEmail, sendRecoverPasswordEmail } from "./controllers/contact";
+import { sendContactEmail, sendRecoverPasswordEmail, sendRegisterConfirmationEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
-import { getCompanyEvolution, getMarket } from "./controllers/companies";
+import { getPriceEvolution, getMarket, getIndicatorEvolution } from "./controllers/companies";
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 
 app.use(express.static(__dirname + "/../../angular/dist"));
 
@@ -36,7 +34,8 @@ app.get("/api/user/information/:nickname", getUserInformation);
 
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
-app.get("/api/market/evolution/:code", getCompanyEvolution);
+app.get("/api/market/evolution/:code", getPriceEvolution);
+app.get("/api/market/ind/:code/:indicator", getIndicatorEvolution);
 app.get("/api/market/companies", getMarket);
 app.get("/api/challenges",getAllChallenges);
 app.post("/api/createChallenge",createChallenge);
@@ -52,6 +51,7 @@ app.post("/api/register",register);
 app.post("/api/market/buy", buyStocks);
 app.post("/api/contact", sendContactEmail);
 app.post("/api/recoverpassword", sendRecoverPasswordEmail);
+app.post("/api/registerconfirmation", sendRegisterConfirmationEmail);
 
 
 /* CORS THING */

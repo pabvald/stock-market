@@ -21,7 +21,21 @@ export class DataService {
     constructor(private http: HttpClient){
 
     }
+
+    /**
+     * Check if there is a user logged in. 
+     */
+    ping(): Observable<any>{
+        let req = this.http.get<any>(`${this.base}/api/ping`,{withCredentials: true});
+        return req;
+    }
    
+    /* --------------------------------------------------------- PORTFOLIO ----------------------------------------------*/
+
+    /**
+     * Get the summary of the user's portfolio.
+     * @param nickname - user's nickname.
+     */
     getPortfolioSummary(nickname: string): Observable<Company[]>{
         let req = this.http.get<any>(`${this.base}/api/portfolio/${nickname}`);
         req = req.pipe(map(data=>
@@ -32,17 +46,58 @@ export class DataService {
         ));
         return req;
     }
+
+    /**
+     * Get the history of the user's transactions.
+     * @param nickname - user's nickname
+     */
+    getPortfolioHistory(nickname: string): Observable<Action[]>{
+        let req = this.http.get<Action[]>(`${this.base}/api/portfolio/history/${nickname}`);
+        return req;
+    }
+
+    /**
+     * Sell user's stocks. 
+     * @param data - information  of the sale. 
+     */
+    sellActions(data: any): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/portfolio/sell`,data,{withCredentials: true});
+        return req;
+    }   
+
+
+
+
+    /* ---------------------------------------------- USER ---------------------------------------------------------- */
+
+    /**
+     * Get a list of the user's groups.
+     * @param nickname - user's nickname.
+     */
     getUserGroups(nickname: string): Observable<Group[]>{
     	let req = this.http.get<Group[]>(`${this.base}/api/user/groups/${nickname}`);
     	//console.log(req);
     	return req;
     }
+
+    /**
+     * Get user's basic information.
+     * @param nickname - user's nickname.
+     */
     getUserInfo(nickname: string): Observable<User>{
     	let req = this.http.get<User>(`${this.base}/api/user/information/${nickname}`);
     	//console.log(req);
     	return req;
     }
 
+
+
+
+    /*---------------------------------------------- CHALLENGES -----------------------------------------------------*/
+
+    /**
+     * Get a list of all challenges.
+     */
     getChallengeList(): Observable<Challenge[]>{
         let req = this.http.get<Challenge[]>(`${this.base}/api/challenges`);
         return req;
@@ -85,33 +140,44 @@ export class DataService {
         return req;
     }
 
-    getPortfolioHistory(nickname: string): Observable<Action[]>{
-        let req = this.http.get<Action[]>(`${this.base}/api/portfolio/history/${nickname}`);
-        return req;
-    }
 
-    sellActions(data: any): Observable<any>{
-        let req = this.http.post<any>(`${this.base}/api/portfolio/sell`,data,{withCredentials: true});
-        return req;
-    }
 
+    /* ------------------------------------------------ REGISTER ----------------------------------------------------*/
+
+    /**
+     * Insert the user in the database.
+     * @param data - register form.
+     */
     register(data: RegisterForm): Observable<any>{
         let req = this.http.post<any>(`${this.base}/api/register`,data,{withCredentials: true});
         return req;
     }
 
+    /**
+     * Send registration confirmation email to the new user.
+     * @param data - must include: nickname, user's email address.
+     */
+    sendRegisterConfirmationEmail(data : any) : Observable<any> {
+        let req = this.http.post<any>(`${this.base}/api/registerconfirmation`,data,{withCredentials: true});
+        return req;
+    }
+
+
+
+    /* -------------------------------------------------- LOGIN ---------------------------------------------------*/
+
+    /**
+     * Log user in. 
+     * @param data - login form
+     */
     login(data: LoginForm): Observable<any>{
         let req = this.http.post<any>(`${this.base}/api/login`,data,{withCredentials: true});
         return req;
     }
 
-    ping(): Observable<any>{
-        let req = this.http.get<any>(`${this.base}/api/ping`,{withCredentials: true});
-        return req;
-    }
+
 
     /* ---------------------------------------------------- MARKET --------------------------------------------*/
-
     /**
      * Try the given purchase. 
      * @param data - purchase information.
@@ -148,17 +214,19 @@ export class DataService {
         return req;
     }   
 
+
     
-    /* ---------------------------------------------------- CONTACT ---------------------------------------------*/
-    
+    /* ---------------------------------------------------- CONTACT ---------------------------------------------*/    
     /**
      * Send email to the admin and user.
-     * @param data - message(subject, email address, content)
+     * @param data - email form (subject, email address, content)
      */
     sendContactEmail( data : EmailForm) : Observable<any> {
         let req = this.http.post<any>(`${this.base}/api/contact`,data,{withCredentials: false});
         return req;
     }
+
+
 
     /* ---------------------------------------------- PASSWORD RECOVERY ------------------------------------------*/
 

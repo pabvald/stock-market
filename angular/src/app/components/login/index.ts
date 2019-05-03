@@ -10,6 +10,8 @@ import { StateService } from 'src/app/services/state';
 })
 export class LoginComponent {
 
+    loading : boolean;
+    error : string;
     form: LoginForm;
 
     constructor(private data: DataService, private state: StateService){
@@ -17,12 +19,22 @@ export class LoginComponent {
             nickname: "",
             password: "",
         };
+        this.error = "";
+        this.loading = false;
     }
 
+    /**
+     * Log the user in.
+     */
     submit(){
+        this.loading = true;
+        this.error = "";
         this.data.login(this.form).subscribe((data)=>{
             if(data.ok){
                 window.location.href = "/";
+            } else {
+                this.error = "Usuario o contraseña no válidos.";
+                this.loading = false;
             }
         })
     }
