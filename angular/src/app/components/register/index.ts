@@ -13,6 +13,7 @@ export class RegisterComponent {
     form: RegisterForm;
     passwordCheck: string = "";
     error: string = "";
+    loading : boolean;
     
     constructor(private data: DataService, private state: StateService){
         this.form = {
@@ -20,6 +21,7 @@ export class RegisterComponent {
             password: "",
             email: "",
         };
+        this.loading = false;
     }
     
     submit(){
@@ -40,13 +42,17 @@ export class RegisterComponent {
             this.error = "Falta la contraseña";
             return;
         }
-        this.data.register(this.form).subscribe((data)=>{
-            if(data.ok){
-                window.location.href = "/";
-            }else{
-                this.error = "El usuario ya existe";
-            }
-        });
+        if (!this.loading) {
+            this.loading = true;
+            this.data.register(this.form).subscribe((data)=>{
+                if(data.ok){
+                    window.location.href = "/";
+                }else{
+                    this.error = "El usuario ya existe";
+                    this.loading = false;
+                }
+            });
+        }
 
     }
 

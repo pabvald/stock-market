@@ -11,7 +11,10 @@
         <input type="email" [(ngModel)]="form.email" name="email" id="email" required placeholder="Email">
         <label for="name">Nombre (opcional)</label>
         <input type="text" [(ngModel)]="form.name" name="name" id="name" placeholder="Nombre (opcional)">
-        <input type="submit" value="Registrarse">
+        <input *ngIf="!loading" type="submit" value="Registrarse">
+        <div   *ngIf="loading"   id = "spinner" align="center" style="display: initial;">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
         <p>{{ error }}</p>
     </form>
 </main>
