@@ -126,3 +126,7 @@ thead {
   text-align:right;
   float: right;
 }
+
+.logged-user{
+  font-weight: bold;
+}

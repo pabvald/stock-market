@@ -57,3 +57,12 @@ function log(req: any,res: any,nickname: string){
     req.session.nickname = nickname;
     res.cookie("nickname",nickname);
 }
+
+export function logout(req:any, res:any){
+    try{
+    res.clearCookie('connect.sid', {path: '/'});
+    res.send({ok: true});
+    }catch(e){
+        res.status(520).send({ok:false});
+    }
+}

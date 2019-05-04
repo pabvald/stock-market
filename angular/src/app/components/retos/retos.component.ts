@@ -88,7 +88,7 @@ export class RetosComponent implements OnInit {
 
   isParticipante(){
     for(let i=0;i<this.participantes.length;i++){
-      if(this.participantes[0].nombre==this.nickname)
+      if(this.participantes[i].nombre==this.nickname)
         return true;
     }
     return false;
