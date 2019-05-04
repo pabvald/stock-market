@@ -130,7 +130,7 @@ export class DataService {
         return req;
     }
     
-    getChallengeUsers(id:number):Observable<ChallengeUser[]>{
+    getChallengeUsers(id:number):Observable<ChallengeUser[]>{ 
         let req = this.http.get<ChallengeUser[]>(`${this.base}/api/challenge/${id}`);
         return req;
     }
