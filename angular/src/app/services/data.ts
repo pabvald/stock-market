@@ -184,8 +184,8 @@ export class DataService {
         let req = this.http.post<any>(`${this.base}/api/user/updatebio`, {nickname: nickname, biography: biography});
         return req;
     }
-    updatePic(nickname: string, name: string): Observable<any>{
-        let req = this.http.post<any>(`${this.base}/api/user/updatepic`, {nickname: nickname, name: name});
+    updatePic(nickname: string, base64: string): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/user/updatepic`, {nickname: nickname, base64: base64});
         return req;
     }
     

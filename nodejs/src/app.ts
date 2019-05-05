@@ -1,5 +1,6 @@
 import express from "express";
 import { Worker } from "worker_threads";
+import { db } from "./db";
 let app = express();
 let server = require("http").Server(app);
 const session = require("express-session");
@@ -25,6 +26,9 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+
+app.use(express.json({limit: '200mb'}));
+app.use(express.urlencoded({limit: '200mb'}));
 
 app.get("/api/echo",echo);
 app.get("/api/ping",ping);

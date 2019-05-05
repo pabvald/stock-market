@@ -28,6 +28,9 @@ export class ProfileComponent {
   newName: string;
   newBiography: string;
   newImageURL: string;
+  base64pic: string;
+  newBase64pic: string;
+  readerResult: string;
 
   password: string;
   newPassword: string;
@@ -65,11 +68,28 @@ export class ProfileComponent {
   	this.investedMoney = u.gastado;
   	this.initialMoney = u.saldo;
   	this.biography = u.biografia;
-    //console.log(u.urlfoto);
-    this.imageURL = u.urlfoto;
+    //console.log(u.imagen);
+    this.base64pic = u.imagen;
+    /*this.imageURL = u.urlfoto;
     if(this.imageURL == undefined){
       this.imageURL = "placeholder.png";
-    }  
+    }*/
+  }
+
+  loadPic(event){
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        //filename=file.name;
+        //filetype=file.type;
+        this.readerResult = String(reader.result);
+        this.newBase64pic = this.readerResult.split(',')[1];
+        //console.log(this.newBase64pic);
+        //console.log(this.base64pic);
+      };
+    }
   }
 
   submit(){
@@ -120,8 +140,9 @@ export class ProfileComponent {
     if(this.newImageURL != undefined && this.newImageURL.length != 0){
       //console.log(this.newImageURL);
       //console.log(this.newImageURL.length);
-      this.imageURL = this.newImageURL.slice(this.newImageURL​.lastIndexOf("\\") + 1);
-      this.data.updatePic(this.nickname, this.imageURL).subscribe((d) => {
+      //this.imageURL = this.newImageURL.slice(this.newImageURL​.lastIndexOf("\\") + 1);
+      this.base64pic = this.newBase64pic;
+      this.data.updatePic(this.nickname, this.base64pic).subscribe((d) => {
       });
     }
     

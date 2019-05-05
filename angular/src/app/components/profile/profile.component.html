@@ -1,7 +1,7 @@
 <main *ngIf="!editing">
 	<section id = "profile">
 		<!--<img id = "profilePic" src="../assets/pic-placeholder.jpg">-->
-		<img id = "profilePic" src="../assets/profilepics/{{ imageURL }}">
+		<img id = "profilePic" src="data:image/png;base64,{{ base64pic }}">
 		<div id ="stats">
 			<p>{{name}}</p>
 			<p>Capital actual: {{currentMoney}}€</p>
@@ -56,7 +56,8 @@
 		<p>Biografía</p>
 		<input type="text" [(ngModel)]="newBiography" placeholder="Nueva biografía" name="bio">
 		<p>Imágen de perfil</p>
-		<input type="file" [(ngModel)]="newImageURL" placeholder="Selecciona una imágen" name="pic">
+		<input type="file" [(ngModel)]="newImageURL" placeholder="Selecciona una imágen" name="pic"
+		(change)="loadPic($event)">
 		<p></p>
 		<p>Cambio de contraseña</p>
 		<p>Antigua contraseña</p>

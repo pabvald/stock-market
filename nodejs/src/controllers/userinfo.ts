@@ -23,7 +23,8 @@ export async function getUserInformation(req: any,res: any){
     
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //console.log(data.rows[0]);
+    //data.rows[0].imagen = data.rows[0].imagen.toString('base64');
+    //console.log(data.rows[0].imagen);
     data.rows[0].ganado = parseFloat(data.rows[0].ganado); 
     data.rows[0].gastado = parseFloat(data.rows[0].gastado); 
     res.send(data.rows[0]);

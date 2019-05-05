@@ -8,4 +8,5 @@ export class User{
 	biografia: string;
 	gastado: number;
 	ganado: number;
+	imagen: string;
 }

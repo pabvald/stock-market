@@ -62,15 +62,15 @@ export async function updateBio(req: any,res: any){
 
 export async function updatePic(req: any,res: any){
     let nickname = req.body.nickname;
-    let name = req.body.name;
+    let base64 = req.body.base64;
     try{
 
         let data = await db.query(`
         	UPDATE usuario
-			SET urlfoto = $2
+			SET imagen = $2
 			WHERE
 			nickname = $1;
-		`,[nickname, name]);
+		`,[nickname, base64]);
     }catch(e){
         console.error(e);
         res.status(500).send({ok: false});
