@@ -54,13 +54,13 @@
     <section id="resumen">
         Saldo inicial: {{ user.saldo }}
         <br>
-        Saldo actual: {{ user.saldo + user.ganado - user.gastado }}
+        Saldo actual: {{ user.saldo + user.ganado - user.gastado - user.comisiones }}
         <br>
-        Variación (dólares): {{ user.ganado - user.gastado }}
+        Variación (dólares): {{ user.ganado - user.gastado - user.comisiones }}
         <br>
-        Variación (porcentaje): {{ (user.ganado - user.gastado)/user.saldo }}
+        Variación (porcentaje): {{ (user.ganado - user.gastado - user.comisiones)/user.saldo }}
         <br>
-        Dinero gastado en comisiones: 0$
+        Dinero gastado en comisiones: {{ user.comisiones }}
     </section>
 </main>
 <main *ngIf="!nickname">
