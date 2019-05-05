@@ -1,7 +1,7 @@
 <div id="superflex">
     <!-- Pestañas -->
     <nav>
-            <div *ngIf="nickname != undefined" [ngClass]="{'tabSelected': page === '/' || page === '/market'}" (click)="logout();">Desconectarse</div>
+        <div *ngIf="nickname != undefined" (click)="logout();">Desconectarse</div>
         <div *ngIf="!nickname" [ngClass]="{'tabSelected': page === '/login'}" routerLink="/login">Login</div>
         <div *ngIf="nickname != undefined" [ngClass]="{'tabSelected': page === '/user'}" routerLink="/user/{{ nickname }}">{{ nickname }}</div>
         <div [ngClass]="{'tabSelected': page ==='/contact'}" routerLink="/contact">Contacto</div>
