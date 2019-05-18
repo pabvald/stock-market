@@ -2,7 +2,11 @@
     <form>
         <img src="/assets/texto.png">
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Email de tu cuenta">
-        <input type="submit" value="Recuperar acceso">
-    </form>
+        <input type="email" id="email" placeholder="Email de tu cuenta" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+        <input *ngIf="!sending" type="submit" value="Recuperar acceso" (click)="submit()">
+        <div   *ngIf="sending"   id = "spinner" align="center" style="display: initial;">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        <p>{{error}}</p>
+    </form>   
 </main>

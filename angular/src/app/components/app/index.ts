@@ -33,4 +33,11 @@ export class AppRoot {
       }
     });
   }
+
+  logout(){
+    
+    this.state.deleteNicknameCookie();
+    this.data.logout().subscribe((data)=>{  window.location.reload();});
+  
+  }
 }

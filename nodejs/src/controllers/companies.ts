@@ -1,36 +1,45 @@
 import { db } from "../db";
+import { threadId } from "worker_threads";
 
+const PERIODS : number = 200;
+const PERIOD_DURATION_MINUTES : number  = 30;
 
-const INTERVALS = 50;      // Number of INTERVALS used to build the candlestick chart.
+let PRICE_EVOLUTION = null;
 
 /**
  * Get the evolution of a company's price.
  * @param code - the code of the company whose evolution is obtained.
+ * @param periods - number of periods 
+ * @param periodDuration - periodDuration in minutes 
  */
-async function companyEvolution( code : string ) : Promise<any> {   
+async function companyEvolution( code : string) : Promise<any> {   
     let price : any;
     let data;
     let noMore : boolean = false;
     let evolution : any[] = [];      
+    let begin : number;
+    let end : number;
     
     try {
 
-        for(let i = 0; i < INTERVALS && !noMore; i++ ) {            
+        for(let i = 0; i < PERIODS && !noMore; i++ ) {  
+            end = i*PERIOD_DURATION_MINUTES;
+            begin = (i+1)*PERIOD_DURATION_MINUTES;
             data = await db.query(`
                 WITH IntervalAsc AS (
                     SELECT * 
                     FROM precioaccion P1 
                     WHERE P1.empresa = $1 AND 
-                          P1.fecha <= current_timestamp - ( $2*15    || ' minutes')::interval  AND 
-                          P1.fecha > current_timestamp  - (($2+1)*15 || ' minutes')::interval 
+                          P1.fecha <= current_timestamp - ($2    || ' minutes')::interval  AND 
+                          P1.fecha > current_timestamp  - ($3 || ' minutes')::interval 
                     ORDER BY P1.fecha ASC
                 
                 ),  IntervalDesc AS (
                     SELECT *
                     FROM precioaccion P2 
                     WHERE P2.empresa = $1 AND 
-                          P2.fecha <= current_timestamp - ($2*15 ||' minutes')::interval  AND 
-                          P2.fecha > current_timestamp - (($2+1)*15 ||' minutes')::interval 
+                          P2.fecha <= current_timestamp - ($2 ||' minutes')::interval  AND 
+                          P2.fecha > current_timestamp - ($3 ||' minutes')::interval 
                     ORDER BY P2.fecha DESC
 
                 ),  Maximin AS ( 
@@ -48,7 +57,7 @@ async function companyEvolution( code : string ) : Promise<any> {
                 FROM Maximin M,
                     (SELECT * FROM IntervalAsc  LIMIT 1) O, 
                     (SELECT * FROM IntervalDesc LIMIT 1) C;                     
-            `, [code, i]);
+            `, [code, end, begin]);
             
 
             if (data.rows.length != 0 ) {
@@ -66,8 +75,7 @@ async function companyEvolution( code : string ) : Promise<any> {
                noMore = true;
             }           
         }
-        console.log(evolution);
-
+        
     } catch(err) {
         console.log(err.stack);
     }
@@ -80,11 +88,12 @@ async function companyEvolution( code : string ) : Promise<any> {
  * @param req - http request 
  * @param res - http response
  */
-export async function getCompanyEvolution(req : any, res : any ) {
+export async function getPriceEvolution(req : any, res : any ) {
     let code = req.params.code;
     let evolution = null; 
     try {
-       evolution =  await companyEvolution(code);       
+       evolution =  await companyEvolution(code);   
+       PRICE_EVOLUTION = evolution;    
     } catch(err) {
         res.status(500).send({ok: false});
     }    
@@ -95,6 +104,51 @@ export async function getCompanyEvolution(req : any, res : any ) {
     res.send(evolution);
 }
 
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function getIndicatorEvolution(req : any, res : any) {
+    
+    let evolution = null;
+    console.log("Company: " + req.params.code + " Indicator: " + req.params.indicator);
+    
+    try{
+        switch(req.params.indicator) {
+            case "NONE":
+              
+                break;
+            case "MMS" :
+                break;
+            case "MME"  :
+                break;
+            case "MMP"  :
+                break;
+            case "WR"   :
+                break;
+        }
+
+        res.send(null);
+    } catch(err) {
+        res.status(500).send({ok: false});
+    }
+    
+}
+
+/**
+ * Calculate the Williams %R indicator value
+ * @param highest_high - highest high for the look-back period
+ * @param lowest_low  - lowest low for the look-back period
+ * @param close - last close value 
+ * (https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:williams_r)
+ */
+function valueWilliamsR(highest_high : number, lowest_low : number, close : number) {
+    return (highest_high- close)/(highest_high - lowest_low) * -100
+}
+
+// Media móvil simple https://www.mundo-forex.com/media-movil-simple/
 
 
 /**

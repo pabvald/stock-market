@@ -27,6 +27,7 @@ export class RetosComponent implements OnInit {
   cEndDate:Date;
   creator:string;
   searched_username : string;
+  error_message: string;
   data: Price[] = fc.randomFinancial()(50);
   id:number;
 
@@ -34,6 +35,8 @@ export class RetosComponent implements OnInit {
   constructor(private dataS:DataService,private route: ActivatedRoute, private state:StateService) {
     this.participantes = [];
     this.searched_username = "";
+    this.error_message = "";
+    
     this.id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data));
 
@@ -78,13 +81,14 @@ export class RetosComponent implements OnInit {
 
   join(){
     let req = this.dataS.addUserToChallenge(this.id);
-    req.subscribe((_)=>this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data)))
+    req.subscribe((_)=>this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data)),
+    error=>this.error_message = "La sesión ha caducado, tienes que volver a hacer login.")
     
   }
 
   isParticipante(){
     for(let i=0;i<this.participantes.length;i++){
-      if(this.participantes[0].nombre==this.nickname)
+      if(this.participantes[i].nombre==this.nickname)
         return true;
     }
     return false;
@@ -92,7 +96,8 @@ export class RetosComponent implements OnInit {
 
   leave(){
     let req = this.dataS.removeUserFromChallenge(this.id);
-    req.subscribe((_)=>this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data)))
+    req.subscribe((_)=>this.dataS.getChallengeUsers(this.id).subscribe((data)=>this.setParticipantes(data)),
+    error=>this.error_message = "La sesión ha caducado, tienes que volver a hacer login.")
   }
 
   hasEnded():boolean{

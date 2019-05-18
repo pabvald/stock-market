@@ -46,9 +46,12 @@ table{
   
 #container-btn-reto{
   width:100%;
- 
+
+  
   overflow: hidden;
 }
+
+
 #btn-unirse-reto,#btn-salir-reto{
   margin-top: 4px;
   background-color:#8C4830;
@@ -116,4 +119,14 @@ thead {
 #candlestick{
   max-height: 80%;
   height: 80%;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+  text-align:right;
+  float: right;
+}
+
+.logged-user{
+  font-weight: bold;
 }

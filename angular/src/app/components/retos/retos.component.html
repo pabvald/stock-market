@@ -7,11 +7,15 @@
   <section id="participantes">
    
     <div id="container-btn-reto">
+      
         <span *ngIf="nickname!=null && !hasEnded()">
-    <span *ngIf="!isParticipante()"><button id="btn-unirse-reto" (click)="join()">Unirse al reto</button></span>
-    <span *ngIf="isParticipante()"><button id="btn-salir-reto" (click)="leave()">Salir del reto</button></span>
-          </span>
+        <span *ngIf="!isParticipante()"><button id="btn-unirse-reto" (click)="join()">Unirse al reto</button></span>
+        <span *ngIf="isParticipante()"><button id="btn-salir-reto" (click)="leave()">Salir del reto</button></span>
+        </span>
+      
+     
     </div>
+    <span *ngIf="error_message!=null" class="text-danger">{{error_message}}</span>
     <div id="container-tabla">
       <table id="tabla-ranking">
         <thead>
@@ -26,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of getSelectedUsers()">
+            <tr [ngClass]="{'logged-user': nickname==user.nombre}"  *ngFor="let user of getSelectedUsers()">
               <td>{{getUserPosition(user)}}</td>
               <td class="tabla-col-username"><a routerLink="/user/{{user.nombre}}" >{{user.nombre}}</a></td>
               <td [ngClass]="{'variacionPositiva': user.variacion>0, 'variacionNegativa': user.variacion<0}">{{user.variacion}}%</td>

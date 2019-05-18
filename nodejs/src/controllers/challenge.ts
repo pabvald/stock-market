@@ -33,6 +33,12 @@ export async function createChallenge(req: any,res: any){
     let fechafin = req.body.fechafin;
     let creador = req.session.nickname;
 
+    if (creador == undefined){
+        res.status(403).send();
+        return;
+    }
+
+
     let query = await db.query(`
     INSERT INTO Reto (id,nombre,descripcion,fechaInicio,fechaFin,creador)
     VALUES(DEFAULT,$1, $2, $3, $4, $5) RETURNING id;
@@ -60,16 +66,24 @@ export async function createChallenge(req: any,res: any){
 
 export async function addUserToChallenge(req:any,res:any){
     let nickname = req.session.nickname;
+
+    if (nickname == undefined){
+        res.status(403).send();
+        return;
+    }
+
     let reto = req.body.reto;
     await db.query(`
     WITH spentMoney AS(
-        SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+        SELECT COALESCE(SUM(T.cantidad * PA.precio),0) AS gastado
         FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
         WHERE T.usuario = $1 AND
               T.origen IS NULL
         ), earnedMoney AS(
-        SELECT COALESCE(SUM(T.cantidad),0) AS ganado
+        SELECT COALESCE(SUM(T.cantidad* PA.precio),0) AS ganado
         FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
         WHERE T.usuario = $1 AND
               T.origen IS NOT NULL
         )
@@ -86,12 +100,14 @@ export async function getChallengeUsers(req: any,res: any){
     (
         SELECT U.saldo+S.ganado-E.gastado 
         FROM 
-            (SELECT COALESCE(SUM(T.cantidad),0) AS gastado
+            (SELECT COALESCE(SUM(T.cantidad*PA.precio),0) AS gastado
             FROM transaccion T
+            JOIN precioaccion PA ON T.precioaccion=PA.id
             WHERE T.usuario = U.nickname AND
                 T.origen IS NULL AND T.fecha<=R.fechaFin)E,
-            (	SELECT COALESCE(SUM(T.cantidad),0) AS ganado
-			FROM transaccion T
+            (	SELECT COALESCE(SUM(T.cantidad*PA.precio),0) AS ganado
+            FROM transaccion T
+            JOIN precioaccion PA ON T.precioaccion=PA.id
 			WHERE T.usuario = U.nickname AND
 				  T.origen IS NOT NULL AND T.fecha<=R.fechaFin
             )S
@@ -129,7 +145,11 @@ export async function removeUserFromChallenge(req:any,res:any){
     let nickname = req.session.nickname;
     let reto = req.body.reto;
 
-
+    if (nickname == undefined){
+        res.status(403).send();
+        return;
+    }
+    
     await db.query(`
     DELETE FROM Participante WHERE
     reto=$2 AND participante=$1;
