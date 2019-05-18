@@ -10,7 +10,7 @@ import { echo, ping } from './controllers/echo';
 import { getPortfolioSummary, getHistory, sellActions } from "./controllers/portfolio";
 import { getUserGroups } from "./controllers/groups";
 import {getAllChallenges,createChallenge,getChallengeUsers,addUserToChallenge, getChallengeInfo,removeUserFromChallenge} from './controllers/challenge';
-import { getUserInformation } from "./controllers/userinfo";
+import { getUserInformation, getUserEvolution } from "./controllers/userinfo";
 import { login, register, logout } from "./controllers/login";
 import { sendContactEmail, sendRecoverPasswordEmail, sendRegisterConfirmationEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
@@ -36,6 +36,7 @@ app.get("/api/portfolio/:nickname",getPortfolioSummary);
 
 app.get("/api/user/groups/:nickname", getUserGroups);
 app.get("/api/user/information/:nickname", getUserInformation);
+app.get("/api/user/evolution/:nickname",getUserEvolution);
 app.post("/api/user/checkpass", checkPassword);
 app.post("/api/user/updatename", updateName);
 app.post("/api/user/updatebio", updateBio);

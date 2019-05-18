@@ -230,6 +230,10 @@ export class DataService {
         //console.log(req);
         return req;
     }
+    getUserEvolution(nickname: string): Observable<number[]>{
+        let req = this.http.get<number[]>(`${this.base}/api/user/evolution/${nickname}`);
+        return req;
+    }
     checkPassword(nickname: string, password: string): Observable<any>{
         let req = this.http.post<any>(`${this.base}/api/user/checkpass`, {nickname: nickname, password: password});
         return req;

@@ -8,6 +8,7 @@ import { StateService } from 'src/app/services/state';
 import { ActivatedRoute } from '@angular/router';
 
 declare let fc: any;
+declare let d3: any;
 
 @Component({
   selector: 'app-profile',
@@ -45,6 +46,7 @@ export class ProfileComponent {
 	  //this.data.getUserInfo("aarroyoc").subscribe((d) => this.fillInfo(d));
     this.data.getUserGroups(this.nickname).subscribe((d) => this.fillGroups(d));
     this.data.getUserInfo(this.nickname).subscribe((d) => this.fillInfo(d));
+    this.data.getUserEvolution(this.nickname).subscribe((d)=> this.fillEvolution(d));
   }
 
   fillGroups(g : Group[]){
@@ -72,6 +74,44 @@ export class ProfileComponent {
     if(this.imageURL == undefined){
       this.imageURL = "placeholder.png";
     }*/
+  }
+
+  fillEvolution(n: number[]){
+    var margin = {top: 20, right: 30, bottom: 40, left: 30},
+    width = 960 - margin.left - margin.right,
+    height = 200 - margin.top - margin.bottom;
+
+  var y = d3.scaleLinear()
+    .range([0, height]);
+
+  var x = d3.scaleBand()
+    .domain([0,1,2,3,4,5,6,7,8,9,11])
+    .range([0, width]);
+
+  var xAxis = d3.axisBottom(x);
+
+  var svg = d3.select("#evolution").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+  y.domain(d3.extent(n, function(d) { return d })).nice();
+
+  svg.selectAll(".bar")
+      .data(n)
+    .enter().append("rect")
+      .attr("class", function(d) { return "bar bar--" + (d < 0 ? "negative" : "positive"); })
+      .attr("x", function(d,i) { return x(i); })
+      .attr("y", function(d,i) { return y(Math.min(0,-d)); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return Math.abs(y(d) - y(0)); });
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
   }
 
   loadPic(event){
