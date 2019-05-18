@@ -243,5 +243,33 @@ export class DataService {
         let req = this.http.post<any>(`${this.base}/api/recoverpassword`,data,{withCredentials: false});
         return req;
     }
+
+    /*---------------------------------------------- PROFILE ---------------------------------------------------*/
+    getUserGroups(nickname: string): Observable<Group[]>{
+        let req = this.http.get<Group[]>(`${this.base}/api/user/groups/${nickname}`);
+        //console.log(req);
+        return req;
+    }
+    getUserInfo(nickname: string): Observable<User>{
+        let req = this.http.get<User>(`${this.base}/api/user/information/${nickname}`);
+        //console.log(req);
+        return req;
+    }
+    checkPassword(nickname: string, password: string): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/user/checkpass`, {nickname: nickname, password: password});
+        return req;
+    }
+    updateName(nickname: string, name: string): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/user/updatename`, {nickname: nickname, name: name});
+        return req;
+    }
+    updateBiography(nickname: string, biography: string): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/user/updatebio`, {nickname: nickname, biography: biography});
+        return req;
+    }
+    updatePic(nickname: string, base64: string): Observable<any>{
+        let req = this.http.post<any>(`${this.base}/api/user/updatepic`, {nickname: nickname, base64: base64});
+        return req;
+    }
     
 } 

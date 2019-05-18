@@ -1,7 +1,7 @@
-<main>
+<main *ngIf="!editing">
 	<section id = "profile">
 		<!--<img id = "profilePic" src="../assets/pic-placeholder.jpg">-->
-		<img id = "profilePic" src="../assets/profilepics/{{ imageURL }}">
+		<img id = "profilePic" src="data:image/png;base64,{{ base64pic }}">
 		<div id ="stats">
 			<p>{{name}}</p>
 			<p>Capital actual: {{currentMoney}}€</p>
@@ -46,5 +46,34 @@
 			</tbody>
 		</table>
 	</section>
+
+	<button (click)="edit()" id="editButton">Editar perfil</button>
+</main>
+<main *ngIf="editing">
+	<form (ngSubmit)="submit()" id="editForm">
+		<p>Nombre</p>
+		<input type="text" [(ngModel)]="newName" placeholder="Nuevo nombre" name="name">
+		<p>Biografía</p>
+		<input type="text" [(ngModel)]="newBiography" placeholder="Nueva biografía" name="bio">
+		<p>Imágen de perfil</p>
+		<input type="file" [(ngModel)]="newImageURL" placeholder="Selecciona una imágen" name="pic"
+		(change)="loadPic($event)">
+		<p></p>
+		<p>Cambio de contraseña</p>
+		<p>Antigua contraseña</p>
+		<input type="password" [(ngModel)]="password" placeholder="Contraseña actual" name="pass" id="pass">
+		<p></p>
+		<p id="errorpass" style="display: none; color: red">Las contraseña no es correcta</p>
+		<p></p>
+		<p>Nueva contraseña</p>
+		<input type="password" [(ngModel)]="newPassword" placeholder="Nueva contraseña" name="newpass1" id="newpass1">
+		<p></p>
+		<p>Repita la contraseña</p>
+		<input type="password" [(ngModel)]="newPasswordRepeat" placeholder="Repita la contraseña" name="newpass2" id="newpass2">
+		<p></p>
+		<p id="errornewpass" style="display: none; color: red">Las contraseñas no coinciden</p>
+		<p></p>
+		<input type="submit" value="Guardar">
+	</form>
 </main>
 	

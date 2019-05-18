@@ -1,5 +1,6 @@
 import express from "express";
 import { Worker } from "worker_threads";
+import { db } from "./db";
 let app = express();
 let server = require("http").Server(app);
 const session = require("express-session");
@@ -13,6 +14,8 @@ import { getUserInformation } from "./controllers/userinfo";
 import { login, register, logout } from "./controllers/login";
 import { sendContactEmail, sendRecoverPasswordEmail, sendRegisterConfirmationEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
+import { getCompanyEvolution, getMarket } from "./controllers/companies";
+import { checkPassword, updateName, updateBio, updatePic } from "./controllers/update";
 import { getPriceEvolution, getMarket, getIndicatorEvolution } from "./controllers/companies";
 
 app.use(express.json());
@@ -25,12 +28,19 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+app.use(express.json({limit: '200mb'}));
+app.use(express.urlencoded({limit: '200mb'}));
+
 app.get("/api/echo",echo);
 app.get("/api/ping",ping);
 app.get("/api/portfolio/:nickname",getPortfolioSummary);
 
 app.get("/api/user/groups/:nickname", getUserGroups);
 app.get("/api/user/information/:nickname", getUserInformation);
+app.post("/api/user/checkpass", checkPassword);
+app.post("/api/user/updatename", updateName);
+app.post("/api/user/updatebio", updateBio);
+app.post("/api/user/updatepic", updatePic);
 
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);

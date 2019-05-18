@@ -79,3 +79,14 @@ th{
 #stats{
 	padding-left: 5px;
 }
+
+#editForm{
+	margin: 20px;
+}
+
+#editButton{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	margin: 15px;
+}
