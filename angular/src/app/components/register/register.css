@@ -18,3 +18,8 @@ input[type="submit"]{
     padding-bottom: 10px;
     font-family: "Unica One";
 }
+
+.text-danger {
+    color: #dc3545 !important;
+  }
+  
