@@ -105,50 +105,6 @@ export async function getPriceEvolution(req : any, res : any ) {
 }
 
 
-/**
- * 
- * @param req 
- * @param res 
- */
-export async function getIndicatorEvolution(req : any, res : any) {
-    
-    let evolution = null;
-    console.log("Company: " + req.params.code + " Indicator: " + req.params.indicator);
-    
-    try{
-        switch(req.params.indicator) {
-            case "NONE":
-              
-                break;
-            case "MMS" :
-                break;
-            case "MME"  :
-                break;
-            case "MMP"  :
-                break;
-            case "WR"   :
-                break;
-        }
-
-        res.send(null);
-    } catch(err) {
-        res.status(500).send({ok: false});
-    }
-    
-}
-
-/**
- * Calculate the Williams %R indicator value
- * @param highest_high - highest high for the look-back period
- * @param lowest_low  - lowest low for the look-back period
- * @param close - last close value 
- * (https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:williams_r)
- */
-function valueWilliamsR(highest_high : number, lowest_low : number, close : number) {
-    return (highest_high- close)/(highest_high - lowest_low) * -100
-}
-
-// Media móvil simple https://www.mundo-forex.com/media-movil-simple/
 
 
 /**

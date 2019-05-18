@@ -68,31 +68,6 @@ export class DataService {
 
 
 
-    /* ---------------------------------------------- USER ---------------------------------------------------------- */
-
-    /**
-     * Get a list of the user's groups.
-     * @param nickname - user's nickname.
-     */
-    getUserGroups(nickname: string): Observable<Group[]>{
-    	let req = this.http.get<Group[]>(`${this.base}/api/user/groups/${nickname}`);
-    	//console.log(req);
-    	return req;
-    }
-
-    /**
-     * Get user's basic information.
-     * @param nickname - user's nickname.
-     */
-    getUserInfo(nickname: string): Observable<User>{
-    	let req = this.http.get<User>(`${this.base}/api/user/information/${nickname}`);
-    	//console.log(req);
-    	return req;
-    }
-
-
-
-
     /*---------------------------------------------- CHALLENGES -----------------------------------------------------*/
 
     /**

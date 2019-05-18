@@ -14,9 +14,8 @@ import { getUserInformation } from "./controllers/userinfo";
 import { login, register, logout } from "./controllers/login";
 import { sendContactEmail, sendRecoverPasswordEmail, sendRegisterConfirmationEmail } from "./controllers/contact";
 import { buyStocks } from "./controllers/buy";
-import { getCompanyEvolution, getMarket } from "./controllers/companies";
 import { checkPassword, updateName, updateBio, updatePic } from "./controllers/update";
-import { getPriceEvolution, getMarket, getIndicatorEvolution } from "./controllers/companies";
+import { getPriceEvolution, getMarket } from "./controllers/companies";
 
 app.use(express.json());
 
@@ -45,7 +44,6 @@ app.post("/api/user/updatepic", updatePic);
 app.get("/api/portfolio/history/:nickname",getHistory);
 app.get("/api/user/groups:nickname", getUserGroups);
 app.get("/api/market/evolution/:code", getPriceEvolution);
-app.get("/api/market/ind/:code/:indicator", getIndicatorEvolution);
 app.get("/api/market/companies", getMarket);
 app.get("/api/challenges",getAllChallenges);
 app.post("/api/createChallenge",createChallenge);
