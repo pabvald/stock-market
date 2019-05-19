@@ -3,7 +3,7 @@ import { db } from "../db";
 const bcrypt = require('bcrypt');
 
 export async function login(req: any,res: any){
-    let nickname = req.body.nickname;
+    let nickname = req.body.nickname.trim();
     let password = req.body.password;
 
     try{
@@ -31,7 +31,7 @@ export async function login(req: any,res: any){
 }
 
 export async function register(req: any, res: any){
-    let nickname = req.body.nickname;
+    let nickname = req.body.nickname.trim();
     let password = req.body.password;
     let email = req.body.email;
     let name = req.body.name;

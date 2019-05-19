@@ -95,6 +95,7 @@ export class PortfolioComponent implements OnInit {
         this.data.sellActions(data).subscribe((text)=>{
             if(text.ok){
                 this.update();
+                alert("La venta se ha realizado correctamente.")
             }else{
                 alert("Hubo un problema con la petición");
             }

@@ -4,9 +4,9 @@
 		<img id = "profilePic" src="data:image/png;base64,{{ base64pic }}">
 		<div id ="stats">
 			<p>{{name}}</p>
-			<p>Capital actual: {{currentMoney}}€</p>
-			<p>Capital inicial: {{initialMoney}}€</p>
-			<p>Capital invertido: {{investedMoney}}€</p>
+			<p>Capital actual: {{currentMoney}}</p>
+			<p>Capital inicial: {{initialMoney}}</p>
+			<p>Capital invertido: {{investedMoney}}</p>
 			<p>{{biography}}</p>
 		</div>
 	</section>
@@ -40,7 +40,7 @@
 					<td>{{ group.fechafin.getDate() }}/
 						{{ group.fechafin.getMonth() }}/
 						{{ group.fechafin.getFullYear() }}</td>
-					<td>{{ group.balancefinal - group.balanceinicial }}€ ({{group.signovariacion}}{{group.variacion}}%)</td>
+					<td>{{ group.balancefinal - group.balanceinicial }} ({{group.signovariacion}}{{group.variacion}}%)</td>
 					<td>{{ group.numparticipantes }}</td>
 				</tr>
 			</tbody>
