@@ -64,7 +64,7 @@ export class ProfileComponent {
 
   fillInfo(u : User){
   	this.name = u.nombre;
-  	this.currentMoney = u.saldo + u.ganado - u.gastado;
+  	this.currentMoney = u.saldo + u.ganado - u.gastado - u.comisiones;
   	this.investedMoney = u.gastado;
   	this.initialMoney = u.saldo;
   	this.biography = u.biografia;

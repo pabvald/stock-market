@@ -1,4 +1,5 @@
 import { db } from "../db";
+import { COMMISSION, OPERATION_COST } from "./commissions";
 
 export async function getAllChallenges(req: any,res: any){
     

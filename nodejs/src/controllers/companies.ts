@@ -60,7 +60,7 @@ async function companyEvolution( code : string) : Promise<any> {
             `, [code, end, begin]);
             
 
-            if (data.rows.length != 0 ) {
+            if (data.rows.length !== 0 ) {
                 price = {
                     high : data.rows[0].high,
                     low : data.rows[0].low,
