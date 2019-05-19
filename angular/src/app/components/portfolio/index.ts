@@ -77,9 +77,11 @@ export class PortfolioComponent implements OnInit {
     show(c: Company){
         this.company=c;
         this.data.getPriceEvolution(c.code).subscribe((price)=>{
+            console.log(fc.randomFinancial()(50));
+            console.log(price);
             this.price = price;
         });
-        //this.randomData = fc.randomFinancial()(50);
+        //this.price = fc.randomFinancial()(50);
     }
 
     sell(){

@@ -23,10 +23,6 @@ export class MarketComponent{
                         1000, 2000, 3000, 4000, 10000, 20000 ].reverse();
     indicators =  [ { name: "MMS",  displayName: "Media móvil simple" },
                     { name: "MME",  displayName: "Media móvil exponencial" },
-                    { name: "MMP",  displayName: "Media móvil ponderada" },
-                    { name: "RSI",  displayName: "RSI" },
-                    { name: "MACD", displayName: "MACD" },
-                    { name: "WR",   displayName: "William %R" },
                     { name: "NONE", displayName: "Ninguno"}
                 ]; 
  
@@ -73,7 +69,6 @@ export class MarketComponent{
      */
     updateCompanyEvolution() {
         this.dataService.getPriceEvolution(this.selectedCompany.code).subscribe((data)=>this.setPriceEvolution(data));  
-        this.dataService.getIndicatorEvolution(this.selectedCompany.code, this.selectedIndicator.name).subscribe((data)=>this.setIndicatorEvolution(data));
     }
    
 
@@ -97,7 +92,8 @@ export class MarketComponent{
      * @param evolution - the evolution of the selected company's stock price.
      */
     setPriceEvolution(evolution : Price[]) {
-        this.priceEvolution = evolution;       
+        //this.priceEvolution = evolution;
+        this.priceEvolution = fc.randomFinancial()(50);       
     }
 
     /**
@@ -138,7 +134,7 @@ export class MarketComponent{
      * @param selected - selected indicator.
      */
     onSelectIndicator() {
-        console.log("Indicador: " + this.selectedIndicator.displayName);
+        console.log(this.selectedIndicator);
     }
 
 

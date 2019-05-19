@@ -2,7 +2,7 @@ import { db } from "../db";
 import { threadId } from "worker_threads";
 
 const PERIODS : number = 200;
-const PERIOD_DURATION_MINUTES : number  = 30;
+const PERIOD_DURATION_MINUTES : number  = 2;
 
 let PRICE_EVOLUTION = null;
 

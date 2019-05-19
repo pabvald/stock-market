@@ -18,7 +18,7 @@ async function update(){
     `;
     try { 
         let current_data = await db.query(query_current);
-        let normal = random.normal(0,500);
+        let normal = random.normal(0,250);
         for(let row of current_data.rows){
             let precio: number = row.precio;
             precio += Math.round(normal());
