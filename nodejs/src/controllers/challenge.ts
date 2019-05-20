@@ -46,23 +46,32 @@ export async function createChallenge(req: any,res: any){
     `,[nombre,descripcion,fechaini,fechafin,creador]);
 
     await db.query(`
-        WITH spentMoney AS(
-			SELECT COALESCE(SUM(T.cantidad),0) AS gastado
-			FROM transaccion T
-			WHERE T.usuario = $1 AND
-				  T.origen IS NULL
-			), earnedMoney AS(
-			SELECT COALESCE(SUM(T.cantidad),0) AS ganado
-			FROM transaccion T
-			WHERE T.usuario = $1 AND
-				  T.origen IS NOT NULL
-            )
-            INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado 
-                FROM Usuario U, spentMoney S, earnedMoney E
-                  WHERE U.nickname = $1));`,[creador,query.rows[0].id]);
+    WITH spentMoney AS(
+        SELECT COALESCE(SUM(T.cantidad * PA.precio),0) AS gastado
+        FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
+        WHERE T.usuario = $1 AND
+              T.origen IS NULL
+        ), earnedMoney AS(
+        SELECT COALESCE(SUM(T.cantidad* PA.precio),0) AS ganado
+        FROM transaccion T
+        JOIN precioaccion PA ON T.precioaccion=PA.id
+        WHERE T.usuario = $1 AND
+              T.origen IS NOT NULL
+        ),commissionMoney AS (
+            SELECT SUM(T.cantidad * PA.precio * $4 + $3) AS comisiones
+            FROM transaccion T 
+            JOIN precioaccion PA ON T.precioaccion=PA.id
+            WHERE T.usuario = $1 
+        )
+        
+        INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado-C.comisiones
+            FROM Usuario U, spentMoney S, earnedMoney E, commissionMoney C
+              WHERE U.nickname = $1));`,[creador,query.rows[0].id,OPERATION_COST, COMMISSION]);
     
     res.send({id:query.rows[0].id});
 }
+
 
 
 export async function addUserToChallenge(req:any,res:any){
@@ -87,10 +96,15 @@ export async function addUserToChallenge(req:any,res:any){
         JOIN precioaccion PA ON T.precioaccion=PA.id
         WHERE T.usuario = $1 AND
               T.origen IS NOT NULL
+        ),commissionMoney AS (
+            SELECT SUM(T.cantidad * PA.precio * $4 + $3) as comisiones
+            FROM transaccion T 
+            JOIN precioaccion PA ON T.precioaccion=PA.id
+            WHERE T.usuario = $1 
         )
-        INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado 
-            FROM Usuario U, spentMoney S, earnedMoney E
-              WHERE U.nickname = $1));`,[nickname,reto]);
+        INSERT INTO Participante VALUES($2,$1,(SELECT U.saldo+E.ganado-S.gastado-C.comisiones
+            FROM Usuario U, spentMoney S, earnedMoney E, commissionMoney C
+              WHERE U.nickname = $1));`,[nickname,reto,OPERATION_COST, COMMISSION]);
 
         res.send({status:1});
 }
@@ -99,7 +113,7 @@ export async function getChallengeUsers(req: any,res: any){
     let reto =  req.params.id;
     let data = await db.query(`SELECT U.nickname, 
     (
-        SELECT U.saldo+S.ganado-E.gastado 
+        SELECT U.saldo+S.ganado-E.gastado-C.comisiones
         FROM 
             (SELECT COALESCE(SUM(T.cantidad*PA.precio),0) AS gastado
             FROM transaccion T
@@ -111,10 +125,17 @@ export async function getChallengeUsers(req: any,res: any){
             JOIN precioaccion PA ON T.precioaccion=PA.id
 			WHERE T.usuario = U.nickname AND
 				  T.origen IS NOT NULL AND T.fecha<=R.fechaFin
-            )S
+            )S,
+            (
+                SELECT SUM(T.cantidad * PA.precio * $3 + $2) as comisiones
+                FROM transaccion T 
+                JOIN precioaccion PA ON T.precioaccion=PA.id
+                WHERE T.usuario = U.nickname AND T.fecha<=R.fechaFin
+            ) C
+            
     )AS saldo, P.balanceinicial
     FROM Participante P, Usuario U,Reto R
-    WHERE U.nickname =P.participante AND P.reto=$1 AND R.id = P.reto;`,[reto]);
+    WHERE U.nickname =P.participante AND P.reto=$1 AND R.id = P.reto;`,[reto,OPERATION_COST, COMMISSION]);
 
     let users = [];
    

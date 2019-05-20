@@ -1,5 +1,12 @@
 -- Create tables 
 
+DROP TABLE usuario CASCADE;
+DROP TABLE reto CASCADE;
+DROP TABLE participante CASCADE;
+DROP TABLE empresa CASCADE;
+DROP TABLE precioaccion CASCADE;
+DROP TABLE transaccion CASCADE;
+
 CREATE TABLE usuario (
     nickname TEXT,
     nombre TEXT,
