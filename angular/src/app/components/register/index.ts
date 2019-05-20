@@ -48,9 +48,12 @@ export class RegisterComponent {
                 if(data.ok){
                     window.location.href = "/";
                 }else{
-                    this.error = "El usuario ya existe";
+                    this.error = "Ha habido un error. Intentalo más tarde"; 
                     this.loading = false;
                 }
+            },(error)=> {
+                this.error = "El usuario ya existe";
+                this.loading = false;
             });
         }
 
