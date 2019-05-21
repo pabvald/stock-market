@@ -92,8 +92,8 @@ export class MarketComponent{
      * @param evolution - the evolution of the selected company's stock price.
      */
     setPriceEvolution(evolution : Price[]) {
-        //this.priceEvolution = evolution;
-        this.priceEvolution = fc.randomFinancial()(50);       
+        this.priceEvolution = evolution;
+        //this.priceEvolution = fc.randomFinancial()(50);       
     }
 
     /**
