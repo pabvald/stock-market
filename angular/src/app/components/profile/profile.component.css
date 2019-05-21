@@ -85,8 +85,12 @@ th{
 }
 
 #editButton{
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	margin: 15px;
+	margin-top: 4px;
+	background-color:#8C4830;
+	color:white;
+	border: none;
+	font-size:15px;
+	margin-bottom:4px;
+	border-radius:4px;
+	margin-left:20px;
 }

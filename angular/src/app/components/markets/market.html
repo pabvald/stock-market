@@ -22,7 +22,7 @@
                     <label id="search-code-tile">Código</label>
                     <label id="search-minPrice-title">Precio mínimo</label>
                     <label id="search-maxPrice-title">Precio máximo</label>            
-                    <input id="search-name" type="text" name="searchName"  size=18 placeholder="Ej: Intel" [(ngModel)]="searchedName"/> 
+                    <input id="search-name" type="text" name="searchName"  size=10 placeholder="Ej: Intel" [(ngModel)]="searchedName"/> 
                     <input id="search-code" type="text" name="searchCode" size=5 placeholder="Ej: INTC" [(ngModel)]="searchedCode"/> 
                     <select id="search-minPrice" name="minPrice" [(ngModel)]="lowerPrice" >
                         <option *ngFor="let price of lowerEndsPrice" value="{{price}}" [attr.selected]="price === lowerPrice">{{price}}</option>                        
