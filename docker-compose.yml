@@ -1,0 +1,35 @@
+version: "3.6"
+services:
+ postgres:
+  build:
+   context: ./postgresql
+   dockerfile: ./Dockerfile
+  volumes:
+   - db-data:/var/lib/postgresql/data
+  environment:
+   POSTGRES_PASSWORD: postgres
+  healthcheck:
+   test: ["CMD-SHELL","pg_isready -U postgres"]
+   interval: 10s
+   timeout: 2s
+   retries: 10
+ nodejs:
+  build:
+   context: ./nodejs
+   dockerfile: ./Dockerfile
+  ports:
+   - "9999:9999"
+  volumes:
+   - "angular-dist:/opt/StockExchangeBattleRoyale/angular/dist"
+  depends_on:
+   - postgres
+   - angular
+ angular:
+  build:
+   context: ./angular
+   dockerfile: ./Dockerfile
+  volumes:
+   - "angular-dist:/opt/StockExchangeBattleRoyale/angular/dist"
+volumes:
+ angular-dist:
+ db-data:
