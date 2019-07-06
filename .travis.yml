@@ -1,0 +1,9 @@
+lang: node_js
+node_js:
+  - "12"
+services: docker
+install:
+  - docker-compose up -d
+script:
+  - sleep 30s
+  - node test.js
