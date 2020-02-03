@@ -2,12 +2,17 @@
 
 # Instructions
 
-## Backend
+## Installation
+### Backend
 ```
 cd nodejs
 npm install
 npm start
 ```
+
+### Frontend 
+
+## Execution
 
 
 # Developed by 
