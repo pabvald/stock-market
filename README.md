@@ -1,8 +1,6 @@
-# StockExchangeBattleRoyale
-Stock Exchange Battle Royale
+# Stock market
 
-
-# Instrucciones
+# Instructions
 
 ## Backend
 ```
