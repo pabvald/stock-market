@@ -13,10 +13,3 @@ npm start
 ### Frontend 
 
 ## Execution
-
-
-# Developed by 
-- @aarroyoc 
-- @DanielBazaco
-- @JuanGonzalezCaminero 
-- @pabvald
