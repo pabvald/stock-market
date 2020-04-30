@@ -16,5 +16,5 @@ docker-compose up --build
 
 3. Open the browser and go to the address:
 ```
-localhost:4200/
+localhost:9999/
 ```
